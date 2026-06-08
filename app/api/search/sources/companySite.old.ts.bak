@@ -1,0 +1,340 @@
+/**
+ * L1 — Official / Controlled Narrative
+ * 
+ * Scrapes the company's own website for:
+ *   - About page (values, mission, culture claims)
+ *   - Careers page (job listings, benefits, culture messaging)
+ *   - Press/newsroom (PR narrative)
+ * 
+ * Used for hypocrisy / mismatch detection against L3-L4 data.
+ * NO API KEY NEEDED — uses public HTML pages.
+ */
+
+export interface CompanySiteResult {
+  companyDomain: string | null
+  aboutPage: PageContent | null
+  careersPage: PageContent | null
+  pressPage: PageContent | null
+  claimedValues: string[]
+  benefitsClaims: string[]
+  cultureKeywords: string[]
+  jobPostings: JobPosting[]
+  lastUpdated: string
+}
+
+export interface PageContent {
+  url: string
+  title: string
+  headings: string[]
+  text: string          // Full page text (truncated to fit context)
+  keyPhrases: string[]  // Extracted claims/promises
+}
+
+export interface JobPosting {
+  title: string
+  location: string
+  snippet: string
+  url: string
+}
+
+const UA = 'Mozilla/5.0 (compatible; GdeRadisBot/1.0; +https://gderadis.app)'
+
+/**
+ * Discover the company's official domain via Google search
+ */
+async function discoverDomain(companyName: string): Promise<string | null> {
+  // Try the most common patterns first
+  const normalised = companyName.toLowerCase().replace(/[^a-z0-9]/g, '')
+  const guesses = [
+    `https://${normalised}.com`,
+    `https://www.${normalised}.com`,
+    `https://${normalised}.io`,
+  ]
+
+  for (const url of guesses) {
+    try {
+      const res = await fetch(url, {
+        method: 'HEAD',
+        headers: { 'User-Agent': UA },
+        redirect: 'follow',
+        signal: AbortSignal.timeout(5000),
+      })
+      if (res.ok) return new URL(res.url).origin
+    } catch {
+      // continue trying
+    }
+  }
+
+  // Fall back to SerpAPI or a simple Google search if available
+  const serpKey = process.env.SERPAPI_KEY
+  if (serpKey) {
+    try {
+      const params = new URLSearchParams({
+        engine: 'google',
+        q: `${companyName} official website`,
+        api_key: serpKey,
+        num: '3',
+      })
+      const res = await fetch(`https://serpapi.com/search?${params}`)
+      if (res.ok) {
+        const data = await res.json()
+        const firstOrganic = data.organic_results?.[0]
+        if (firstOrganic?.link) {
+          return new URL(firstOrganic.link).origin
+        }
+      }
+    } catch { /* fall through */ }
+  }
+
+  return null
+}
+
+/**
+ * Fetch and extract readable text from a URL
+ */
+async function fetchPageContent(url: string): Promise<PageContent | null> {
+  try {
+    const res = await fetch(url, {
+      headers: { 'User-Agent': UA },
+      redirect: 'follow',
+      signal: AbortSignal.timeout(10000),
+    })
+    if (!res.ok) return null
+
+    const html = await res.text()
+    return parseHtml(url, html)
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Parse HTML into structured PageContent (lightweight, no external deps)
+ */
+function parseHtml(url: string, html: string): PageContent {
+  // Strip scripts, styles, comments
+  let text = html
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<nav[\s\S]*?<\/nav>/gi, '')
+    .replace(/<footer[\s\S]*?<\/footer>/gi, '')
+
+  // Extract title
+  const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)
+  const title = titleMatch ? cleanHtml(titleMatch[1]) : ''
+
+  // Extract headings
+  const headings: string[] = []
+  const hRegex = /<h[1-4][^>]*>([\s\S]*?)<\/h[1-4]>/gi
+  let m
+  while ((m = hRegex.exec(html)) !== null) {
+    const h = cleanHtml(m[1])
+    if (h.length > 2 && h.length < 200) headings.push(h)
+  }
+
+  // Strip all remaining HTML to plain text
+  text = text
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#?\w+;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+  // Truncate to keep prompt manageable
+  const truncated = text.length > 3000 ? text.substring(0, 3000) + '...' : text
+
+  // Extract key claims / value-loaded phrases
+  const keyPhrases = extractClaims(truncated, headings)
+
+  return { url, title, headings: headings.slice(0, 20), text: truncated, keyPhrases }
+}
+
+function cleanHtml(s: string): string {
+  return s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+}
+
+/**
+ * Extract company claims / promises from text
+ */
+function extractClaims(text: string, headings: string[]): string[] {
+  const claims: string[] = []
+  const patterns = [
+    /we (?:believe|value|are committed|strive|prioritize|foster|encourage|support|celebrate|champion)\b[^.!?]{5,100}[.!?]/gi,
+    /our (?:mission|vision|values|culture|team|people|commitment)\b[^.!?]{5,100}[.!?]/gi,
+    /(?:diversity|inclusion|equity|belonging|work-life|wellness|growth|innovation|transparency)\b[^.!?]{5,100}[.!?]/gi,
+    /(?:competitive|generous|unlimited|flexible|world-class)\s+(?:salary|compensation|benefits|PTO|vacation|perks)\b[^.!?]{5,100}[.!?]/gi,
+  ]
+
+  for (const rx of patterns) {
+    let m
+    while ((m = rx.exec(text)) !== null) {
+      const claim = m[0].trim()
+      if (claim.length > 15 && !claims.includes(claim)) {
+        claims.push(claim)
+      }
+    }
+  }
+
+  // Headings that look like value statements
+  for (const h of headings) {
+    if (/value|mission|culture|principle|commit|believe|pillar/i.test(h)) {
+      claims.push(`[Heading] ${h}`)
+    }
+  }
+
+  return claims.slice(0, 15)
+}
+
+/**
+ * Extract job postings from careers page text (very basic)
+ */
+function extractJobPostings(careersText: string, baseUrl: string): JobPosting[] {
+  // This is best-effort; real implementation would parse structured listings
+  const postings: JobPosting[] = []
+  const lines = careersText.split(/\n|(?<=[.!?])\s+/)
+
+  for (const line of lines) {
+    const clean = line.trim()
+    // Lines that look like job titles (short, capitalized, contain role keywords)
+    if (
+      clean.length > 10 &&
+      clean.length < 100 &&
+      /engineer|designer|manager|analyst|developer|lead|director|coordinator|specialist/i.test(clean)
+    ) {
+      postings.push({
+        title: clean,
+        location: 'See listing',
+        snippet: '',
+        url: baseUrl,
+      })
+    }
+  }
+
+  return postings.slice(0, 10)
+}
+
+/**
+ * Extract culture-loaded keywords from the combined text
+ */
+function extractCultureKeywords(text: string): string[] {
+  const keywords = new Set<string>()
+  const kw = [
+    'innovation', 'integrity', 'diversity', 'inclusion', 'equity',
+    'transparency', 'collaboration', 'excellence', 'accountability',
+    'sustainability', 'agile', 'customer-first', 'empowerment',
+    'meritocracy', 'flat hierarchy', 'open door', 'fast-paced',
+    'family', 'ownership', 'passion', 'hustle', 'disrupt',
+    'work-life balance', 'flexible', 'remote', 'hybrid',
+    'unlimited PTO', 'wellness', 'mental health',
+  ]
+
+  const lower = text.toLowerCase()
+  for (const k of kw) {
+    if (lower.includes(k)) keywords.add(k)
+  }
+  return Array.from(keywords)
+}
+
+/**
+ * Try common sub-paths for a given page type
+ */
+async function findPage(
+  domain: string,
+  paths: string[]
+): Promise<PageContent | null> {
+  for (const path of paths) {
+    const content = await fetchPageContent(`${domain}${path}`)
+    if (content && content.text.length > 200) return content
+  }
+  return null
+}
+
+/**
+ * Main: Crawl a company's own website — L1 Official Narrative
+ */
+export async function fetchCompanySite(companyName: string): Promise<CompanySiteResult> {
+  const empty: CompanySiteResult = {
+    companyDomain: null,
+    aboutPage: null,
+    careersPage: null,
+    pressPage: null,
+    claimedValues: [],
+    benefitsClaims: [],
+    cultureKeywords: [],
+    jobPostings: [],
+    lastUpdated: new Date().toISOString(),
+  }
+
+  try {
+    const domain = await discoverDomain(companyName)
+    if (!domain) {
+      console.warn(`[CompanySite] Could not discover domain for: ${companyName}`)
+      return empty
+    }
+
+    empty.companyDomain = domain
+
+    // Fetch about, careers, press pages in parallel
+    const [aboutPage, careersPage, pressPage] = await Promise.all([
+      findPage(domain, ['/about', '/about-us', '/company', '/who-we-are', '/our-story']),
+      findPage(domain, ['/careers', '/jobs', '/join-us', '/work-with-us', '/careers/openings']),
+      findPage(domain, ['/press', '/newsroom', '/news', '/media', '/blog']),
+    ])
+
+    // Combine all text for keyword extraction
+    const allText = [
+      aboutPage?.text || '',
+      careersPage?.text || '',
+      pressPage?.text || '',
+    ].join(' ')
+
+    const cultureKeywords = extractCultureKeywords(allText)
+
+    // Extract benefits claims from careers page
+    const benefitsClaims: string[] = []
+    if (careersPage) {
+      const benefitsPatterns = [
+        /(?:we offer|benefits include|perks|what we offer|you'll get|you will receive)[^.!?]{10,200}[.!?]/gi,
+        /(?:unlimited|generous|competitive|comprehensive)\s+(?:PTO|vacation|benefits|healthcare|dental|vision|401k|equity|stock|RSU)[^.!?]{5,150}[.!?]/gi,
+      ]
+      for (const rx of benefitsPatterns) {
+        let m
+        while ((m = rx.exec(careersPage.text)) !== null) {
+          benefitsClaims.push(m[0].trim())
+        }
+      }
+    }
+
+    // Extract job postings from careers page
+    const jobPostings = careersPage
+      ? extractJobPostings(careersPage.text, careersPage.url)
+      : []
+
+    // Merge all claims
+    const claimedValues = [
+      ...(aboutPage?.keyPhrases || []),
+      ...(careersPage?.keyPhrases || []),
+      ...(pressPage?.keyPhrases || []),
+    ]
+
+    return {
+      companyDomain: domain,
+      aboutPage,
+      careersPage,
+      pressPage,
+      claimedValues: claimedValues.slice(0, 20),
+      benefitsClaims: benefitsClaims.slice(0, 10),
+      cultureKeywords,
+      jobPostings,
+      lastUpdated: new Date().toISOString(),
+    }
+  } catch (error) {
+    console.error('[CompanySite] Error:', error)
+    return empty
+  }
+}

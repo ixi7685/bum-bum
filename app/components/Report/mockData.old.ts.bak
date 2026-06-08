@@ -1,0 +1,249 @@
+import { ReportData } from './types'
+
+// export const mockReportData: ReportData = {
+//   companyName: "Tesla",
+//   candidate: {
+//     generation: "Gen Z",
+//     ageRange: "20-29",
+//     focus: ["Stability", "Growth Focused"]
+//   },
+//   verdict: {
+//     type: "yellow",
+//     emoji: "⚠️",
+//     title: "Caution",
+//     oneLiner: "There's growth potential but work-life balance issues could hit hard.",
+//     riskLevel: "Moderate Risk",
+//     bullets: [
+//       "High burnout risk across years.",
+//       "Leadership turnover and chaos.",
+//       "Pay tied to stock ups and downs."
+//     ]
+//   },
+//   signalCards: [
+//     {
+//       id: "burnout",
+//       icon: "🔥",
+//       title: "Burnout Risk",
+//       level: "high",
+//       since: 2015,
+//       sourceCount: 42,
+//       sourceLabel: "reports",
+//       insight: "Frequent long hours & stress."
+//     },
+//     {
+//       id: "leadership",
+//       icon: "👔",
+//       title: "Leadership Instability",
+//       level: "high",
+//       since: 2017,
+//       sourceCount: 35,
+//       sourceLabel: "sources",
+//       insight: "Constant management shakeups."
+//     },
+//     {
+//       id: "pay",
+//       icon: "💰",
+//       title: "Stock-Based Pay",
+//       level: "medium",
+//       since: 2018,
+//       sourceCount: 28,
+//       sourceLabel: "mentions",
+//       insight: "Income swings with stock."
+//     },
+//     {
+//       id: "growth",
+//       icon: "📈",
+//       title: "Growth Opportunities",
+//       level: "medium",
+//       since: 2019,
+//       sourceCount: 30,
+//       sourceLabel: "sources",
+//       insight: "Mostly on-the-job learning."
+//     },
+//     {
+//       id: "reviews",
+//       icon: "⭐",
+//       title: "Review Authenticity",
+//       level: "medium",
+//       since: 2020,
+//       sourceCount: 22,
+//       sourceLabel: "findings",
+//       insight: "Possibly PR-managed."
+//     },
+//     {
+//       id: "workload",
+//       icon: "⏰",
+//       title: "Workload Intensity",
+//       level: "high",
+//       since: 2015,
+//       sourceCount: 38,
+//       sourceLabel: "mentions",
+//       insight: "Crunch culture persists."
+//     }
+//   ],
+//   patternTimeline: {
+//     yearRange: "2015-2023",
+//     themes: [
+//       {
+//         name: "Burnout Reports",
+//         color: "#ef4444",
+//         dataPoints: [
+//           { year: 2015, intensity: 60 },
+//           { year: 2016, intensity: 70 },
+//           { year: 2017, intensity: 75 },
+//           { year: 2018, intensity: 80 },
+//           { year: 2019, intensity: 70 },
+//           { year: 2020, intensity: 85 },
+//           { year: 2021, intensity: 75 },
+//           { year: 2022, intensity: 70 },
+//           { year: 2023, intensity: 65 }
+//         ]
+//       },
+//       {
+//         name: "Leadership Drama",
+//         color: "#f97316",
+//         dataPoints: [
+//           { year: 2015, intensity: 40 },
+//           { year: 2016, intensity: 50 },
+//           { year: 2017, intensity: 65 },
+//           { year: 2018, intensity: 90 },
+//           { year: 2019, intensity: 60 },
+//           { year: 2020, intensity: 55 },
+//           { year: 2021, intensity: 50 },
+//           { year: 2022, intensity: 45 },
+//           { year: 2023, intensity: 40 }
+//         ]
+//       },
+//       {
+//         name: "Stock Volatility",
+//         color: "#eab308",
+//         dataPoints: [
+//           { year: 2015, intensity: 30 },
+//           { year: 2016, intensity: 35 },
+//           { year: 2017, intensity: 40 },
+//           { year: 2018, intensity: 50 },
+//           { year: 2019, intensity: 45 },
+//           { year: 2020, intensity: 60 },
+//           { year: 2021, intensity: 70 },
+//           { year: 2022, intensity: 85 },
+//           { year: 2023, intensity: 75 }
+//         ]
+//       }
+//     ],
+//     events: [
+//       { year: 2018, label: "2018 Musk Controversy" },
+//       { year: 2020, label: "2020 Pandemic Stress" },
+//       { year: 2022, label: "2022 Stock Swings" }
+//     ]
+//   },
+//   riskReward: [
+//     {
+//       icon: "📄",
+//       label: "Resume Boost",
+//       segments: [
+//         { color: "#22c55e", width: 70 },
+//         { color: "#86efac", width: 20 },
+//         { color: "#fef08a", width: 10 }
+//       ]
+//     },
+//     {
+//       icon: "😰",
+//       label: "Work Pressure",
+//       segments: [
+//         { color: "#ef4444", width: 60 },
+//         { color: "#fca5a5", width: 25 },
+//         { color: "#fef08a", width: 15 }
+//       ]
+//     },
+//     {
+//       icon: "💵",
+//       label: "Pay Volatility",
+//       segments: [
+//         { color: "#22c55e", width: 20 },
+//         { color: "#fef08a", width: 40 },
+//         { color: "#fb923c", width: 40 }
+//       ]
+//     },
+//     {
+//       icon: "🧠",
+//       label: "Mental Health",
+//       segments: [
+//         { color: "#ef4444", width: 50 },
+//         { color: "#fb923c", width: 30 },
+//         { color: "#fef08a", width: 20 }
+//       ]
+//     }
+//   ],
+//   first90Days: {
+//     weeks: [
+//       {
+//         id: "week1-2",
+//         label: "Week 1-2",
+//         description: "Onboarding chaos. Expect minimal hand-holding. You'll be thrown into projects quickly. Find a buddy or you'll sink."
+//       },
+//       {
+//         id: "month1",
+//         label: "Month 1",
+//         description: "Reality hits. Long hours become normal. You'll see why turnover is high. Great learning if you survive."
+//       },
+//       {
+//         id: "month2-3",
+//         label: "Months 2-3",
+//         description: "Adapt or leave. By now you know if Tesla culture fits you. Stock comp starts mattering more."
+//       }
+//     ],
+//     burnoutLevel: "high",
+//     supportLevel: "medium"
+//   },
+//   checklist: {
+//     items: [
+//       { id: "pay", label: "Clear Pay Details", checked: false },
+//       { id: "overtime", label: "Overtime Limits", checked: false },
+//       { id: "redflags", label: "Red Flags", checked: false }
+//     ],
+//     redFlags: [
+//       { text: "Vague answers about work-life balance" },
+//       { text: "No clear overtime policy" },
+//       { text: "High turnover in your specific team" },
+//       { text: "Stock-heavy comp with low base" }
+//     ]
+//   },
+//   interviewQuestions: [
+//     {
+//       id: "workload",
+//       label: "Workload",
+//       questions: [
+//         "What does a typical week look like hour-wise?",
+//         "How often do people work weekends?",
+//         "What's the on-call expectation?"
+//       ]
+//     },
+//     {
+//       id: "stability",
+//       label: "Stability",
+//       questions: [
+//         "How long has my direct manager been here?",
+//         "What's the team's turnover rate?",
+//         "Any recent reorgs affecting this role?"
+//       ]
+//     },
+//     {
+//       id: "growth",
+//       label: "Growth",
+//       questions: [
+//         "What does promotion look like here?",
+//         "Is there a learning budget?",
+//         "Can you share examples of people who grew?"
+//       ]
+//     },
+//     {
+//       id: "leadership",
+//       label: "Leadership",
+//       questions: [
+//         "How does leadership handle mistakes?",
+//         "What's the communication style top-down?",
+//         "How stable is the exec team?"
+//       ]
+//     }
+//   ]
+// }

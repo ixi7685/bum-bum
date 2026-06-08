@@ -1,0 +1,121 @@
+{
+  "users": [
+    {
+      "id": "0272824a-f151-4e33-a187-f7ba44fb01e5",
+      "email": "ivan@ivan.com",
+      "password": "password",
+      "name": "Ivan",
+      "plan": "business",
+      "paidAt": "2026-03-16T22:21:17.924Z",
+      "searchesUsed": 5,
+      "searchLimit": -1,
+      "savedCompanies": [
+        {
+          "name": "Stripe",
+          "slug": "stripe",
+          "searchedAt": "2026-03-16T22:21:45.966Z"
+        },
+        {
+          "name": "Demo Company",
+          "slug": "demo-company",
+          "searchedAt": "2026-03-16T22:25:45.314Z"
+        }
+      ],
+      "createdAt": "2026-03-16T22:21:00.076Z"
+    },
+    {
+      "id": "74c6f501-dd5c-4470-8c18-adae6385619f",
+      "email": "test@coiliq.com",
+      "password": "password",
+      "name": "dfs",
+      "plan": "business",
+      "paidAt": "2026-03-27T20:10:03.613Z",
+      "searchesUsed": 33,
+      "searchLimit": -1,
+      "savedCompanies": [
+        {
+          "name": "Google",
+          "slug": "google",
+          "searchedAt": "2026-03-27T20:10:12.308Z"
+        },
+        {
+          "name": "Bambi Pozarevac",
+          "slug": "bambi-pozarevac",
+          "searchedAt": "2026-03-27T20:33:28.368Z"
+        },
+        {
+          "name": "Better.com",
+          "slug": "better-com",
+          "searchedAt": "2026-03-27T20:50:21.480Z"
+        },
+        {
+          "name": "Demo Company",
+          "slug": "demo-company",
+          "searchedAt": "2026-03-27T21:31:22.921Z"
+        },
+        {
+          "name": "Stripe",
+          "slug": "stripe",
+          "searchedAt": "2026-03-27T21:52:03.843Z"
+        },
+        {
+          "name": "Millennium Management",
+          "slug": "millennium-management",
+          "searchedAt": "2026-04-03T22:53:19.673Z"
+        },
+        {
+          "name": "Fruvita doo",
+          "slug": "fruvita-doo",
+          "searchedAt": "2026-04-06T20:32:42.061Z"
+        },
+        {
+          "name": "porsche",
+          "slug": "porsche",
+          "searchedAt": "2026-04-08T20:47:33.540Z"
+        }
+      ],
+      "createdAt": "2026-03-27T20:09:57.584Z"
+    },
+    {
+      "id": "d64ae3dc-73a3-4c1c-b135-1f07598cb3ab",
+      "email": "ihadzicenic@gmail.com",
+      "password": "1234567",
+      "name": "rcr",
+      "plan": "business",
+      "paidAt": "2026-05-11T21:35:03.563Z",
+      "searchesUsed": 15,
+      "searchLimit": -1,
+      "savedCompanies": [
+        {
+          "name": "Quest",
+          "slug": "quest",
+          "searchedAt": "2026-05-11T21:38:08.299Z"
+        },
+        {
+          "name": "Stripe",
+          "slug": "stripe",
+          "searchedAt": "2026-05-31T17:51:06.041Z"
+        },
+        {
+          "name": "Better.com",
+          "slug": "better-com",
+          "searchedAt": "2026-05-31T18:11:28.515Z"
+        },
+        {
+          "name": "Google",
+          "slug": "google",
+          "searchedAt": "2026-05-31T18:27:00.882Z"
+        },
+        {
+          "name": "Facebook",
+          "slug": "facebook",
+          "searchedAt": "2026-05-31T19:31:41.569Z"
+        }
+      ],
+      "createdAt": "2026-05-11T21:34:57.557Z"
+    }
+  ],
+  "sessions": {
+    "4eefec5e8ec61a14d90f93842b87ff7be28f03d08c574338ea91324f0225b10d": "74c6f501-dd5c-4470-8c18-adae6385619f"
+  }
+}

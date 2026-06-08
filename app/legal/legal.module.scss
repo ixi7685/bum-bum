@@ -1,0 +1,81 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.page {
+  min-height: 100vh;
+  background: $bg-primary;
+  padding-top: $header-height;
+}
+
+.container { @include container; }
+
+// ─── Hero ────────────────────────────────────────────────────────
+.hero {
+  padding: $sp-80 0 $sp-48;
+  text-align: center;
+  border-bottom: 1px solid $border-primary;
+}
+
+.label { @include section-label; }
+
+.title {
+  font-size: clamp($fs-3xl, 4vw, $fs-5xl);
+  font-weight: $fw-black;
+  color: $text-primary;
+  letter-spacing: $ls-tight;
+  margin: $sp-12 0 $sp-12;
+}
+
+.updated {
+  font-size: $fs-sm;
+  color: $text-muted;
+  margin: 0;
+}
+
+// ─── Content ─────────────────────────────────────────────────────
+.content {
+  padding: $sp-64 0 $sp-96;
+}
+
+.prose {
+  max-width: $max-width-sm;
+  margin: 0 auto;
+
+  h2 {
+    font-size: $fs-xl;
+    font-weight: $fw-bold;
+    color: $text-primary;
+    margin: $sp-48 0 $sp-16;
+
+    &:first-child { margin-top: 0; }
+  }
+
+  p {
+    font-size: $fs-base;
+    color: $text-secondary;
+    line-height: $lh-relaxed;
+    margin: 0 0 $sp-16;
+  }
+
+  ul {
+    margin: 0 0 $sp-16;
+    padding-left: $sp-24;
+
+    li {
+      font-size: $fs-base;
+      color: $text-secondary;
+      line-height: $lh-relaxed;
+      margin-bottom: $sp-8;
+
+      strong { color: $text-primary; }
+    }
+  }
+
+  a {
+    color: $accent;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover { text-decoration: none; }
+  }
+}

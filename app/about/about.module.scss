@@ -1,0 +1,175 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.page {
+  min-height: 100vh;
+  background: $bg-primary;
+  padding-top: $header-height;
+}
+
+.container { @include container; }
+
+// ─── Hero ────────────────────────────────────────────────────────
+.hero {
+  padding: $sp-80 0 $sp-64;
+  text-align: center;
+}
+
+.label { @include section-label; }
+
+.title {
+  font-size: clamp($fs-3xl, 4vw, $fs-5xl);
+  font-weight: $fw-black;
+  color: $text-primary;
+  letter-spacing: $ls-tight;
+  margin: $sp-12 0 $sp-24;
+  line-height: $lh-tight;
+}
+
+.subtitle {
+  font-size: $fs-lg;
+  color: $text-secondary;
+  max-width: $max-width-sm;
+  margin: 0 auto;
+  line-height: $lh-relaxed;
+}
+
+// ─── Values ──────────────────────────────────────────────────────
+.values {
+  padding: $sp-64 0;
+  border-top: 1px solid $border-primary;
+}
+
+.sectionTitle {
+  font-size: $fs-2xl;
+  font-weight: $fw-bold;
+  color: $text-primary;
+  margin: 0 0 $sp-40;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $sp-24;
+
+  @include lg { grid-template-columns: repeat(2, 1fr); }
+  @include sm { grid-template-columns: 1fr; }
+}
+
+.valueCard {
+  @include glass-card;
+  padding: $sp-32;
+  text-align: center;
+  transition: transform $duration-normal $ease-out;
+
+  &:hover { transform: translateY(-4px); }
+
+  h3 {
+    font-size: $fs-lg;
+    font-weight: $fw-semibold;
+    color: $text-primary;
+    margin: $sp-12 0 $sp-8;
+  }
+
+  p {
+    font-size: $fs-sm;
+    color: $text-secondary;
+    line-height: $lh-relaxed;
+    margin: 0;
+  }
+}
+
+.valueIcon {
+  font-size: $fs-3xl;
+  display: block;
+}
+
+// ─── Timeline ────────────────────────────────────────────────────
+.timeline {
+  padding: $sp-64 0;
+  border-top: 1px solid $border-primary;
+}
+
+.timelineList {
+  display: flex;
+  flex-direction: column;
+  gap: $sp-32;
+  max-width: $max-width-sm;
+  margin: 0 auto;
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: 60px 24px 1fr;
+  gap: $sp-16;
+  align-items: start;
+}
+
+.year {
+  font-size: $fs-sm;
+  font-weight: $fw-bold;
+  color: $accent;
+  text-align: right;
+  padding-top: $sp-2;
+}
+
+.line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-top: $sp-4;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 16px;
+    width: 1px;
+    height: calc(100% + $sp-32);
+    background: $border-secondary;
+  }
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: $radius-round;
+  background: $accent;
+  border: 2px solid $bg-primary;
+  z-index: 1;
+}
+
+.event {
+  font-size: $fs-base;
+  color: $text-secondary;
+  line-height: $lh-relaxed;
+  margin: 0;
+}
+
+// ─── CTA ─────────────────────────────────────────────────────────
+.cta {
+  padding: $sp-80 0;
+  text-align: center;
+  border-top: 1px solid $border-primary;
+}
+
+.ctaTitle {
+  font-size: $fs-3xl;
+  font-weight: $fw-bold;
+  color: $text-primary;
+  margin: 0 0 $sp-8;
+}
+
+.ctaSubtitle {
+  font-size: $fs-lg;
+  color: $text-secondary;
+  margin: 0 0 $sp-32;
+}
+
+.ctaBtn {
+  @include btn-primary;
+  text-decoration: none;
+  padding: $sp-16 $sp-48;
+  font-size: $fs-md;
+}

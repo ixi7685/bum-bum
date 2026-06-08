@@ -1,0 +1,2438 @@
+L1 — Official / Controlled Narrative — MASTER SOURCE TABLE (EXHAUSTIVE)
+
+FINAL LOCK STATEMENT:
+If the company can approve it, edit it, or delete it — it is Layer 1.
+Layer 1 is the company's self-authored reality.
+It is NOT truth. It is the control sample against which every other layer is measured.
+
+---
+
+### A. Core Company-Owned Web Properties
+
+| Surface                  | API Required | What it Represents        |
+|--------------------------|-------------|---------------------------|
+| Company main website     | ❌ No        | Primary identity          |
+| About / Mission page     | ❌ No        | Self-definition           |
+| Vision / Values page     | ❌ No        | Claimed ethics            |
+| Careers page             | ❌ No        | Employee promise          |
+| Culture / Life at X page | ❌ No        | Employer branding         |
+| Benefits page            | ❌ No        | Compensation narrative    |
+| DEI / ESG page           | ❌ No        | Social positioning        |
+| Sustainability page      | ❌ No        | Long-term intent          |
+| Blog                     | ❌ No        | Narrative control         |
+| Newsroom                 | ❌ No        | Official announcements    |
+| Press releases           | ❌ No        | PR posture                |
+| Media kit                | ❌ No        | External framing          |
+| Case studies             | ❌ No        | Curated success           |
+| Testimonials page        | ❌ No        | Selective validation      |
+| Customer stories         | ❌ No        | Controlled proof          |
+| Partner pages            | ❌ No        | Alliance signaling        |
+| Pricing page             | ❌ No        | Value framing             |
+| Product feature pages    | ❌ No        | Capability claims         |
+| Roadmap page (public)    | ❌ No        | Forward promises          |
+| Status page (owned)      | ❌ No        | Operational transparency  |
+| Trust / Security page    | ❌ No        | Risk reassurance          |
+| Compliance page          | ❌ No        | Regulatory posture        |
+| Terms of Service         | ❌ No        | Legal reality             |
+| Privacy Policy           | ❌ No        | Data posture              |
+| Refund / Cancellation    | ❌ No        | User ethics               |
+| Code of conduct          | ❌ No        | Internal rules            |
+| Ethics policy            | ❌ No        | Moral claims              |
+| Whistleblower policy     | ❌ No        | Damage control readiness  |
+| Open letters (official)  | ❌ No        | Crisis framing            |
+
+### B. Official Social Media — BRAND ACCOUNTS ONLY
+
+Rule: Company page/account = Layer 1. Comments under it ≠ Layer 1.
+
+| Platform               | API Required | Notes              |
+|------------------------|-------------|--------------------|
+| LinkedIn Company Page  | ❌ No        | Employer branding  |
+| X Brand Account        | ❌ / ⚠️      | Official statements|
+| Facebook Page          | ❌ No        | Legacy branding    |
+| Instagram Brand        | ❌ No        | Culture optics     |
+| TikTok Brand           | ❌ No        | Youth narrative    |
+| YouTube Channel        | ⚠️           | Long-form control  |
+| Threads Brand          | ❌ No        | Narrative extension|
+| Weibo Official         | ❌ No        | China presence     |
+| WeChat Official        | ❌ No        | China ecosystem    |
+| LINE Official          | ❌ No        | Japan              |
+| VK Official            | ❌ No        | CIS                |
+| Telegram channel       | ⚠️           | Announcements      |
+| Discord announcements  | ⚠️           | Company-controlled |
+
+### C. Official Video, Audio & Media Channels
+
+| Surface                      | API Required | What it Signals     |
+|------------------------------|-------------|---------------------|
+| Company YouTube videos       | ⚠️           | Messaging tone      |
+| Video descriptions           | ⚠️           | Framing             |
+| Pinned videos                | ⚠️           | Priority narrative  |
+| Company podcasts             | ❌ No        | Thought leadership  |
+| Podcast descriptions         | ❌ No        | Positioning         |
+| Webinars                     | ❌ No        | Sales + expertise   |
+| Product demos                | ❌ No        | Capability claims   |
+| Investor days (published)    | ❌ No        | Financial narrative |
+| Recorded town halls          | ❌ No        | Controlled transparency |
+
+### D. Hiring & Talent Surfaces (OFFICIAL ONLY)
+
+⚠️ The job platform itself is NOT Layer 1. The company's job posting on it IS.
+
+| Platform              | API Required | Notes             |
+|-----------------------|-------------|-------------------|
+| Internal ATS portal   | ❌ No        | Hiring truth      |
+| Greenhouse job pages  | ❌ No        | Hiring narrative  |
+| Lever job pages       | ❌ No        | Role scope        |
+| Workday job postings  | ❌ No        | Enterprise posture|
+| SAP SuccessFactors    | ❌ No        | Corporate structure|
+| BambooHR career pages | ❌ No        | SME hiring        |
+| Recruitee job pages   | ❌ No        | EU startups       |
+| SmartRecruiters pages | ❌ No        | Hiring scale      |
+| Ashby job pages       | ❌ No        | Modern startups   |
+| Careers microsites    | ❌ No        | Branding intensity|
+
+### E. Official Market & Product Surfaces
+
+| Surface                | API Required | Purpose             |
+|------------------------|-------------|---------------------|
+| Public documentation   | ❌ No        | Capability claims   |
+| API docs (owned)       | ❌ No        | Dev promise         |
+| Developer portals      | ❌ No        | Ecosystem strategy  |
+| Public changelogs      | ❌ No        | Transparency        |
+| Release notes          | ❌ No        | Stability signaling |
+| Feature announcements  | ❌ No        | Direction           |
+| Migration guides       | ❌ No        | Technical maturity  |
+
+### F. Investor, Financial & Corporate Messaging
+
+| Surface                     | API Required | Notes              |
+|-----------------------------|-------------|--------------------|
+| Investor relations site     | ❌ No        | Financial story    |
+| Annual reports              | ⚠️           | Long-term narrative|
+| Quarterly updates           | ⚠️           | Performance framing|
+| Shareholder letters         | ❌ No        | Leadership voice   |
+| Pitch decks (published)     | ❌ No        | Vision packaging   |
+| Crowdfunding pages (official)| ❌ No       | Public pitch       |
+| Token whitepapers (official)| ❌ No        | Crypto narrative   |
+
+### G. Legal, Compliance & Risk Messaging
+
+| Surface                | API Required | Why it Matters    |
+|------------------------|-------------|-------------------|
+| Privacy policy         | ❌ No        | Data ethics       |
+| Cookie policy          | ❌ No        | Tracking posture  |
+| AML / KYC disclosures  | ❌ No        | Fintech integrity |
+| Regulatory disclosures | ❌ No        | Compliance        |
+| Risk disclosures       | ❌ No        | Honesty           |
+| User agreements        | ❌ No        | Power balance     |
+| Arbitration clauses    | ❌ No        | Dispute stance    |
+
+### H. Regional & Language Variants (CRITICAL)
+
+Each is its own Layer 1 surface. Mismatch between EN vs local language = high-risk signal.
+
+| Variant                      | Why                |
+|-----------------------------|--------------------|
+| Local-language website      | Often more honest  |
+| Country-specific careers    | Different benefits |
+| Local policy pages          | Regulatory truth   |
+| Local social accounts       | Regional narrative |
+| Local press releases        | Crisis handling    |
+
+### I. Explicitly INCLUDED Edge Cases
+
+| Surface                          | Why                  |
+|---------------------------------|----------------------|
+| "We're hiring" landing pages    | Growth narrative     |
+| "We're restructuring" pages     | Preemptive framing   |
+| Official apology posts          | Crisis posture       |
+| Official clarification threads  | Damage control       |
+| CEO message pages               | Authority voice      |
+| Founders' letters (published)   | Tone                 |
+| Product sunsetting notices      | Stability            |
+| Public outage explanations      | Accountability       |
+| Trust center microsites         | Reassurance          |
+
+### J. What NEVER Belongs in Layer 1
+
+| Excluded Surface             | Correct Layer |
+|-----------------------------|---------------|
+| Employee personal posts     | Layer 2       |
+| Comments under brand posts  | Layer 4       |
+| Reviews                     | Layer 3 or 5  |
+| Community discussions       | Layer 4       |
+| News articles               | Layer 6       |
+| Analyst opinions            | Layer 6       |
+| Partner blog posts (not controlled) | L2/L4  |
+
+---
+
+What to scrape (from all surfaces above)
+
+* Full page text + headings
+* Job descriptions by role + location
+* Claimed values, benefits, culture keywords
+* Legal posture signals (ToS, arbitration, privacy)
+* Social brand account handles & URLs
+* ATS platform detection
+* Change detection (what changed since last crawl)
+
+API needed? ❌ No — scraping works for all Category A, E, F, G surfaces.
+Social media (Cat B) and media channels (Cat C) may need ⚠️ API for content.
+ATS platforms (Cat D) are discovered via link detection.
+
+---
+
+L2 — Semi-Public Professional Behavior — MASTER SOURCE TABLE (EXHAUSTIVE)
+
+FINAL LOCK STATEMENT:
+Is a human speaking publicly, without company editorial control, in a professional context? → Layer 2.
+Layer 2 is the “human-in-public” layer.
+It captures what people say when they’re visible, named, and professionally motivated — but NOT scripted by the company.
+
+---
+
+### A. Professional Social Networks (personal accounts)
+
+Rule: The PERSON’s account = Layer 2. The COMPANY PAGE = Layer 1. Comments under company pages = Layer 4.
+
+| Surface                              | API Required | What it Signals                    |
+|--------------------------------------|-------------|------------------------------------|
+| LinkedIn personal posts (employees)  | ⚠️           | Culture signaling, loyalty display |
+| LinkedIn personal posts (leadership) | ⚠️           | Narrative control attempts         |
+| LinkedIn comments on others’ posts   | ⚠️           | Organic opinion, alignment cracks  |
+| LinkedIn reposts/shares              | ⚠️           | Amplification patterns             |
+| LinkedIn “celebrations” posts        | ⚠️           | Morale signal, performative or real|
+| LinkedIn “hiring” posts (personal)   | ⚠️           | Growth signal, desperation signal  |
+| LinkedIn “farewell” posts            | ⚠️           | Departure tone, culture leakage   |
+| LinkedIn “layoff survival” posts     | ⚠️           | Survivor guilt, loyalty fracture  |
+| LinkedIn “thought leadership”        | ⚠️           | Authority vs insecurity signaling |
+| LinkedIn recommendations given       | ⚠️           | Network loyalty, reciprocity      |
+| X personal accounts (employees)      | ⚠️ Paid      | Real-time opinion, unfiltered     |
+| X replies to industry threads        | ⚠️ Paid      | Engagement authenticity           |
+| X quote tweets with commentary       | ⚠️ Paid      | Signal amplification + framing    |
+| X long threads (expertise display)   | ⚠️ Paid      | Knowledge authority               |
+| X tweet deletions (Wayback/cache)    | ❌ No        | Regret signal, narrative cleanup  |
+| Mastodon professional accounts       | ❌ No        | Alt-platform early adopters       |
+| Bluesky professional accounts        | ❌ No        | Migration signals, dissatisfaction|
+| Threads personal accounts            | ❌ No        | Meta ecosystem engagement         |
+
+### B. Microblogging & Short-Form (named, professional)
+
+| Surface                              | API Required | What it Signals                    |
+|--------------------------------------|-------------|------------------------------------|
+| X personal tweets (professional)     | ⚠️ Paid      | Real-time professional opinion     |
+| X replies to industry peers          | ⚠️ Paid      | Engagement depth, authenticity     |
+| X quote tweets with commentary       | ⚠️ Paid      | Amplification + personal framing   |
+| X long threads (expertise display)   | ⚠️ Paid      | Expertise posture, thought depth   |
+| X tweet deletions (Wayback/cache)    | ❌ No        | Regret signal, narrative cleanup   |
+| Mastodon professional accounts       | ❌ No        | Alt-platform, privacy preference   |
+| Bluesky professional accounts        | ❌ No        | Migration, platform dissatisfaction|
+
+### C. Long-Form Writing (personal, named)
+
+| Surface                              | API Required | What it Signals                    |
+|--------------------------------------|-------------|------------------------------------|
+| Medium articles (personal account)   | ❌ No        | Expertise display, frustration     |
+| Substack newsletters (personal)      | ❌ No        | Independent authority, side income |
+| Personal blogs (custom domain)       | ❌ No        | Deep expertise, independence       |
+| Dev.to posts (personal)              | ❌ No (API)  | Dev culture alignment, openness    |
+| Hashnode articles (personal)         | ❌ No        | Dev community presence             |
+| Ghost newsletters (personal)         | ❌ No        | Independent publishing             |
+| WordPress blogs (personal)           | ❌ No        | Long-term knowledge building       |
+| HackerNoon articles (bylined)        | ❌ No        | Tech thought leadership            |
+| LinkedIn articles (long-form)        | ⚠️           | Professional authority display     |
+| Mirror.xyz publications              | ❌ No        | Web3 thought leadership            |
+
+### D. Podcasts, Interviews & Public Speaking
+
+| Surface                              | API Required | What it Signals                    |
+|--------------------------------------|-------------|------------------------------------|
+| Podcast interviews (guest)           | ❌ No        | Authority, narrative when relaxed  |
+| Founder/CEO podcast appearances      | ❌ No        | Unscripted leadership signals      |
+| Employee podcast appearances         | ❌ No        | Culture ambassadorship             |
+| Conference talks (recorded)          | ❌ No        | Expertise posture, priorities      |
+| Conference panel appearances         | ❌ No        | Industry positioning               |
+| Fireside chats (non-official)        | ❌ No        | Casual authority, authenticity     |
+| YouTube interviews (non-official)    | ⚠️           | Long-form unscripted behavior      |
+| Webinar guest appearances            | ❌ No        | Knowledge sharing willingness      |
+| Meetup talks (recorded)              | ❌ No        | Community engagement depth         |
+| TEDx / TED-style talks               | ❌ No        | Vision + ego signaling             |
+| AMA sessions (named, non-anonymous)  | ❌ No        | Transparency under pressure        |
+| Twitter Spaces recordings            | ⚠️ Paid      | Unscripted real-time behavior      |
+
+### E. Developer & Technical Professional Surfaces
+
+| Surface                              | API Required | What it Signals                    |
+|--------------------------------------|-------------|------------------------------------|
+| GitHub issues (filed by employees)   | ❌ No (API)  | Technical frustration, transparency|
+| GitHub PR discussions (public repos) | ❌ No (API)  | Code review culture, respect       |
+| GitHub Discussions (public repos)    | ❌ No (API)  | Community engagement style         |
+| GitHub README “how we work” sections | ❌ No (API)  | Engineering culture claims         |
+| Stack Overflow answers (named users) | ❌ No        | Knowledge generosity, expertise    |
+| Stack Overflow questions (named)     | ❌ No        | Problem-solving transparency       |
+| RFC discussions (public)             | ❌ No        | Standards engagement               |
+| Public incident post-mortems (named) | ❌ No        | Accountability culture             |
+| Open source contribution patterns    | ❌ No (API)  | Community investment signals       |
+| Dev.to comments (named)              | ❌ No (API)  | Community interaction quality      |
+
+### F. Hiring & Recruiting (human-authored, personal accounts)
+
+⚠️ Recruiter’s personal LinkedIn post about a job ≠ company’s official job listing.
+The former is L2 (human speaking). The latter is L1 (company-controlled).
+
+| Surface                              | API Required | What it Signals                    |
+|--------------------------------------|-------------|------------------------------------|
+| Recruiter LinkedIn posts             | ⚠️           | Hiring urgency, desperation level  |
+| Hiring manager personal posts        | ⚠️           | Team culture, growth authenticity  |
+| “We’re hiring aggressively” posts    | ⚠️           | Scale signal, retention concern    |
+| “DM me for roles” posts              | ⚠️           | Informal pipeline, urgency        |
+| Recruiter comment replies            | ⚠️           | Engagement authenticity            |
+| Employee referral posts              | ⚠️           | Internal satisfaction indicator    |
+| “Come join my team” posts            | ⚠️           | Team-level culture signaling       |
+| Farewell + “open to work” pairs      | ⚠️           | Departure sentiment tracking       |
+
+### G. Professional Communities (non-anonymous, named)
+
+| Surface                              | API Required | What it Signals                    |
+|--------------------------------------|-------------|------------------------------------|
+| LinkedIn Groups (named discussions)  | ⚠️           | Professional peer discussion       |
+| Slack community posts (public)       | ⚠️           | Real-time professional discussion  |
+| Public Discord (named users)         | ⚠️           | Community engagement depth         |
+| Indie Hackers posts (named)          | ❌ No        | Founder transparency               |
+| Product Hunt discussions (named)     | ❌ No        | Launch culture, product passion    |
+| Hacker News with identifiable names  | ❌ No        | Tech authority, unfiltered opinion |
+| Y Combinator forums (named)          | ❌ No        | Startup culture signals            |
+| Lobste.rs (named, invite-only)       | ❌ No        | Curated tech community presence    |
+| Professional association forums      | ❌ No        | Industry engagement depth          |
+| Research Gate discussions (academic) | ❌ No        | Research credibility               |
+
+### H. Edge Cases — Still Layer 2
+
+| Surface                              | API Required | What it Signals                    |
+|--------------------------------------|-------------|------------------------------------|
+| Public resignation letters           | ❌ No        | Culture failure signal             |
+| Public apology posts (personal)      | ❌ No        | Accountability culture             |
+| “Lessons learned” posts              | ❌ No        | Growth mindset signal              |
+| Personal crisis explanations         | ❌ No        | Vulnerability, authenticity        |
+| Whistleblower statements (named)     | ❌ No        | Courage signal, risk indicator     |
+| Court testimony excerpts (public)    | ❌ No        | Legal exposure, character signal   |
+| LinkedIn “open to work” signals      | ⚠️           | Departure/availability tracking    |
+| “Promoted!” announcements            | ⚠️           | Career progression, morale         |
+| “I was laid off” posts               | ⚠️           | Layoff culture, support response   |
+| “Starting something new” posts       | ⚠️           | Departure framing, entrepreneurship|
+| Public salary disclosures (named)    | ❌ No        | Compensation transparency          |
+| Award/recognition posts (personal)   | ⚠️           | Achievement culture                |
+
+### I. What NEVER Belongs in Layer 2 (sanity list)
+
+| Excluded Surface                       | Correct Layer | Why                                |
+|----------------------------------------|---------------|------------------------------------|
+| Company blog post (even if signed)     | L1            | Company editorial control          |
+| Official brand social media            | L1            | Company-owned account              |
+| Anonymous Glassdoor review             | L3            | Anonymous, no professional identity|
+| Anonymous Reddit post                  | L4            | Anonymous community discussion     |
+| Customer review (Trustpilot etc.)      | L5            | Client/user perspective            |
+| News article quoting an employee       | L6            | Journalist framing, not direct speech|
+| Bot-generated social media posts       | ❌ None       | Not human behavior                 |
+| Private messages leaked                | L3 or L6      | Not voluntarily public             |
+| Company-approved thought leadership    | L1            | Editorial control = L1             |
+
+### J. Relationship & Control Test
+
+For every signal, ask:
+1. Is it a human speaking? (Not a brand account, not a bot) → ✅ Proceed
+2. Is it public? (Visible to anyone without login requirement) → ✅ Proceed
+3. Is it professionally motivated? (Career, expertise, industry context) → ✅ Proceed
+4. Is it free from company editorial control? (Not reviewed, approved, or published by the company) → ✅ L2
+5. If the company CAN delete it → L1. If anonymous → L3/L4. If client/user → L5. If journalist → L6.
+
+---
+
+What to scrape (from all surfaces above)
+
+* LinkedIn personal posts about the company (via SerpAPI Google search)
+* X/Twitter personal tweets mentioning the company (via SerpAPI Google search)
+* Medium/Substack/personal blog articles (via SerpAPI Google search)
+* Podcast appearances and conference talks (via SerpAPI Google search)
+* GitHub issues, PRs, discussions filed by employees (via GitHub API, free)
+* Dev.to posts by company employees (via Dev.to API, free)
+* Product Hunt discussions (via SerpAPI Google search)
+* Farewell posts, layoff posts, hiring posts (via SerpAPI Google search)
+* Speaker class inference (CEO, VP, IC, recruiter, ex-employee)
+* Tone inference (promotional, neutral, frustrated, celebratory, critical, farewell, desperate, analytical, defensive, whistleblower)
+
+API needed?
+* SerpAPI (Google search): ✅ Primary method for discovering LinkedIn, Medium, podcast, conference, edge-case signals
+* GitHub API: ❌ No key needed — free public search for issues, discussions, code
+* Dev.to API: ❌ No key needed — free public article search
+* LinkedIn direct: ⚠️ Restricted/partner-only — use SerpAPI instead
+* X/Twitter direct: ⚠️ Paid API — use SerpAPI instead
+
+---
+
+L3 — Employee & Candidate Leakage
+
+Goal: internal reality and management patterns
+
+Primary sources
+
+* Glassdoor, Indeed company reviews
+* Blind (where available)
+* Kununu, Comparably
+* Interview experience sites (varies by region)
+
+What to collect
+
+* Review text + timestamp
+* Role clues (IC vs manager, team, location)
+* “Pattern phrases” (same complaint repeated)
+* Burst detection (review floods)
+
+API needed? Usually ❌ (official APIs are rare/restricted)
+
+* Most of these are scrape-only in practice (with heavy compliance considerations).
+
+---
+
+L4 — Community & Peer Reality (your Gen Z truth layer)
+
+Goal: unfiltered conversation and consensus building
+
+Primary sources
+
+* Reddit (threads + comments)
+* Hacker News
+* Public forums (industry, gaming, dev, local)
+* Public Discord servers (limited)
+* Quora (sometimes)
+
+What to collect
+
+* Full threads (not only top post)
+* Replies + confirmations (“same here”)
+* Thread evolution over time
+* Community validation signals (votes where visible)
+
+API needed?
+
+* Reddit: ✅ API exists; terms and rate limits apply (Reddit Inc)
+* Forums: ❌ no APIs usually
+* Discord: ✅ API exists for bots, but access depends on server rules/permissions (often not feasible broadly)
+
+Reality check
+
+* “Random forums” are totally doable via targeted crawling.
+* Discord is not “crawl the world”; it’s “approved communities”.
+
+---
+
+L5 — Client / User Fallout
+
+Goal: how the company treats people who depend on it (predicts how it treats staff too)
+
+Primary sources
+
+* Trustpilot
+* G2 / Capterra (B2B)
+* App Store / Google Play reviews
+* YouTube comments (support complaints show up here fast)
+* X replies to brand accounts
+
+What to collect
+
+* Complaint themes (billing, refunds, support)
+* Response tone (company replies)
+* Resolution time signals
+* Floods (sudden spikes)
+
+API needed?
+
+* App stores: sometimes ✅ via official / third-party feeds; often hybrid
+* YouTube comments: ✅ YouTube Data API supports commentThreads; quota applies (Google for Developers)
+* Trust/review sites: often ❌ (scrape/hybrid)
+
+---
+
+L6 — External Consequences (receipts)
+
+Goal: facts that anchor everything else
+
+Primary sources
+
+* News archives
+* Layoff trackers
+* Company registries (country-specific)
+* Court/lawsuit databases (where public)
+* Financial filings for public companies
+
+What to collect
+
+* Event + date + severity
+* Repeat incidents across years
+* Leadership changes
+* Confirmations from multiple outlets
+
+API needed?
+
+* Often ✅ for some registries/market data; many sources are scrape/hybrid.
+
+---
+
+The “entire web” part: how you find any comment mentioning the company
+
+You don’t brute-force scrape the whole web. You run a Company Mention Discovery pipeline:
+
+Step A — Name graph
+
+Collect aliases:
+
+* legal name, brand name, product names
+* common misspellings
+* old names / acquisitions
+
+Step B — High-leak surfaces first
+
+Priority crawl places where people actually complain:
+
+* Reddit, YouTube comments, app reviews, forums, X replies
+
+Step C — Context gating
+
+A page only counts if the company name appears in experience language, not marketing:
+
+* ✅ “interview at X was chaotic”
+* ✅ “X delayed payment”
+* ❌ “thanks X for sponsoring”
+
+Step D — Relationship inference (your LinkedIn problem)
+
+When a random person posts about a company, you classify the statement by:
+
+* first-hand vs second-hand vs observational
+* specificity (roles, tools, timelines)
+* cross-source alignment
+
+So that LinkedIn outsider post becomes:
+
+* L4 (external perception signal) unless it’s clearly first-hand → then it can upgrade to L3/L2.
+
+---
+
+Important guardrail (because you said “everything anywhere”)
+
+You can’t build this by “bypassing” protections or pulling private data.
+The scalable, defensible way is:
+
+* prioritize publicly accessible content
+* use official APIs where they exist and make sense
+* treat restricted platforms (LinkedIn, some review sites, Discord) as “selective ingestion”, not “total coverage”
+
+LinkedIn is the best example: official APIs for posts/comments are restricted to approved developers. (Microsoft Learn)
+
+You can still have strong coverage without pretending you can vacuum 100% of it.
+
+---
+
+Next step (what you asked for earlier)
+
+Now that layers are mapped, we should define:
+
+1. Primary vs secondary vs tertiary sources per layer
+2. API vs non-API per source
+3. A “coverage score” so we know what “effective” means even when some platforms are restricted
+
+If you say “make the Primary/Secondary/Tertiary map”, I’ll output the next table in that exact format.
+
+
+LAYER 1 — OFFICIAL / CONTROLLED NARRATIVE
+MASTER SOURCE TABLE (EXHAUSTIVE)
+Standalone Specification
+⁠
+1. Purpose of Layer 1
+Layer 1 captures everything a company intentionally publishes as itself, through channels it fully controls.
+This layer does not attempt to determine truth.
+Its role is to:
+establish the company’s claimed identity
+define stated values, promises, and positioning
+act as the baseline narrative against which all other layers are compared
+Layer 1 answers one question only:
+“What does the company want people to believe about it?”
+⁠
+2. Canonical definition (LOCKED)
+Layer 1 includes any digital surface where the company has editorial control and publishes content as the company.
+If the company can:
+approve the content
+delete or edit it
+decide tone and timing
+→ it belongs in Layer 1.
+⁠
+3. What Layer 1 explicitly includes
+3.1 Company-owned web properties
+⁠
+⁠
+3.2 Official social media accounts (brand accounts)
+Important: Platform does NOT matter. Control does.
+⁠
+Only content published by the company account itself is Layer 1.
+⁠
+4. What Layer 1 explicitly excludes
+These are never Layer 1, even if on the same platform:
+Employee personal posts
+Leadership personal accounts
+Recruiters posting from personal profiles
+Comments under company posts
+Reviews
+User-generated content
+Mentions by outsiders
+Those belong to Layers 2–5 depending on context.
+⁠
+5. Data capture requirements (NON-NEGOTIABLE)
+Layer 1 is useless without full fidelity capture.
+5.1 Text content
+You must store:
+full page/post text
+headings and subheadings
+job descriptions in full
+benefits lists
+value statements verbatim
+captions and descriptions
+❌ No summaries
+❌ No truncation
+❌ No keyword-only extraction
+⁠
+5.2 Metadata
+Every Layer 1 item MUST include:
+⁠
+⁠
+6. Change detection (CORE FEATURE)
+Layer 1 is not static.
+​Change over time is one of its strongest signals.
+6.1 What must be tracked historically
+⁠
+⁠
+6.2 Versioning requirements
+You must be able to answer:
+What did this page say 6 months ago?
+When did this value appear/disappear?
+How often is this job reposted?
+Did benefits change after layoffs?
+Without versioning, Layer 1 loses 50% of its value.
+⁠
+7. API vs Scraping — definitive rules for Layer 1
+7.1 APIs
+⁠
+Layer 1 does NOT require APIs to function.
+APIs add convenience, not capability.
+⁠
+7.2 Scraping requirements
+Scraping Layer 1 is:
+stable
+low risk
+legally defensible (public pages)
+Best practices:
+Respect robots.txt where applicable
+Use reasonable crawl frequency
+Cache aggressively
+Detect updates, don’t re-scrape blindly
+⁠
+8. Company website breakdown (deep)
+8.1 Mandatory sections to crawl
+⁠
+⁠
+8.2 Careers & job descriptions (special handling)
+For each job posting, store:
+⁠
+Why:
+Job descriptions are one of the most honest places companies accidentally reveal reality.
+⁠
+9. Social brand accounts — handling rules
+9.1 What to collect
+⁠
+9.2 What NOT to collect
+User comments (Layer 4)
+Likes as popularity metric (optional)
+Hashtag vanity metrics
+⁠
+10. How Layer 1 is USED downstream (important)
+Layer 1 is never shown as “truth”.
+It is used to:
+compare against employee reality (Layer 3)
+compare against community perception (Layer 4)
+highlight mismatches in reports
+anchor Gen Z explanations:
+“The company claims X, but employees report Y”
+⁠
+11. Common failure modes (avoid these)
+❌ Treating Layer 1 as factual
+❌ Mixing employee posts into Layer 1
+❌ Ignoring historical changes
+❌ Only scraping homepage
+❌ Summarizing instead of storing verbatim
+If any of these happen, the entire system weakens.
+⁠
+12. Final Layer 1 checklist (build gate)
+Layer 1 is considered complete only if:
+All official web pages are ingested
+All official brand social accounts are ingested
+Full text is stored (no summaries)
+Metadata is complete
+Historical versioning is enabled
+Job descriptions are role-level granular
+No personal accounts are mixed in
+⁠
+13. Final lock statement
+Layer 1 represents the company’s self-authored story.
+It is not truth.
+It is the control sample against which reality is measured.
+This definition is locked.
+
+6.2 X (high volume, high leak)
+
+Layer 2 on X includes:
+
+* founder/leadership threads
+* employee commentary
+* quote tweets reacting to events
+* replies in controversies
+
+Collect:
+
+* tweet text + timestamp
+* thread structure (reply chain)
+* quote tweet context
+* reply targets (brand vs individual)
+
+API vs scraping:
+
+* X is usually best via API for scale and history.
+* Scraping is possible for small volume, but unstable at scale.
+
+---
+
+6.3 Medium/Substack/blogs (slow-burn truth)
+
+Layer 2 includes:
+
+* “what we learned”, “how we work”, “why we changed”
+* post-mortems that quietly reveal failure patterns
+
+Collect:
+
+* full article text
+* publish date
+* author context cues (role, experience)
+* comments (only if public and accessible)
+
+API vs scraping:
+
+* RSS where available
+* otherwise scrape pages directly
+
+---
+
+6.4 Podcasts / interviews / talks (the “unguarded” layer inside Layer 2)
+
+These are semi-public but often less curated than LinkedIn posts.
+
+Collect:
+
+* title + date
+* speaker + relationship class (leadership/employee)
+* transcript if available
+* key quoted statements (short excerpts only)
+* claims to verify later (send to Layer 6 cross-check queue)
+
+API vs scraping:
+
+* YouTube: can use API for metadata; transcripts may be available publicly
+* Otherwise scrape descriptions and public transcripts
+
+---
+
+6.5 Developer surfaces (limited but powerful)
+
+Include ONLY when it reveals org behavior:
+
+* public repo READMEs with “how we work”
+* public issues/discussions showing support or engineering practice
+* public security advisories statements
+
+Collect:
+
+* discussion text
+* timestamps
+* role/proximity inference cues
+
+API vs scraping:
+
+* GitHub has an API, but you can also scrape limited pages.
+* Use API when possible for stability.
+
+---
+
+7. Relationship & proximity inference (core logic)
+
+Layer 2 becomes garbage if we don’t classify who is speaking in context.
+
+7.1 Relationship classification schema (required)
+
+Column 1	Column 2	Column 3
+Class	Definition	Examples of cues
+Leader	executive/founder/VP-level	“as CEO…”, public title, leadership topics
+Current employee	employed at time of post	“at my company”, “our team”, current tense
+Ex-employee	left company	“when I worked at…”, exit tone, time markers
+Recruiter	hiring professional	job posts, candidate messaging
+Partner/vendor	external but involved	“we implemented for client”, delivery talk
+Outsider	not directly involved	commentary, news reaction
+
+
+Important: store only the class, not personal identity profiling.
+
+7.2 Proximity classification schema (required)
+
+Column 1	Column 2	Column 3
+Proximity	Definition	Weight rule
+First-hand	lived experience	high weight
+Second-hand	heard from someone	medium weight
+Observational	public observation	medium-low
+Speculative	guessing	low
+
+
+---
+
+8. Behavioral signal extraction (Layer 2’s unique value)
+
+This is what makes Layer 2 a moat.
+
+8.1 What to compute from the raw feed
+
+Column 1	Column 2
+Signal	How it’s used
+Accountability vs defensiveness	leadership risk style
+Response vs silence	crisis handling
+Cadence change	stress and instability
+“Performance tone”	employer branding via humans
+Comment conflict patterns	culture in the open
+Narrative shift markers	pre-emptive damage control
+
+
+8.2 “Event mode” detection
+
+Layer 2 should flip into high attention when an event happens (layoff rumor, controversy, outage).
+
+Event indicators:
+
+* sudden spike in related posts
+* coordinated messaging
+* mass employee “gratitude posts”
+* sudden silence from leadership
+* replies disabled / comments removed (where visible)
+
+---
+
+9. Change tracking & history (required)
+
+Layer 2 needs time-series storage.
+
+You must be able to answer:
+
+* Did leadership change tone after layoffs?
+* Did employees go silent?
+* Did recruiter messaging shift to “contract only”?
+* Was there a burst of “culture praise” posts right after criticism?
+
+9.1 Versioning rules
+
+Column 1	Column 2	Column 3
+Item	Versioning needed?	Why
+Posts	Yes	edits, deletions, narrative shifts
+Threads	Yes	replies accumulate
+Articles	Yes	edits occur
+Comments	Prefer	deletions matter
+
+
+---
+
+10. API vs scraping — definitive Layer 2 rules
+
+Layer 2 is mixed. Your doc needs a build-ready stance:
+
+10.1 Source access table
+
+Column 1	Column 2	Column 3
+Source	Best method	Notes
+LinkedIn personal content	Selective ingestion	Broad crawling is constrained; focus on high-signal
+X	API for scale	Needed for history + volume
+Medium/Substack/blogs	RSS + scraping	Stable
+YouTube interviews/talks	API for metadata + public transcripts	Comments belong to Layer 4
+GitHub public org content	API preferred	Only where it reveals practices
+
+
+10.2 Practical policy (non-negotiable)
+
+* Use official APIs when they exist and are reasonably accessible.
+* Only collect content that is publicly accessible.
+* Do not attempt to access private groups, private posts, or bypass restrictions.
+
+---
+
+11. How Layer 2 is used in reporting (rules)
+
+Layer 2 is never presented as “truth.”
+It is presented as:
+
+* behavioral signals
+* leadership decision style
+* public posture vs private leakage alignment
+* risk indicators backed by cross-source consistency
+
+11.1 Safe Gen Z phrasing patterns
+
+Use language like:
+
+* “Public leadership messaging shows…”
+* “Employee-facing tone appears…”
+* “A shift in posting cadence suggests…”
+* “We observed increased defensive responses…”
+
+Avoid:
+
+* “This person is lying”
+* “This employee is unreliable”
+* personal accusations or identity focus
+
+---
+
+12. Common failure modes (avoid these)
+
+❌ Treating LinkedIn as fully collectible like Reddit
+❌ Mixing official company page posts (Layer 1) into Layer 2
+❌ Ignoring comments/replies (you lose half the truth)
+❌ Over-weighting one viral post
+❌ Not tracking silence/cadence changes
+❌ Building person profiles instead of statement context
+
+---
+
+13. Final Layer 2 checklist (build gate)
+
+Layer 2 is complete only if:
+
+[ ] Layer boundary is respected (no official brand posts)
+[ ] Every item has text + timestamp + permalink
+[ ] Relationship class is assigned
+[ ] Proximity class is assigned
+[ ] Behavioral signals are computed (response, cadence, tone markers)
+[ ] History/versioning exists for posts + threads
+[ ] Platform-specific ingestion rules are applied (LinkedIn selective, X scalable, blogs stable)
+
+---
+
+14. Final lock statement
+
+Layer 2 is the public behavior layer.
+It captures how humans around the company behave when reputations are on the line.
+It is neither official narrative nor anonymous leakage.
+It is the bridge between story and reality.
+
+This definition is locked.
+
+
+Standalone Specification
+
+---
+
+1. Purpose of Layer 3
+
+Layer 3 captures first-hand internal experience that leaks through reviews, interview stories, and exit narratives.
+
+This layer answers:
+
+“What is it actually like inside this company, according to people who were there or almost were?”
+
+Layer 3 is the core truth layer for workplace reality — but only when analyzed as patterns over time, never as isolated anecdotes.
+
+---
+
+2. Canonical definition (LOCKED)
+
+Layer 3 includes public, experience-based statements made by current employees, ex-employees, and candidates about working at or interviewing with a company, where the speaker’s proximity is first-hand or near first-hand.
+
+Key properties:
+
+* experiential, not observational
+* internally oriented (management, process, workload, pay, culture)
+* usually emotionally loaded, but often specific
+
+---
+
+3. What Layer 3 explicitly includes
+
+3.1 Primary source types
+
+Column 1	Column 2	Column 3
+Source type	Examples	Priority
+Employer review platforms	Glassdoor, Indeed	High
+Anonymous professional communities	Blind	High
+Regional employer platforms	Kununu, Comparably	Medium
+Interview experience posts	“Interview at X” blogs, Reddit posts	Medium
+Exit narratives	“Why I left X” articles/posts	Medium
+Long-form complaints	Medium/Substack posts by ex-employees	Medium
+
+
+---
+
+3.2 Speaker categories (classified, not profiled)
+
+We do not track individuals. We infer speaker class per statement.
+
+Column 1	Column 2
+Speaker class	Definition
+Current employee	Employed at time of posting
+Ex-employee	Left the company
+Candidate	Interviewed or applied
+Contractor	Short-term or freelance
+Intern / junior	Early-career perspective
+
+
+Only the class is stored, never a personal profile.
+
+---
+
+4. What Layer 3 explicitly excludes
+
+* Official company statements (Layer 1)
+* Leadership/employee public behavior not describing internal experience (Layer 2)
+* Anonymous community rumors without first-hand indicators (Layer 4)
+* Client/user complaints (Layer 5)
+* Private messages or gated content
+
+If a post lacks clear experiential proximity, it does not belong in Layer 3.
+
+---
+
+5. Data capture requirements (NON-NEGOTIABLE)
+
+Layer 3 lives or dies on specificity + time alignment.
+
+5.1 Required content fields
+
+Column 1	Column 2	Column 3
+Field	Required	Notes
+Raw text	Yes	Full review/post text
+Source platform	Yes	Glassdoor, Reddit, etc
+URL / reference	Yes	Permalink where possible
+Timestamp	Yes	Posting date
+Experience type	Yes	employee / ex / candidate
+Employment timing	Yes	during / after employment
+Location	If available	office / remote / country
+Role clues	If available	IC / manager / function
+
+
+❌ No summaries
+❌ No star-rating-only ingestion
+
+---
+
+5.2 Pattern-critical metadata
+
+Column 1	Column 2	Column 3
+Field	Required	Why
+Review burst ID	Yes	Detect coordinated events
+Language specificity score	Yes	Filter noise
+Emotional mode	Yes	Burnout ≠ rage ≠ gratitude
+Repetition marker	Yes	Same issue recurring
+Management reference flag	Yes	Manager-specific patterns
+Retaliation marker	Yes	Risk escalation
+
+
+---
+
+6. Platform-by-platform handling
+
+6.1 Employer review platforms (Glassdoor, Indeed, etc.)
+
+What to collect
+
+* Full review text
+* Pros / cons
+* Advice to management
+* Interview experiences (if present)
+* Date posted
+* Role/location hints
+
+Special handling
+
+* Ignore star ratings as primary signal
+* Detect “forced positivity” language
+* Track review frequency over time
+* Identify sudden floods (post-layoff, acquisition)
+
+API vs scraping
+
+* APIs: Rare or unusable
+* Scraping: Required
+* Aggregation: Mandatory (never show single reviews)
+
+---
+
+6.2 Anonymous professional communities (e.g., Blind)
+
+What to collect
+
+* Thread text
+* Replies
+* Timing
+* Confirmation replies (“same team”, “same issue”)
+
+Special handling
+
+* Treat as high honesty but volatile
+* Require cross-thread confirmation
+* Time alignment is critical
+
+API vs scraping
+
+* APIs: Typically unavailable
+* Scraping: Selective and cautious
+
+---
+
+6.3 Interview experience posts (blogs, Reddit, forums)
+
+What to collect
+
+* Interview steps described
+* Timeline
+* Offer vs reality mismatch
+* Ghosting patterns
+* Compensation/process contradictions
+
+Upgrade rule
+
+* If multiple candidates report same pattern → elevate weight
+* If single vague complaint → low weight
+
+---
+
+6.4 Exit narratives (“Why I left”)
+
+What to collect
+
+* Full narrative
+* Timing relative to exit
+* Specific internal references (tools, processes)
+* Emotional trajectory (hope → exhaustion)
+
+Weighting rule
+
+* Higher weight if posted soon after exit
+* Very high weight if aligned with other Layer 3 signals
+
+---
+
+7. Proximity & credibility scoring (CORE)
+
+Layer 3 requires strict proximity rules.
+
+7.1 Proximity classification
+
+Column 1	Column 2	Column 3
+Proximity	Definition	Weight
+First-hand	Direct lived experience	High
+Near first-hand	Candidate/interview	Medium
+Second-hand	“Friend worked there”	Low
+Speculative	Guessing	Exclude
+
+
+Anything below “near first-hand” does not meaningfully influence conclusions.
+
+---
+
+7.2 Specificity scoring
+
+Column 1	Column 2
+Signal	Effect
+Names teams, tools, workflows	Strong positive
+Mentions timelines/events	Positive
+Generic praise/complaint	Negative
+Marketing-style language	Strong negative
+
+
+Specificity > sentiment.
+
+---
+
+8. Emotional mode detection (Layer 3 unique)
+
+You are not scoring positivity vs negativity.
+
+You classify emotional modes:
+
+Column 1	Column 2
+Mode	Meaning
+Burnout	Chronic overload, exhaustion
+Controlled frustration	Long-term unresolved issues
+Shock	Layoffs, sudden changes
+Defensive positivity	Fear-driven praise
+Gratitude	Genuine or coerced
+Anger	Acute incidents
+
+
+Burnout patterns are often the most predictive.
+
+---
+
+9. Time-based pattern detection
+
+Layer 3 must be analyzed longitudinally.
+
+9.1 Mandatory time questions
+
+You must be able to answer:
+
+* Are complaints increasing or decreasing?
+* Do issues repeat every quarter?
+* Did tone shift after leadership change?
+* Did interview complaints precede employee complaints?
+
+9.2 Review burst logic
+
+Column 1	Column 2
+Burst type	Interpretation
+Sudden negative burst	Layoffs / policy change
+Sudden positive burst	Reputation management
+Mixed burst	Internal conflict
+Long slow increase	Structural decay
+
+
+---
+
+10. API vs scraping — definitive Layer 3 rules
+
+Column 1	Column 2	Column 3
+Source type	Access method	Notes
+Employer review sites	Scraping	APIs largely unavailable
+Blind-like communities	Scraping (selective)	High care
+Blogs/Substack	RSS + scraping	Stable
+Forums/Reddit interview posts	API or scraping	Context matters
+
+
+Rule:
+If an API does not give full text + timestamps, it is insufficient.
+
+---
+
+11. Legal & ethical guardrails (MANDATORY)
+
+Layer 3 must always adhere to:
+
+* Publicly accessible content only
+* No deanonymization attempts
+* No individual profiling
+* No quoting single reviews verbatim in outputs
+* Always aggregate and anonymize
+
+Framing rule:
+
+“Based on repeated employee reports…”
+Never: “One employee said…”
+
+---
+
+12. How Layer 3 is used downstream
+
+Layer 3 feeds:
+
+* management risk analysis
+* stability predictions
+* culture fit indicators
+* interview warning flags
+* mismatch detection vs Layer 1
+
+Layer 3 alone never triggers conclusions.
+It must align with at least one other layer for high confidence.
+
+---
+
+13. Common failure modes (avoid these)
+
+❌ Trusting star ratings
+❌ Highlighting single viral reviews
+❌ Ignoring timing
+❌ Mixing candidate and employee experiences
+❌ Treating anger as equal to burnout
+❌ Not detecting forced positivity
+
+---
+
+14. Final Layer 3 checklist (build gate)
+
+Layer 3 is complete only if:
+
+[ ] Full text is ingested (no summaries)
+[ ] Speaker class is assigned
+[ ] Proximity is classified
+[ ] Specificity score exists
+[ ] Emotional mode is labeled
+[ ] Time-series storage is enabled
+[ ] Burst detection is implemented
+[ ] Outputs are aggregated and anonymized
+
+---
+
+15. Final lock statement
+
+Layer 3 is the internal reality layer.
+It captures lived experience leaking into public view.
+It is noisy in isolation and powerful in patterns.
+It must always be handled with aggregation, context, and time.
+
+This definition is locked.
+
+Standalone Specification
+
+---
+
+1. Purpose of Layer 4
+
+Layer 4 captures unfiltered, peer-to-peer conversation about a company in environments not controlled by the company and not structured as reviews.
+
+This layer answers:
+
+“What are people saying when no one from the company is in the room?”
+
+Layer 4 is where:
+
+* early warnings appear
+* rumors become consensus
+* second-order truth forms
+* reputational leaks surface before formal fallout
+
+For Gen Z, this is often more trusted than reviews.
+
+---
+
+2. Canonical definition (LOCKED)
+
+Layer 4 includes public, community-driven discussion about a company in spaces where participation is informal, conversational, and peer-validated, regardless of whether the speakers are employees.
+
+Key traits:
+
+* not official
+* not structured
+* not identity-driven
+* not reputation-managed
+* truth emerges through repetition and confirmation
+
+---
+
+3. What Layer 4 explicitly includes
+
+3.1 Platform categories
+
+Column 1	Column 2	Column 3
+Platform type	Examples	Priority
+Social discussion forums	Reddit	Very High
+Tech/industry forums	Hacker News	High
+Q&A platforms	Quora	Medium
+Niche forums	Dev forums, regional boards	High
+Public Discord servers	Industry/job servers	Medium
+YouTube comments	Under relevant videos	High
+Blog comment sections	Independent blogs	Medium
+Social replies (non-brand)	X replies, threads	Medium
+
+
+---
+
+3.2 Speaker types (non-exclusive)
+
+Layer 4 does not require speaker verification.
+
+Possible speakers:
+
+* current employees (speaking casually)
+* ex-employees
+* candidates
+* clients/users
+* industry observers
+* peers sharing second-hand info
+
+Credibility is established by pattern, not identity.
+
+---
+
+4. What Layer 4 explicitly excludes
+
+* Official company posts (Layer 1)
+* Professional personal posts (Layer 2)
+* Employer review platforms (Layer 3)
+* Client review platforms (Layer 5)
+* Private or gated communities
+* One-off comments without context
+
+Layer 4 requires conversation, not isolated statements.
+
+---
+
+5. Data capture requirements (NON-NEGOTIABLE)
+
+Layer 4 is about conversation structure, not just text.
+
+5.1 Required content fields
+
+Column 1	Column 2	Column 3
+Field	Required	Notes
+Raw text	Yes	Posts + replies
+Platform	Yes	Reddit, forum name, etc
+URL / thread ID	Yes	Thread-level reference
+Timestamp	Yes	Post & reply times
+Position in thread	Yes	OP, reply depth
+Upvotes / reactions	If visible	Peer validation
+Edit/deletion markers	If visible	Signal suppression
+
+
+---
+
+5.2 Conversation structure fields
+
+Column 1	Column 2	Column 3
+Field	Required	Why
+Thread root	Yes	Context
+Reply chains	Yes	Confirmation detection
+Follow-up replies	Yes	“Same here” patterns
+Thread duration	Yes	Persistence
+Participant count	Yes	Breadth of concern
+
+
+---
+
+6. Platform-specific handling rules
+
+6.1 Reddit (PRIMARY Layer 4 surface)
+
+What to collect
+
+* Post title + body
+* All comments
+* Nested replies
+* Upvote counts (if available)
+* Post history over time (updates)
+
+Special logic
+
+* Detect “anyone else?” phrasing
+* Identify confirmation replies
+* Separate venting from pattern formation
+* Track cross-subreddit repetition
+
+API vs scraping
+
+* API exists and should be used when possible
+* Scraping acceptable for edge cases
+
+Reddit is pattern amplification, not fact authority.
+
+---
+
+6.2 Hacker News (high-signal, low-noise)
+
+What to collect
+
+* Submission title + text
+* All comments
+* Reply chains
+* Timing relative to news/events
+
+Special logic
+
+* Weight comments over posts
+* Look for operational critique
+* Detect skepticism vs confirmation
+
+API vs scraping
+
+* Official API exists and is sufficient
+
+---
+
+6.3 Niche forums & regional boards
+
+Examples
+
+* Dev forums
+* Industry-specific boards
+* Country/regional job forums
+
+What to collect
+
+* Thread text
+* Replies
+* Long-running threads
+* Recurrent complaints over months/years
+
+API vs scraping
+
+* Usually no API
+* Scraping required
+* Crawl selectively based on company mentions
+
+These forums often surface local office truth.
+
+---
+
+6.4 Public Discord servers (LIMITED, CAREFUL)
+
+Included only if
+
+* Server is public
+* Content is readable without joining via private invite
+* Terms allow public access
+
+What to collect
+
+* Channel messages mentioning company
+* Reply context
+* Timestamp clustering
+
+Constraints
+
+* Not scalable
+* Permission-based
+* Treat as supplemental, never core
+
+API vs scraping
+
+* Discord API exists but requires bot permissions
+* Manual curation recommended
+
+---
+
+6.5 YouTube comments (UNDERRATED, HIGH VALUE)
+
+Where to look
+
+* Company videos
+* News videos about the company
+* Influencer reviews
+* “Day in the life” / interview videos
+
+What to collect
+
+* Comment text
+* Replies
+* Like counts (if visible)
+* Timing relative to video publish
+
+API vs scraping
+
+* YouTube Data API recommended
+* Scraping possible but quota-limited via API is cleaner
+
+YouTube comments often reveal:
+
+* support failures
+* payment issues
+* broken promises
+
+---
+
+6.6 Social replies & threads (non-brand)
+
+Includes:
+
+* X replies under news posts
+* Threads where company is discussed, not posting
+
+What to collect
+
+* Reply text
+* Thread context
+* Escalation chains
+
+API vs scraping
+
+* X: API preferred
+* Others: selective scraping
+
+---
+
+7. Credibility & weighting logic (CORE)
+
+Layer 4 has no identity trust.
+Only pattern trust.
+
+7.1 Credibility factors
+
+Column 1	Column 2
+Factor	Effect
+Repetition across users	Strong positive
+Repetition across platforms	Very strong
+Confirmation replies	Strong
+Long-lived threads	Strong
+Specific operational detail	Positive
+Meme-only content	Negative
+One-off rants	Very low
+
+
+---
+
+7.2 Conversation evolution states
+
+Column 1	Column 2
+State	Meaning
+Single vent	Noise
+Multiple confirmations	Emerging pattern
+Cross-thread repetition	Established issue
+Long-term recurrence	Structural problem
+
+
+Only the last two carry high weight.
+
+---
+
+8. Time-based pattern detection
+
+Layer 4 is temporal by nature.
+
+Mandatory questions:
+
+* When did this topic first appear?
+* Does it resurface periodically?
+* Did discussion precede Layer 3 or Layer 5 signals?
+* Does it disappear after official response?
+
+Early Layer 4 spikes often predict later fallout.
+
+---
+
+9. Company mention discovery (ENTIRE WEB STRATEGY)
+
+You do not scrape the whole web.
+
+You do company-centric discovery.
+
+9.1 Name graph (required)
+
+Track:
+
+* legal name
+* brand name
+* product names
+* common misspellings
+* old names
+
+9.2 Context gating (required)
+
+A mention only counts if:
+
+* company name appears in experiential language
+* not just a tag, sponsor mention, or headline copy
+
+Examples:
+
+* ✅ “X delayed payments again”
+* ✅ “Interview with X was chaos”
+* ❌ “Thanks X for sponsoring”
+
+---
+
+10. API vs scraping — definitive Layer 4 rules
+
+Column 1	Column 2	Column 3
+Source type	Preferred access	Notes
+Reddit	API	Rate-limited
+Hacker News	API	Stable
+YouTube comments	API	Quota-based
+Forums	Scraping	Selective
+Discord	API (permissioned)	Supplemental only
+X threads	API	Paid
+
+
+Layer 4 cannot be 100% complete.
+Coverage breadth > completeness.
+
+---
+
+11. Legal & ethical guardrails
+
+Layer 4 must always:
+
+* use publicly accessible content only
+* avoid deanonymization
+* avoid private servers/groups
+* aggregate signals
+* avoid quoting individual usernames in reports
+
+Framing rule:
+
+“Community discussions indicate…”
+Never: “A Reddit user said…”
+
+---
+
+12. How Layer 4 is used downstream
+
+Layer 4 feeds:
+
+* early warning systems
+* reputation leakage detection
+* confirmation of Layer 2 & 3 signals
+* confidence adjustment
+
+Layer 4 alone = hypothesis
+Layer 4 + another layer = signal
+
+---
+
+13. Common failure modes (avoid these)
+
+❌ Treating Reddit as factual authority
+❌ Trusting upvotes blindly
+❌ Ignoring replies and confirmations
+❌ Over-weighting memes
+❌ Crawling everything instead of context-gating
+❌ Mixing anonymous noise with experiential leakage
+
+---
+
+14. Final Layer 4 checklist (build gate)
+
+Layer 4 is complete only if:
+
+[ ] Conversation structure is stored (threads, replies)
+[ ] Company mention gating exists
+[ ] Repetition detection works
+[ ] Cross-platform confirmation is tracked
+[ ] Time-based resurfacing is detectable
+[ ] Outputs are aggregated and anonymized
+[ ] Discord is treated as supplemental only
+
+---
+
+15. Final lock statement
+
+Layer 4 is the collective reality layer.
+It captures what spreads between people before it becomes official.
+It is noisy in isolation, powerful in repetition, and predictive in time.
+
+This definition is locked.
+
+1. Purpose of Layer 5
+
+Layer 5 captures how a company treats people who depend on its product or service.
+
+This layer answers:
+
+“When money, time, or dependency is involved — how does the company behave?”
+
+For Gen Z, this layer is critical because they intuitively assume:
+
+“If a company treats users badly, it will eventually treat employees badly too.”
+
+Layer 5 is where:
+
+* operational stress becomes visible
+* ethics are tested in real situations
+* financial or support problems surface early
+* PR language collapses under pressure
+
+---
+
+2. Canonical definition (LOCKED)
+
+Layer 5 includes public, experience-based statements made by customers, users, or clients about interacting with a company’s product, service, billing, or support — and the company’s response (or lack of response).
+
+Key traits:
+
+* transactional dependency exists
+* expectations were set by the company
+* failure causes friction or harm
+* company behavior is observable
+
+---
+
+3. What Layer 5 explicitly includes
+
+3.1 Primary source categories
+
+Column 1	Column 2	Column 3
+Source type	Examples	Priority
+Consumer review platforms	Trustpilot	Very High
+B2B software review platforms	G2, Capterra	High
+App marketplaces	App Store, Google Play	Very High
+Social support replies	X replies to brand	High
+Video comments	YouTube comments	Medium
+Support forums	Product/community forums	Medium
+Complaint aggregators	Regional consumer boards	Medium
+
+
+---
+
+3.2 Speaker types (classified, not profiled)
+
+Column 1	Column 2
+Speaker class	Definition
+End user	Uses the product/service
+Paying customer	Has financial dependency
+Business client	B2B customer
+Trial user	Early-stage experience
+Former customer	Churned due to issue
+
+
+Identity is never tracked. Only context.
+
+---
+
+4. What Layer 5 explicitly excludes
+
+* Employer reviews (Layer 3)
+* Community rumors without usage context (Layer 4)
+* Professional commentary (Layer 2)
+* Official company statements (Layer 1)
+* Private support tickets or emails
+
+Layer 5 requires real usage or transaction context.
+
+---
+
+5. Data capture requirements (NON-NEGOTIABLE)
+
+Layer 5 is about failure under load.
+
+5.1 Required content fields
+
+Column 1	Column 2	Column 3
+Field	Required	Notes
+Raw complaint text	Yes	Full text
+Platform	Yes	Trustpilot, App Store, etc
+URL / reference	Yes	Permalink
+Timestamp	Yes	Post date
+Product/service name	If applicable	Product-level issues
+Issue category	Yes	See below
+Resolution indicator	Yes	resolved / unresolved / unclear
+
+
+---
+
+5.2 Issue categorization (MANDATORY)
+
+Every Layer 5 item must be classified into one or more:
+
+Column 1	Column 2
+Issue category	Examples
+Billing / payments	charges, refunds, invoicing
+Support failure	no response, slow response
+Product reliability	outages, bugs
+Misrepresentation	features not delivered
+Contract issues	cancellations, lock-ins
+Data/privacy	breaches, misuse
+Access issues	locked accounts, bans
+
+
+This enables pattern detection, not just sentiment.
+
+---
+
+6. Platform-by-platform handling
+
+6.1 Trustpilot / consumer review sites
+
+What to collect
+
+* Full review text
+* Date posted
+* Star rating (metadata only)
+* Company response text
+* Response timing
+
+Special handling
+
+* Ignore star average
+* Track unresolved complaints
+* Detect template responses
+* Monitor review floods
+
+API vs scraping
+
+* APIs: Generally unavailable
+* Scraping: Required
+* Aggregation: Mandatory
+
+---
+
+6.2 B2B platforms (G2, Capterra)
+
+What to collect
+
+* Review text
+* Role context (buyer/admin/user)
+* Company size (if provided)
+* Timeline (implementation vs long-term)
+
+Special handling
+
+* Detect review gating (“only happy users asked”)
+* Weight long-term users higher than trials
+
+API vs scraping
+
+* APIs: Limited
+* Scraping: Often required
+
+---
+
+6.3 App Store / Google Play
+
+What to collect
+
+* Review text
+* App version
+* Device/platform
+* Update timing
+
+Special handling
+
+* Correlate complaints with releases
+* Detect support silence after updates
+
+API vs scraping
+
+* Hybrid
+* APIs preferred for metadata
+* Scraping for full text if needed
+
+---
+
+6.4 Social support replies (X, etc.)
+
+What to collect
+
+* User complaint text
+* Company reply (if any)
+* Time to reply
+* Tone of reply
+* Thread continuation
+
+Special handling
+
+* Silence is a signal
+* Defensive replies increase risk
+* Scripted replies reduce trust
+
+API vs scraping
+
+* X: API preferred
+* Others: selective scraping
+
+---
+
+6.5 YouTube comments
+
+Where to look
+
+* Company videos
+* Product reviews
+* “How to fix X” videos
+* Complaint explainer videos
+
+What to collect
+
+* Comment text
+* Replies
+* Like counts
+* Timing relative to video
+
+API vs scraping
+
+* YouTube Data API preferred
+
+---
+
+7. Company behavior analysis (CORE VALUE)
+
+Layer 5 is unique because it includes both sides.
+
+7.1 Company response classification
+
+Column 1	Column 2
+Response type	Meaning
+No response	Operational neglect
+Template response	Reputation management
+Defensive	Blame shifting
+Empathetic + action	Mature ops
+Public fix	Accountability
+
+
+Response timing matters more than tone alone.
+
+---
+
+7.2 Resolution tracking
+
+Column 1	Column 2
+Resolution state	Interpretation
+Resolved publicly	Low risk
+Acknowledged only	Medium risk
+Ignored	High risk
+Repeated unresolved	Structural issue
+
+
+---
+
+8. Pattern & time-based detection
+
+Layer 5 must answer:
+
+* Are complaints increasing?
+* Are the same issues repeating?
+* Do issues correlate with layoffs, price changes, or releases?
+* Is support degrading over time?
+
+8.1 Flood patterns
+
+Column 1	Column 2
+Pattern	Meaning
+Sudden complaint spike	Outage / policy change
+Long-term slow increase	Operational decay
+Silence after spike	Resource shortage
+Defensive surge	Reputation under threat
+
+
+---
+
+9. API vs scraping — definitive Layer 5 rules
+
+Column 1	Column 2	Column 3
+Source	Access method	Notes
+Trustpilot	Scraping	Public
+G2 / Capterra	Scraping / limited API	Watch ToS
+App stores	Hybrid	Version data is key
+X replies	API	Paid
+YouTube comments	API	Quota-based
+Forums	Scraping	Selective
+
+
+Rule:
+
+If you can’t see the complaint and the response, it’s not Layer 5.
+
+---
+
+10. Legal & ethical guardrails
+
+Layer 5 must always:
+
+* use only public content
+* avoid identifying individuals
+* aggregate complaints
+* avoid quoting single users verbatim in outputs
+* clearly separate user claims from verified facts
+
+Safe phrasing:
+
+“Users report repeated issues with…”
+Not:
+“Customer X said…”
+
+---
+
+11. How Layer 5 is used downstream
+
+Layer 5 feeds:
+
+* operational risk scoring
+* financial stress signals
+* ethical maturity assessment
+* confirmation of Layer 3 issues
+* early warning alerts
+
+Layer 5 + Layer 3 alignment = strong predictor of internal trouble.
+
+---
+
+12. Common failure modes (avoid these)
+
+❌ Treating reviews as sentiment only
+❌ Ignoring company responses
+❌ Mixing users with employees
+❌ Trusting star ratings
+❌ Not correlating with releases or policy changes
+❌ Highlighting one angry customer
+
+---
+
+13. Final Layer 5 checklist (build gate)
+
+Layer 5 is complete only if:
+
+[ ] Full complaint text is ingested
+[ ] Issue categories are assigned
+[ ] Company responses are captured
+[ ] Resolution state is tracked
+[ ] Time-series trends are available
+[ ] Outputs are aggregated and anonymized
+
+---
+
+14. Final lock statement
+
+Layer 5 is the operational ethics layer.
+It shows how a company behaves when real users are affected.
+It exposes stress, maturity, and honesty under pressure.
+
+This definition is locked.
+
+
+Standalone Specification
+
+---
+
+1. Purpose of Layer 6
+
+Layer 6 captures verifiable external events that impose consequences on a company outside its control.
+
+This layer answers:
+
+“What has actually happened to this company in the real world?”
+
+Layer 6 is not opinion, sentiment, or narrative.
+It is events, actions, and outcomes.
+
+This layer exists to:
+
+* ground all other layers in reality
+* prevent speculation drift
+* validate or falsify earlier signals
+* provide legal, financial, and operational context
+
+---
+
+2. Canonical definition (LOCKED)
+
+Layer 6 includes publicly documented events, actions, or outcomes involving a company that carry legal, financial, regulatory, or structural consequences.
+
+Key traits:
+
+* externally imposed or externally verified
+* documented by third parties
+* timestamped
+* resistant to narrative manipulation
+
+---
+
+3. What Layer 6 explicitly includes
+
+3.1 Event categories (MANDATORY taxonomy)
+
+Every Layer 6 item must belong to one or more categories.
+
+Column 1	Column 2
+Category	Examples
+Layoffs & workforce reductions	Layoffs, hiring freezes
+Legal actions	Lawsuits, settlements
+Regulatory actions	Fines, investigations
+Financial distress	Bankruptcy, missed payments
+Structural changes	Acquisitions, divestments
+Leadership changes	CEO/CFO exits
+Compliance failures	Data breaches
+Public sanctions	Bans, license loss
+Government actions	Audits, penalties
+
+
+---
+
+3.2 Source categories
+
+Column 1	Column 2	Column 3
+Source type	Examples	Priority
+Reputable news outlets	Reuters, AP, FT	Very High
+Layoff trackers	Layoffs.fyi	High
+Court records	Public dockets	High
+Business registries	National registries	High
+Regulatory bodies	SEC, FTC, EU DPAs	Very High
+Financial filings	Annual/quarterly reports	High
+Government gazettes	Official notices	Medium
+
+
+---
+
+4. What Layer 6 explicitly excludes
+
+* Rumors or speculation
+* Anonymous tips without verification
+* Community discussion (Layer 4)
+* Reviews or complaints (Layer 5)
+* Opinion pieces without factual basis
+* Official company spin unless tied to a verified event
+
+Layer 6 requires independent confirmation.
+
+---
+
+5. Data capture requirements (NON-NEGOTIABLE)
+
+Layer 6 requires precision and traceability.
+
+5.1 Required fields
+
+Column 1	Column 2	Column 3
+Field	Required	Notes
+Event type	Yes	From taxonomy
+Event description	Yes	Factual summary
+Event date	Yes	Actual occurrence date
+Source	Yes	Third-party authority
+Source URL / reference	Yes	Verifiable
+Jurisdiction	Yes	Country/state
+Severity level	Yes	See below
+Confirmation count	Yes	Independent sources
+
+
+---
+
+5.2 Severity classification
+
+Severity is impact-based, not sensational.
+
+Column 1	Column 2
+Level	Definition
+Low	Minor, isolated, resolved
+Medium	Material but contained
+High	Structural or financial impact
+Critical	Existential threat
+
+
+Severity must be defensible, not inflated.
+
+---
+
+6. Platform-by-platform handling
+
+6.1 News media
+
+What to collect
+
+* Headline
+* Article body
+* Publish date
+* Named facts (amounts, counts)
+* Company statements (as metadata only)
+
+Rules
+
+* Prefer primary reporting
+* Avoid blogs rehashing news
+* Cross-check facts across outlets
+
+API vs scraping
+
+* APIs available for some outlets
+* Scraping often required
+* News aggregators may be used cautiously
+
+---
+
+6.2 Layoff trackers
+
+What to collect
+
+* Layoff date
+* Headcount affected
+* Percentage of workforce
+* Geography
+* Source of confirmation
+
+Rules
+
+* Verify against at least one other source
+* Track repeated rounds separately
+
+API vs scraping
+
+* Mostly scraping
+* Some CSV/feeds available
+
+---
+
+6.3 Court and legal records
+
+What to collect
+
+* Case type
+* Filing date
+* Parties involved
+* Status (filed, ongoing, settled)
+* Outcome (if available)
+
+Rules
+
+* Distinguish allegations from judgments
+* Track outcomes separately from filings
+
+API vs scraping
+
+* Jurisdiction-dependent
+* Many courts require scraping or manual feeds
+
+---
+
+6.4 Business registries
+
+What to collect
+
+* Incorporation changes
+* Status changes
+* Directors/officers changes
+* Dissolutions or insolvency filings
+
+Rules
+
+* Treat registry data as authoritative
+* Track changes over time
+
+API vs scraping
+
+* Mixed
+* Some registries offer APIs
+* Others require scraping
+
+---
+
+6.5 Regulatory bodies
+
+What to collect
+
+* Enforcement action
+* Fine amount
+* Violated statute
+* Resolution date
+* Compliance requirements
+
+Rules
+
+* Regulatory findings outweigh media coverage
+* Use original authority documents
+
+API vs scraping
+
+* Some APIs exist
+* Often scrape public notices
+
+---
+
+7. Verification & confirmation rules (CRITICAL)
+
+Layer 6 has the strictest validation.
+
+7.1 Minimum confirmation requirements
+
+Column 1	Column 2
+Event type	Minimum confirmations
+Layoffs	1 reputable + 1 independent
+Lawsuits	Court record
+Regulatory action	Authority publication
+Financial distress	Registry or filing
+Leadership exit	Company filing or multiple outlets
+
+
+No confirmation → no Layer 6 entry.
+
+---
+
+8. Time-based analysis (REQUIRED)
+
+Layer 6 must answer:
+
+* Is this a one-off or repeated?
+* Did similar events occur previously?
+* Did Layer 2–5 signals precede this?
+* Did this event trigger changes in other layers?
+
+Layer 6 is the anchor for causality analysis.
+
+---
+
+9. API vs scraping — definitive Layer 6 rules
+
+Column 1	Column 2	Column 3
+Source type	Access method	Notes
+News outlets	API or scraping	Prefer original
+Layoff trackers	Scraping	Verify
+Court records	Mixed	Jurisdiction-specific
+Registries	API or scraping	Authoritative
+Regulators	Scraping/API	Use original docs
+
+
+Rule:
+
+If the source cannot be independently verified, it does not belong in Layer 6.
+
+---
+
+10. Legal & ethical guardrails
+
+Layer 6 must:
+
+* distinguish allegations from findings
+* avoid speculative language
+* clearly cite sources
+* avoid sensational framing
+* separate company response from fact
+
+Safe phrasing:
+
+“The company was fined…”
+Not:
+“The company is corrupt…”
+
+---
+
+11. How Layer 6 is used downstream
+
+Layer 6 is used to:
+
+* confirm or downgrade risk scores
+* contextualize other layers
+* explain why patterns emerged
+* justify confidence levels
+* support defensible reporting
+
+Layer 6 overrides narrative.
+Facts beat vibes.
+
+---
+
+12. Common failure modes (avoid these)
+
+❌ Treating rumors as events
+❌ Using single-source news
+❌ Inflating severity
+❌ Mixing company statements with outcomes
+❌ Ignoring jurisdiction context
+❌ Failing to track outcomes over time
+
+---
+
+13. Final Layer 6 checklist (build gate)
+
+Layer 6 is complete only if:
+
+[ ] Event taxonomy is applied
+[ ] Independent confirmation exists
+[ ] Severity is classified
+[ ] Jurisdiction is recorded
+[ ] Outcomes are tracked
+[ ] Sources are cited
+[ ] Time-series history is maintained
+
+---
+
+14. Final lock statement
+
+Layer 6 is the reality anchor.
+It records what actually happened, not what was said.
+It converts patterns into proof and speculation into history.
+
+This definition is locked.

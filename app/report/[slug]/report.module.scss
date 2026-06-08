@@ -1,0 +1,458 @@
+@use '../../../styles/tokens' as *;
+@use '../../../styles/mixins' as *;
+
+.page {
+  min-height: 100vh;
+  background: $bg-primary;
+  padding-top: $header-height;
+}
+
+.container { @include container; }
+
+// ─── Report Header ───────────────────────────────────────────────
+.reportHeader {
+  padding: $sp-64 0 $sp-48;
+  background: $bg-secondary;
+  border-bottom: 1px solid $border-primary;
+}
+
+.breadcrumb {
+  font-size: $fs-sm;
+  color: $text-muted;
+  margin-bottom: $sp-16;
+
+  a {
+    color: $accent;
+    &:hover { text-decoration: underline; }
+  }
+}
+
+.companyName {
+  font-size: clamp($fs-3xl, 4vw, $fs-5xl);
+  font-weight: $fw-black;
+  color: $text-primary;
+  letter-spacing: $ls-tight;
+  margin: 0 0 $sp-16;
+}
+
+.meta {
+  display: flex;
+  gap: $sp-12;
+  margin-bottom: $sp-32;
+  flex-wrap: wrap;
+}
+
+.metaPill {
+  padding: $sp-4 $sp-16;
+  background: $bg-tertiary;
+  border: 1px solid $border-primary;
+  border-radius: $radius-pill;
+  font-size: $fs-xs;
+  color: $text-muted;
+  font-weight: $fw-medium;
+}
+
+// Confidence
+.confidenceBox {
+  display: flex;
+  align-items: center;
+  gap: $sp-16;
+  max-width: 400px;
+}
+
+.confidenceLabel {
+  font-size: $fs-sm;
+  font-weight: $fw-semibold;
+  color: $text-secondary;
+  white-space: nowrap;
+}
+
+.confidenceBar {
+  flex: 1;
+  height: 8px;
+  background: $bg-tertiary;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.confidenceFill {
+  height: 100%;
+  background: $gradient-accent;
+  border-radius: 4px;
+  transition: width 1s $ease-out;
+}
+
+.confidenceValue {
+  font-size: $fs-sm;
+  font-weight: $fw-bold;
+  color: $accent;
+  white-space: nowrap;
+}
+
+// ─── Snapshot ────────────────────────────────────────────────────
+.snapshot {
+  padding: $sp-64 0;
+}
+
+.sectionTitle {
+  font-size: $fs-2xl;
+  font-weight: $fw-bold;
+  color: $text-primary;
+  margin: 0 0 $sp-32;
+  display: flex;
+  align-items: center;
+  gap: $sp-12;
+}
+
+.badge {
+  @include section-label;
+  padding: $sp-4 $sp-12;
+  background: $accent-dim;
+  border-radius: $radius-pill;
+}
+
+.risksGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $sp-16;
+  margin-bottom: $sp-32;
+
+  @include md { grid-template-columns: 1fr; }
+}
+
+.riskCard {
+  @include glass-card;
+  padding: $sp-24;
+}
+
+.riskTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $sp-12;
+}
+
+.riskLabel {
+  font-weight: $fw-semibold;
+  color: $text-primary;
+}
+
+.riskLevel {
+  font-size: $fs-xs;
+  font-weight: $fw-bold;
+  text-transform: uppercase;
+  letter-spacing: $ls-wide;
+  padding: $sp-2 $sp-12;
+  border-radius: $radius-pill;
+}
+
+.levelHigh { color: $danger; background: rgba($danger, 0.1); }
+.levelMed  { color: $warning; background: rgba($warning, 0.1); }
+.levelLow  { color: $success; background: rgba($success, 0.1); }
+
+.riskDetail {
+  font-size: $fs-sm;
+  color: $text-secondary;
+  line-height: $lh-relaxed;
+  margin: 0;
+}
+
+// Signals
+.subTitle {
+  font-size: $fs-lg;
+  font-weight: $fw-bold;
+  color: $text-primary;
+  margin: 0 0 $sp-16;
+}
+
+.signalsBox {
+  margin-bottom: $sp-32;
+}
+
+.signalsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $sp-8;
+
+  li {
+    padding: $sp-12 $sp-16;
+    background: $bg-card;
+    border: 1px solid $border-primary;
+    border-radius: $radius-md;
+    font-size: $fs-sm;
+    color: $text-secondary;
+
+    &::before {
+      content: '→ ';
+      color: $accent;
+      font-weight: $fw-bold;
+    }
+  }
+}
+
+// Why
+.whyBox {
+  padding: $sp-24;
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-radius: $radius-lg;
+}
+
+.whyCopy {
+  font-size: $fs-base;
+  color: $text-secondary;
+  line-height: $lh-relaxed;
+  margin: 0;
+}
+
+// ─── Full Report Sections ────────────────────────────────────────
+.fullSection {
+  padding: $sp-48 0;
+  border-top: 1px solid $border-primary;
+}
+
+// Timeline
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding-left: $sp-32;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: $border-secondary;
+  }
+}
+
+.timelineItem {
+  position: relative;
+  padding-bottom: $sp-24;
+
+  &:last-child { padding-bottom: 0; }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: calc(-#{$sp-32} + 1px);
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: $accent;
+    border: 2px solid $bg-primary;
+  }
+}
+
+.timelineYear {
+  display: inline-block;
+  font-size: $fs-sm;
+  font-weight: $fw-bold;
+  color: $accent;
+  margin-bottom: $sp-4;
+}
+
+.timelineLine { display: none; }
+
+.timelineText {
+  font-size: $fs-sm;
+  color: $text-secondary;
+  line-height: $lh-relaxed;
+  margin: 0;
+}
+
+// Leadership
+.leadershipGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $sp-16;
+
+  @include md { grid-template-columns: 1fr; }
+}
+
+.leadershipCard {
+  @include glass-card;
+  padding: $sp-24;
+}
+
+.leadershipTop {
+  display: flex;
+  align-items: center;
+  gap: $sp-12;
+  margin-bottom: $sp-12;
+  flex-wrap: wrap;
+}
+
+.leadershipRole {
+  font-weight: $fw-bold;
+  color: $text-primary;
+}
+
+.leadershipEvent {
+  font-size: $fs-xs;
+  font-weight: $fw-semibold;
+  text-transform: uppercase;
+  letter-spacing: $ls-wide;
+  padding: $sp-2 $sp-12;
+  border-radius: $radius-pill;
+  background: $accent-dim;
+  color: $accent;
+}
+
+.leadershipDate {
+  font-size: $fs-sm;
+  color: $text-muted;
+  margin-left: auto;
+}
+
+// Compensation
+.compGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $sp-16;
+
+  @include md { grid-template-columns: 1fr; }
+}
+
+.compCard {
+  @include glass-card;
+  padding: $sp-24;
+}
+
+.compTop {
+  display: flex;
+  align-items: center;
+  gap: $sp-12;
+  margin-bottom: $sp-12;
+  flex-wrap: wrap;
+}
+
+.compRole {
+  font-weight: $fw-semibold;
+  color: $text-primary;
+}
+
+.compRange {
+  font-size: $fs-sm;
+  font-weight: $fw-bold;
+  color: $accent;
+  margin-left: auto;
+}
+
+.compTrend {
+  font-size: $fs-xs;
+  font-weight: $fw-bold;
+  text-transform: uppercase;
+  padding: $sp-2 $sp-12;
+  border-radius: $radius-pill;
+}
+
+.trendUp     { color: $success; background: rgba($success, 0.1); }
+.trendDown   { color: $danger;  background: rgba($danger, 0.1);  }
+.trendStable { color: $text-muted; background: $bg-tertiary; }
+
+// Competitor Table
+.compTable {
+  border: 1px solid $border-primary;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.compTableHeader {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 1fr 0.8fr 2fr;
+  padding: $sp-16 $sp-20;
+  background: $bg-secondary;
+  font-size: $fs-xs;
+  font-weight: $fw-bold;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: $ls-wide;
+
+  @include md { display: none; }
+}
+
+.compTableRow {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 1fr 0.8fr 2fr;
+  padding: $sp-16 $sp-20;
+  border-top: 1px solid $border-primary;
+  font-size: $fs-sm;
+  color: $text-secondary;
+  align-items: center;
+
+  @include md {
+    grid-template-columns: 1fr 1fr;
+    gap: $sp-8;
+  }
+}
+
+.compTableName {
+  font-weight: $fw-semibold;
+  color: $text-primary;
+}
+
+.compTableNote {
+  font-size: $fs-xs;
+  color: $text-muted;
+}
+
+// ─── Methodology ─────────────────────────────────────────────────
+.methodology {
+  padding: $sp-64 0 $sp-96;
+  border-top: 1px solid $border-primary;
+}
+
+.accordions {
+  max-width: $max-width-sm;
+  display: flex;
+  flex-direction: column;
+  gap: $sp-8;
+}
+
+.accordion {
+  border: 1px solid $border-primary;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.accordionBtn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $sp-16 $sp-20;
+  background: $bg-card;
+  border: none;
+  color: $text-primary;
+  font-size: $fs-base;
+  font-weight: $fw-medium;
+  cursor: pointer;
+  text-align: left;
+
+  svg {
+    flex-shrink: 0;
+    color: $text-muted;
+    transition: transform $duration-normal ease;
+  }
+}
+
+.accordionOpen {
+  transform: rotate(180deg);
+}
+
+.accordionBody {
+  padding: 0 $sp-20 $sp-16;
+  font-size: $fs-sm;
+  color: $text-secondary;
+  line-height: $lh-relaxed;
+  background: $bg-card;
+}

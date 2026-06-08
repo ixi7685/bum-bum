@@ -1,0 +1,532 @@
+@use '../styles/tokens' as *;
+@use '../styles/mixins' as *;
+
+// ═══════════════════════════════════════════════════════════════════
+// Homepage — Light Professional (Why Risk)
+// ═══════════════════════════════════════════════════════════════════
+
+.page {
+  min-height: 100vh;
+  background: $bg-primary;
+  padding-top: $header-height;
+}
+
+// ═══ 1. HERO ═════════════════════════════════════════════════════
+.hero {
+  padding: $sp-80 0 $sp-40;
+  text-align: center;
+  background: $bg-primary;
+
+  @include md { padding: $sp-48 0 $sp-32; }
+}
+
+.heroInner {
+  @include container($max-width-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: $bg-primary;
+  border: 2px solid $border-secondary;
+  border-radius: $radius-pill;
+  padding: $sp-16 $sp-24;
+  margin-bottom: $sp-32;
+  transition: border-color $duration-normal $ease-smooth,
+              box-shadow $duration-normal $ease-smooth;
+
+  &:focus-within {
+    border-color: $accent;
+    box-shadow: 0 0 0 4px $accent-dim;
+  }
+}
+
+.searchIcon {
+  flex-shrink: 0;
+  color: $text-muted;
+  margin-right: $sp-12;
+}
+
+.searchInput {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: $fs-md;
+  color: $text-primary;
+  font-family: inherit;
+
+  &::placeholder { color: $text-dim; }
+}
+
+.heroH1 {
+  font-size: clamp($fs-2xl, 3.5vw, $fs-4xl);
+  font-weight: $fw-bold;
+  color: $text-primary;
+  margin: 0 0 $sp-24;
+  line-height: $lh-snug;
+  letter-spacing: $ls-tight;
+}
+
+.analyzeBtn {
+  @include btn-primary;
+  padding: $sp-16 $sp-48;
+  font-size: $fs-md;
+  margin-bottom: $sp-16;
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+.howLink {
+  display: inline-block;
+  color: $text-secondary;
+  font-size: $fs-base;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color $duration-fast ease;
+
+  &:hover { color: $text-primary; }
+}
+
+.demoLink {
+  display: inline-block;
+  color: $accent;
+  font-size: $fs-base;
+  font-weight: 500;
+  text-decoration: none;
+  padding: $sp-8 $sp-16;
+  border: 1px solid $accent;
+  border-radius: $radius-sm;
+  transition: background $duration-fast ease, color $duration-fast ease;
+
+  &:hover {
+    background: $accent;
+    color: #fff;
+  }
+}
+
+// ─── Auth hint / search quota ────────────────────────────────────
+
+.questionnaire {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $sp-16;
+  width: 100%;
+  margin-bottom: $sp-24;
+
+  @include md { grid-template-columns: 1fr; }
+}
+
+.fieldGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.fieldLabel {
+  font-size: $fs-sm;
+  font-weight: $fw-medium;
+  color: $text-secondary;
+  margin-bottom: $sp-4;
+}
+
+.fieldInput {
+  background: $bg-primary;
+  border: 1.5px solid $border-secondary;
+  border-radius: $radius-md;
+  padding: $sp-12 $sp-16;
+  font-size: $fs-base;
+  color: $text-primary;
+  font-family: inherit;
+  transition: border-color $duration-fast ease, box-shadow $duration-fast ease;
+
+  &:focus {
+    outline: none;
+    border-color: $accent;
+    box-shadow: 0 0 0 3px $accent-dim;
+  }
+
+  &::placeholder { color: $text-dim; }
+}
+
+.authHint {
+  font-size: $fs-sm;
+  color: $text-muted;
+  margin: 0 0 $sp-24;
+  text-align: center;
+}
+
+.authHintLink {
+  background: none;
+  border: none;
+  color: $accent;
+  font-weight: $fw-semibold;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-size: inherit;
+
+  &:hover { color: $accent-hover; }
+}
+
+.searchQuota {
+  font-size: $fs-xs;
+  color: $accent;
+  font-weight: $fw-medium;
+  margin: 0 0 $sp-24;
+  text-align: center;
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ═══ 2. STATS STRIP ═════════════════════════════════════════════
+.statsStrip {
+  padding: $sp-32 0;
+  background: $bg-primary;
+  border-top: 1px solid $border-primary;
+}
+
+.statsInner {
+  @include container;
+}
+
+.statsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $sp-16;
+  flex-wrap: wrap;
+  gap: $sp-8;
+
+  @include sm {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.statLeft,
+.statRight {
+  font-size: $fs-base;
+  color: $text-secondary;
+
+  strong {
+    color: $text-primary;
+    font-weight: $fw-bold;
+  }
+}
+
+.statsDivider {
+  height: 1px;
+  background: $border-primary;
+  margin-bottom: $sp-16;
+}
+
+.trustLine {
+  font-size: $fs-base;
+  color: $text-secondary;
+  text-align: center;
+  margin: 0;
+}
+
+// ═══ 3. TESTIMONIALS ════════════════════════════════════════════
+.testimonials {
+  padding: $sp-64 0;
+  background: $bg-secondary;
+}
+
+.testimonialsInner {
+  @include container;
+}
+
+.testimonialGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $sp-24;
+  margin-bottom: $sp-32;
+
+  @include md {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: $sp-32;
+  }
+}
+
+.testimonialCard {
+  padding: $sp-32 $sp-24;
+  text-align: center;
+  animation: fadeIn 0.4s ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.testimonialQuote {
+  font-size: $fs-md;
+  color: $text-primary;
+  line-height: $lh-relaxed;
+  margin: 0 0 $sp-16;
+}
+
+.testimonialAuthor {
+  font-size: $fs-sm;
+  color: $text-muted;
+}
+
+.carouselDots {
+  display: flex;
+  justify-content: center;
+  gap: $sp-8;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: $text-dim;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background $duration-fast ease;
+
+  &:hover { background: $text-muted; }
+}
+
+.dotActive {
+  background: $accent !important;
+}
+
+// ═══ 4. WHAT WE TRACK ══════════════════════════════════════════
+.tracks {
+  padding: $sp-80 0;
+  background: $bg-primary;
+
+  @include md { padding: $sp-48 0; }
+}
+
+.tracksInner {
+  @include container;
+  text-align: center;
+}
+
+.tracksH2 {
+  font-size: $fs-2xl;
+  font-weight: $fw-bold;
+  color: $text-primary;
+  margin: 0 0 $sp-48;
+}
+
+.tracksGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: $sp-32;
+
+  @include lg { grid-template-columns: repeat(3, 1fr); gap: $sp-24; }
+  @include sm { grid-template-columns: repeat(2, 1fr); }
+}
+
+.trackCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $sp-12;
+}
+
+.trackIcon {
+  width: 72px;
+  height: 72px;
+  color: $accent;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.trackLabel {
+  font-size: $fs-sm;
+  font-weight: $fw-medium;
+  color: $text-primary;
+  text-align: center;
+}
+
+// ═══ 5. TAGLINE ═════════════════════════════════════════════════
+.tagline {
+  padding: $sp-56 0;
+  background: $bg-primary;
+  border-top: 1px solid $border-primary;
+}
+
+.taglineInner {
+  @include container;
+  text-align: center;
+}
+
+.taglineText {
+  font-size: clamp($fs-lg, 2.5vw, $fs-2xl);
+  color: $text-secondary;
+  line-height: $lh-relaxed;
+  margin: 0;
+
+  strong {
+    color: $text-primary;
+    font-weight: $fw-bold;
+  }
+}
+
+// ═══ 6. SOCIAL PROOF ═══════════════════════════════════════════
+.socialProof {
+  padding: $sp-40 0 $sp-48;
+  background: $bg-primary;
+}
+
+.socialProofInner {
+  @include container;
+  text-align: center;
+}
+
+.socialProofLabel {
+  font-size: $fs-sm;
+  color: $text-muted;
+  margin: 0 0 $sp-24;
+}
+
+.logoStrip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $sp-40;
+  flex-wrap: wrap;
+
+  @include sm { gap: $sp-24; }
+}
+
+.logoGoogle {
+  font-size: $fs-2xl;
+  font-weight: $fw-medium;
+  color: $text-primary;
+  letter-spacing: -0.01em;
+}
+
+.logoEY {
+  font-size: $fs-2xl;
+  font-weight: $fw-black;
+  color: $text-primary;
+}
+
+.logoText {
+  font-size: $fs-lg;
+  font-weight: $fw-medium;
+  color: $text-secondary;
+}
+
+// ═══ 7. IMPACT STATS ═══════════════════════════════════════════
+.impact {
+  padding: $sp-64 0;
+  background: $bg-primary;
+  border-top: 1px solid $border-primary;
+}
+
+.impactInner {
+  @include container($max-width-sm);
+  display: flex;
+  justify-content: center;
+
+  @include sm {
+    flex-direction: column;
+    align-items: center;
+    gap: $sp-32;
+  }
+}
+
+.impactItem {
+  flex: 1;
+  text-align: center;
+  padding: 0 $sp-32;
+
+  & + & {
+    border-left: 1px solid $border-primary;
+  }
+
+  @include sm {
+    padding: $sp-24 0 0;
+    width: 100%;
+
+    & + & {
+      border-left: none;
+      border-top: 1px solid $border-primary;
+    }
+  }
+}
+
+.impactValue {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: $sp-4;
+}
+
+.impactNum {
+  font-size: clamp($fs-3xl, 4vw, $fs-4xl);
+  font-weight: $fw-black;
+  color: $accent;
+  letter-spacing: $ls-tight;
+  line-height: 1;
+}
+
+.impactSuffix {
+  font-size: $fs-xl;
+  font-weight: $fw-medium;
+  color: $text-primary;
+  margin-left: $sp-4;
+}
+
+.impactLabel {
+  font-size: $fs-sm;
+  color: $text-muted;
+}
+
+// ═══ 8. BOTTOM CTA ═════════════════════════════════════════════
+.bottomCta {
+  padding: $sp-80 0;
+  background: $bg-primary;
+  text-align: center;
+
+  @include md { padding: $sp-48 0; }
+}
+
+.bottomCtaInner {
+  @include container($max-width-sm);
+}
+
+.bottomCtaH2 {
+  font-size: clamp($fs-2xl, 3vw, $fs-3xl);
+  font-weight: $fw-bold;
+  color: $text-primary;
+  margin: 0 0 $sp-24;
+  letter-spacing: $ls-tight;
+}

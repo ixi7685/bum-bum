@@ -1,0 +1,1176 @@
+'use client'
+
+import { useState } from 'react'
+import { 
+  ReportData, 
+  SignalCard as SignalCardType, 
+  RiskRewardItem,
+  First90Days as First90DaysType,
+  Checklist as ChecklistType,
+  QuestionCategory,
+  PatternTimeline as PatternTimelineType,
+  CommentsSummary,
+  YouTubeEvidence as YouTubeEvidenceType,
+  InterviewIntelligence as InterviewIntelligenceType,
+  EvidenceSection
+} from './types'
+import './Report.scss'
+
+// ============================================================================
+// VERDICT BANNER
+// ============================================================================
+interface VerdictBannerProps {
+  verdict: ReportData['verdict']
+}
+
+export function VerdictBanner({ verdict }: VerdictBannerProps) {
+  const bgClass = verdict.type === 'green' ? 'verdict--green' : 
+                  verdict.type === 'yellow' ? 'verdict--yellow' : 'verdict--red'
+  
+  return (
+    <div className={`verdict-banner ${bgClass}`}>
+      <p className="verdict-banner__context">
+        This is adapted to your situation. The same company can be stable for one person and risky for another.
+      </p>
+      <div className="verdict-banner__header">
+        <span className="verdict-banner__emoji">{verdict.emoji}</span>
+        <span className="verdict-banner__title">{verdict.title}:</span>
+        <span className="verdict-banner__oneliner">{verdict.oneLiner}</span>
+      </div>
+      <div className="verdict-banner__risk">
+        <span>{verdict.riskLevel}</span>
+      </div>
+      <ul className="verdict-banner__bullets">
+        {verdict.bullets.map((bullet, i) => (
+          <li key={i}>
+            <span className="bullet-icon">•</span>
+            {bullet}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+// ============================================================================
+// SIGNAL CARD
+// ============================================================================
+interface SignalCardProps {
+  card: SignalCardType
+}
+
+export function SignalCard({ card }: SignalCardProps) {
+  const levelClass = card.level === 'high' ? 'level--high' : 
+                     card.level === 'medium' ? 'level--medium' : 'level--low'
+  
+  return (
+    <div className="signal-card">
+      <div className="signal-card__header">
+        <span className="signal-card__icon">{card.icon}</span>
+        <span className="signal-card__title">{card.title}</span>
+        <button className="signal-card__expand">+</button>
+      </div>
+      <span className={`signal-card__level ${levelClass}`}>
+        {card.level.charAt(0).toUpperCase() + card.level.slice(1)}
+      </span>
+      <div className="signal-card__meta">
+        <span className="signal-card__since">⏱ Since {card.since}</span>
+        <span className="signal-card__sources">📊 {card.sourceCount} {card.sourceLabel}</span>
+      </div>
+      <p className="signal-card__insight">
+        <span className="insight-dot">●</span>
+        {card.insight}
+      </p>
+    </div>
+  )
+}
+
+// ============================================================================
+// SIGNAL CARDS GRID
+// ============================================================================
+interface SignalCardsGridProps {
+  cards: SignalCardType[]
+}
+
+export function SignalCardsGrid({ cards }: SignalCardsGridProps) {
+  return (
+    <div className="signal-cards-grid">
+      {cards.map(card => (
+        <SignalCard key={card.id} card={card} />
+      ))}
+    </div>
+  )
+}
+
+// ============================================================================
+// PATTERN TIMELINE
+// ============================================================================
+interface PatternTimelineProps {
+  timeline: PatternTimelineType
+}
+
+export function PatternTimeline({ timeline }: PatternTimelineProps) {
+  const years = timeline.themes[0]?.dataPoints.map(d => d.year) || []
+  const minYear = Math.min(...years)
+  const maxYear = Math.max(...years)
+  
+  return (
+    <div className="pattern-timeline">
+      <h3 className="section-title">Patterns Over Time ({timeline.yearRange})</h3>
+      
+      <div className="pattern-timeline__chart">
+        <svg viewBox="0 0 600 150" className="pattern-timeline__svg">
+          {/* Grid lines */}
+          {[0, 1, 2, 3, 4].map(i => (
+            <line 
+              key={i}
+              x1="50" 
+              y1={20 + i * 30} 
+              x2="580" 
+              y2={20 + i * 30} 
+              stroke="#e5e7eb" 
+              strokeWidth="1"
+            />
+          ))}
+          
+          {/* Theme lines and dots */}
+          {timeline.themes.map((theme, themeIdx) => {
+            const points = theme.dataPoints.map((d, i) => {
+              const x = 50 + (i / (theme.dataPoints.length - 1)) * 530
+              const y = 140 - (d.intensity / 100) * 120
+              return { x, y, year: d.year }
+            })
+            
+            const pathD = points.map((p, i) => 
+              `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`
+            ).join(' ')
+            
+            return (
+              <g key={theme.name}>
+                <path
+                  d={pathD}
+                  fill="none"
+                  stroke={theme.color}
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                {points.map((p, i) => (
+                  <circle
+                    key={i}
+                    cx={p.x}
+                    cy={p.y}
+                    r="5"
+                    fill={theme.color}
+                  />
+                ))}
+              </g>
+            )
+          })}
+        </svg>
+      </div>
+      
+      <div className="pattern-timeline__legend">
+        {timeline.themes.map(theme => (
+          <div key={theme.name} className="pattern-timeline__legend-item">
+            <span 
+              className="pattern-timeline__legend-dot" 
+              style={{ backgroundColor: theme.color }}
+            />
+            <span>{theme.name}</span>
+          </div>
+        ))}
+        {timeline.events.map((event, index) => (
+          <div key={`${event.year}-${index}`} className="pattern-timeline__legend-item pattern-timeline__legend-item--event">
+            <span className="pattern-timeline__legend-dot pattern-timeline__legend-dot--event" />
+            <span>{event.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ============================================================================
+// RISK VS REWARD
+// ============================================================================
+interface RiskRewardProps {
+  items: RiskRewardItem[]
+}
+
+export function RiskReward({ items }: RiskRewardProps) {
+  return (
+    <div className="risk-reward">
+      <h3 className="section-title">Trade-offs at a Glance</h3>
+      <div className="risk-reward__list">
+        {items.map((item, i) => (
+          <div key={i} className="risk-reward__item">
+            <span className="risk-reward__icon">{item.icon}</span>
+            <span className="risk-reward__label">{item.label}</span>
+            <div className="risk-reward__bar">
+              {item.segments.map((seg, j) => (
+                <div 
+                  key={j}
+                  className="risk-reward__segment"
+                  style={{ 
+                    backgroundColor: seg.color, 
+                    width: `${seg.width}%` 
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ============================================================================
+// FIRST 90 DAYS
+// ============================================================================
+interface First90DaysProps {
+  data: First90DaysType
+}
+
+export function First90Days({ data }: First90DaysProps) {
+  const [activeWeek, setActiveWeek] = useState(data.weeks[0]?.id || '')
+  const activeWeekData = data.weeks.find(w => w.id === activeWeek)
+  
+  return (
+    <div className="first-90-days">
+      <h3 className="section-title">What to Expect: First 90 Days</h3>
+      
+      <div className="first-90-days__tabs">
+        {data.weeks.map(week => (
+          <button
+            key={week.id}
+            className={`first-90-days__tab ${activeWeek === week.id ? 'first-90-days__tab--active' : ''}`}
+            onClick={() => setActiveWeek(week.id)}
+          >
+            {week.label} ▾
+          </button>
+        ))}
+      </div>
+      
+      {activeWeekData && (
+        <p className="first-90-days__description">{activeWeekData.description}</p>
+      )}
+      
+      <div className="first-90-days__indicators">
+        <div className={`first-90-days__indicator indicator--${data.burnoutLevel}`}>
+          <span className="indicator-icon">🔥</span>
+          <span>Burnout: </span>
+          <span className="indicator-level">{data.burnoutLevel.charAt(0).toUpperCase() + data.burnoutLevel.slice(1)}</span>
+        </div>
+        <div className={`first-90-days__indicator indicator--${data.supportLevel}`}>
+          <span className="indicator-icon">🤝</span>
+          <span>Support: </span>
+          <span className="indicator-level">{data.supportLevel.charAt(0).toUpperCase() + data.supportLevel.slice(1)}</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ============================================================================
+// SELF-PROTECTION CHECKLIST
+// ============================================================================
+interface ChecklistProps {
+  checklist: ChecklistType
+}
+
+export function SelfProtectionChecklist({ checklist }: ChecklistProps) {
+  const [checked, setChecked] = useState<Set<string>>(new Set())
+  
+  const toggle = (id: string) => {
+    const newChecked = new Set(checked)
+    if (newChecked.has(id)) {
+      newChecked.delete(id)
+    } else {
+      newChecked.add(id)
+    }
+    setChecked(newChecked)
+  }
+  
+  return (
+    <div className="checklist">
+      <h3 className="section-title">Before You Decide</h3>
+      
+      <div className="checklist__items">
+        {checklist.items.map(item => (
+          <label key={item.id} className="checklist__item">
+            <input 
+              type="checkbox" 
+              checked={checked.has(item.id)}
+              onChange={() => toggle(item.id)}
+            />
+            <span className="checklist__checkbox" />
+            <span>{item.label}</span>
+          </label>
+        ))}
+      </div>
+      
+      <div className="checklist__redflags">
+        <div className="checklist__redflags-header">
+          <span className="redflag-count">{checklist.redFlags.length}</span>
+          <span className="redflag-icon">🚩</span>
+          <span>Red Flags:</span>
+        </div>
+        <ul className="checklist__redflags-list">
+          {checklist.redFlags.map((flag, i) => (
+            <li key={i}>{flag.text}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+// ============================================================================
+// INTERVIEW POWER QUESTIONS
+// ============================================================================
+interface InterviewQuestionsProps {
+  categories: QuestionCategory[]
+}
+
+export function InterviewQuestions({ categories }: InterviewQuestionsProps) {
+  const [activeTab, setActiveTab] = useState(categories[0]?.id || '')
+  const activeCategory = categories.find(c => c.id === activeTab)
+  
+  return (
+    <div className="interview-questions">
+      <h3 className="section-title">Questions to Ask</h3>
+      
+      <div className="interview-questions__tabs">
+        {categories.map(cat => (
+          <button
+            key={cat.id}
+            className={`interview-questions__tab ${activeTab === cat.id ? 'interview-questions__tab--active' : ''}`}
+            onClick={() => setActiveTab(cat.id)}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+      
+      {activeCategory && (
+        <div className="interview-questions__content">
+          <p className="interview-questions__label">Your questions:</p>
+          <ul className="interview-questions__list">
+            {activeCategory.questions.map((q, i) => (
+              <li key={i}>
+                <span className="question-bullet">■</span>
+                {q}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ============================================================================
+// INTERNET COMMENTS
+// ============================================================================
+interface InternetCommentsProps {
+  comments: CommentsSummary
+}
+
+export function InternetComments({ comments }: InternetCommentsProps) {
+  const [expandedComment, setExpandedComment] = useState<string | null>(null)
+  const [filter, setFilter] = useState<'all' | 'positive' | 'negative' | 'neutral'>('all')
+  const [sourceFilter, setSourceFilter] = useState<string>('all')
+  const [showReplies, setShowReplies] = useState<Set<string>>(new Set())
+  
+  const filteredComments = comments.comments.filter(c => {
+    const sentimentMatch = filter === 'all' || c.sentiment === filter
+    const sourceMatch = sourceFilter === 'all' || c.source.toLowerCase() === sourceFilter.toLowerCase()
+    return sentimentMatch && sourceMatch
+  })
+
+  const sentimentIcon = (sentiment: string) => {
+    switch(sentiment) {
+      case 'positive': return '✅'
+      case 'negative': return '❌'
+      case 'neutral': return '➖'
+      case 'mixed': return '⚖️'
+      default: return '💬'
+    }
+  }
+
+  const toggleReplies = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation()
+    const newShowReplies = new Set(showReplies)
+    if (newShowReplies.has(id)) {
+      newShowReplies.delete(id)
+    } else {
+      newShowReplies.add(id)
+    }
+    setShowReplies(newShowReplies)
+  }
+
+  const renderStars = (rating?: number) => {
+    if (!rating) return null
+    return (
+      <span className="comment-rating">
+        {'★'.repeat(rating)}{'☆'.repeat(5 - rating)}
+      </span>
+    )
+  }
+
+  return (
+    <div className="internet-comments">
+      <h3 className="section-title">
+        What People Are Saying
+        <span className="section-subtitle">({comments.totalFound} found across platforms)</span>
+      </h3>
+      
+      {/* Source Breakdown - Clickable Filters */}
+      <div className="internet-comments__sources">
+        <button 
+          className={`source-badge ${sourceFilter === 'all' ? 'source-badge--active' : ''}`}
+          onClick={() => setSourceFilter('all')}
+        >
+          <span className="source-icon">📋</span>
+          <span className="source-name">All Sources</span>
+          <span className="source-count">{comments.totalFound}</span>
+        </button>
+        {comments.sourceBreakdown.map((source, i) => (
+          <button 
+            key={i} 
+            className={`source-badge ${sourceFilter === source.source ? 'source-badge--active' : ''}`}
+            onClick={() => setSourceFilter(sourceFilter === source.source ? 'all' : source.source)}
+          >
+            <span className="source-icon">{source.icon}</span>
+            <span className="source-name">{source.source}</span>
+            <span className="source-count">{source.count}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Sentiment Split */}
+      <div className="internet-comments__sentiment">
+        <div className="sentiment-bar">
+          <div 
+            className={`sentiment-positive ${filter === 'positive' ? 'sentiment--active' : ''}`} 
+            style={{ width: `${comments.sentimentSplit.positive}%` }}
+            onClick={() => setFilter(filter === 'positive' ? 'all' : 'positive')}
+          >
+            👍 {comments.sentimentSplit.positive}%
+          </div>
+          <div 
+            className={`sentiment-neutral ${filter === 'neutral' ? 'sentiment--active' : ''}`} 
+            style={{ width: `${comments.sentimentSplit.neutral}%` }}
+            onClick={() => setFilter(filter === 'neutral' ? 'all' : 'neutral')}
+          >
+            ➖ {comments.sentimentSplit.neutral}%
+          </div>
+          <div 
+            className={`sentiment-negative ${filter === 'negative' ? 'sentiment--active' : ''}`} 
+            style={{ width: `${comments.sentimentSplit.negative}%` }}
+            onClick={() => setFilter(filter === 'negative' ? 'all' : 'negative')}
+          >
+            👎 {comments.sentimentSplit.negative}%
+          </div>
+        </div>
+      </div>
+
+      {/* Top Themes */}
+      <div className="internet-comments__themes">
+        <span className="themes-label">🔥 Hot Topics:</span>
+        {comments.topThemes.map((theme, i) => (
+          <span key={i} className={`theme-tag theme-tag--${theme.sentiment}`}>
+            {theme.theme} ({theme.count})
+          </span>
+        ))}
+      </div>
+
+      {/* Filter Buttons */}
+      <div className="internet-comments__filters">
+        {(['all', 'positive', 'negative', 'neutral'] as const).map(f => (
+          <button 
+            key={f} 
+            className={`filter-btn ${filter === f ? 'filter-btn--active' : ''}`}
+            onClick={() => setFilter(f)}
+          >
+            {f === 'all' ? '📋 All' : f === 'positive' ? '✅ Positive' : f === 'negative' ? '❌ Negative' : '➖ Neutral'}
+          </button>
+        ))}
+        {filter !== 'all' || sourceFilter !== 'all' ? (
+          <button 
+            className="filter-btn filter-btn--clear"
+            onClick={() => { setFilter('all'); setSourceFilter('all'); }}
+          >
+            ✕ Clear Filters
+          </button>
+        ) : null}
+      </div>
+
+      {/* Results Count */}
+      <div className="internet-comments__count">
+        Showing {filteredComments.length} of {comments.comments.length} comments
+      </div>
+
+      {/* Comments List */}
+      <div className="internet-comments__list">
+        {filteredComments.map(comment => (
+          <div 
+            key={comment.id} 
+            className={`comment-card comment-card--${comment.sentiment} ${expandedComment === comment.id ? 'comment-card--expanded' : ''}`}
+            onClick={() => setExpandedComment(expandedComment === comment.id ? null : comment.id)}
+          >
+            {/* Thread Title */}
+            {comment.threadTitle && (
+              <div className="comment-card__thread">
+                📌 {comment.url ? (
+                  <a
+                    href={comment.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {comment.threadTitle}
+                  </a>
+                ) : comment.threadTitle}
+              </div>
+            )}
+            
+            <div className="comment-card__header">
+              <span className="comment-source">{comment.sourceIcon} {comment.source}</span>
+              <span className="comment-author">{comment.author}</span>
+              {comment.role && <span className="comment-role">• {comment.role}</span>}
+              {comment.yearsAtCompany && <span className="comment-tenure">• {comment.yearsAtCompany}</span>}
+              {comment.location && <span className="comment-location">📍 {comment.location}</span>}
+              <span className="comment-date">{comment.date}</span>
+              {comment.verifiedEmployee && <span className="verified-badge">✓ Verified</span>}
+              {renderStars(comment.rating)}
+            </div>
+
+            {/* Pros and Cons for Glassdoor-style reviews */}
+            {comment.prosAndCons && expandedComment === comment.id && (
+              <div className="comment-card__pros-cons">
+                <div className="pros">
+                  <strong>✅ Pros:</strong>
+                  <ul>
+                    {comment.prosAndCons.pros.map((pro, i) => (
+                      <li key={i}>{pro}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="cons">
+                  <strong>❌ Cons:</strong>
+                  <ul>
+                    {comment.prosAndCons.cons.map((con, i) => (
+                      <li key={i}>{con}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+
+            <blockquote className="comment-card__quote">
+              "{comment.quote}"
+            </blockquote>
+
+            {/* Context when expanded */}
+            {expandedComment === comment.id && comment.context && (
+              <div className="comment-card__context">
+                <span className="context-label">📝 Context:</span> {comment.context}
+              </div>
+            )}
+
+            <div className="comment-card__footer">
+              <span className="comment-sentiment">{sentimentIcon(comment.sentiment)} {comment.sentiment}</span>
+              <span className="comment-theme">🏷️ {comment.theme}</span>
+              {comment.upvotes !== undefined && (
+                <span className="comment-upvotes">⬆️ {comment.upvotes}</span>
+              )}
+              {comment.downvotes !== undefined && (
+                <span className="comment-downvotes">⬇️ {comment.downvotes}</span>
+              )}
+              {comment.replies && comment.replies.length > 0 && (
+                <button 
+                  className="comment-replies-btn"
+                  onClick={(e) => toggleReplies(comment.id, e)}
+                >
+                  💬 {comment.replies.length} replies {showReplies.has(comment.id) ? '▲' : '▼'}
+                </button>
+              )}
+              {comment.url && (
+                <a
+                  href={comment.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="comment-source-link"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  View original →
+                </a>
+              )}
+            </div>
+
+            {/* Replies */}
+            {comment.replies && showReplies.has(comment.id) && (
+              <div className="comment-card__replies">
+                {comment.replies.map((reply, i) => (
+                  <div key={i} className={`reply reply--${reply.sentiment}`}>
+                    <div className="reply__header">
+                      <span className="reply__author">{reply.author}</span>
+                      {reply.upvotes && <span className="reply__upvotes">⬆️ {reply.upvotes}</span>}
+                    </div>
+                    <p className="reply__quote">"{reply.quote}"</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ============================================================================
+// YOUTUBE EVIDENCE
+// ============================================================================
+interface YouTubeEvidenceProps {
+  evidence: YouTubeEvidenceType
+}
+
+export function YouTubeEvidence({ evidence }: YouTubeEvidenceProps) {
+  const [playingVideo, setPlayingVideo] = useState<string | null>(null)
+  const [expandedVideo, setExpandedVideo] = useState<string | null>(null)
+  const [filterType, setFilterType] = useState<string>('all')
+  
+  const filteredVideos = filterType === 'all' 
+    ? evidence.videos 
+    : evidence.videos.filter(v => v.channelType === filterType)
+
+  const channelTypeIcon = (type: string) => {
+    switch(type) {
+      case 'ex-employee': return '👋'
+      case 'current-employee': return '💼'
+      case 'interviewer': return '🎤'
+      case 'career-coach': return '📚'
+      case 'news': return '📰'
+      default: return '🎬'
+    }
+  }
+
+  const credibilityColor = (score: string) => {
+    switch(score) {
+      case 'high': return '#22c55e'
+      case 'medium': return '#f59e0b'
+      case 'low': return '#ef4444'
+      default: return '#6b7280'
+    }
+  }
+
+  const handlePlayVideo = (videoId: string, youtubeId?: string, e?: React.MouseEvent) => {
+    e?.stopPropagation()
+    if (youtubeId) {
+      setPlayingVideo(playingVideo === videoId ? null : videoId)
+      setExpandedVideo(videoId)
+    } else {
+      setExpandedVideo(expandedVideo === videoId ? null : videoId)
+    }
+  }
+
+  const handleClosePlayer = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setPlayingVideo(null)
+  }
+
+  return (
+    <div className="youtube-evidence">
+      <h3 className="section-title">
+        Video Insights
+        <span className="section-subtitle">({evidence.totalVideosFound} videos found)</span>
+      </h3>
+      
+      {/* Video Stats - Clickable Filters */}
+      <div className="youtube-evidence__stats">
+        <button 
+          className={`stat-badge ${filterType === 'all' ? 'stat-badge--active' : ''}`}
+          onClick={() => setFilterType('all')}
+        >
+          <span className="stat-icon">📊</span>
+          <span className="stat-value">{evidence.totalVideosFound}</span>
+          <span className="stat-label">All Videos</span>
+        </button>
+        <button 
+          className={`stat-badge ${filterType === 'ex-employee' ? 'stat-badge--active' : ''}`}
+          onClick={() => setFilterType(filterType === 'ex-employee' ? 'all' : 'ex-employee')}
+        >
+          <span className="stat-icon">👋</span>
+          <span className="stat-value">{evidence.exEmployeeVideos}</span>
+          <span className="stat-label">Ex-Employee</span>
+        </button>
+        <button 
+          className={`stat-badge ${filterType === 'interviewer' ? 'stat-badge--active' : ''}`}
+          onClick={() => setFilterType(filterType === 'interviewer' ? 'all' : 'interviewer')}
+        >
+          <span className="stat-icon">🎤</span>
+          <span className="stat-value">{evidence.interviewExpVideos}</span>
+          <span className="stat-label">Interview Exp</span>
+        </button>
+        <button 
+          className={`stat-badge ${filterType === 'current-employee' ? 'stat-badge--active' : ''}`}
+          onClick={() => setFilterType(filterType === 'current-employee' ? 'all' : 'current-employee')}
+        >
+          <span className="stat-icon">📅</span>
+          <span className="stat-value">{evidence.dayInLifeVideos}</span>
+          <span className="stat-label">Day in Life</span>
+        </button>
+        <div className={`stat-badge stat-badge--${evidence.overallSentiment}`}>
+          <span className="stat-icon">📊</span>
+          <span className="stat-value">{evidence.overallSentiment}</span>
+          <span className="stat-label">Overall Vibe</span>
+        </div>
+      </div>
+
+      {/* Common Themes */}
+      <div className="youtube-evidence__themes">
+        <span className="themes-label">🔄 Common Themes:</span>
+        {evidence.commonThemes.map((theme, i) => (
+          <span key={i} className="theme-tag">{theme}</span>
+        ))}
+      </div>
+
+      {/* Videos List */}
+      <div className="youtube-evidence__list">
+        {filteredVideos.map(video => (
+          <div 
+            key={video.id} 
+            className={`video-card video-card--${video.sentiment} ${expandedVideo === video.id ? 'video-card--expanded' : ''}`}
+          >
+            {/* Embedded YouTube Player */}
+            {playingVideo === video.id && video.youtubeId ? (
+              <div className="video-card__player">
+                <div className="video-player-container">
+                  <button className="video-close-btn" onClick={handleClosePlayer}>✕ Close</button>
+                  <iframe
+                    width="100%"
+                    height="315"
+                    src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0`}
+                    title={video.title}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            ) : (
+              <div 
+                className="video-card__thumbnail"
+                onClick={(e) => handlePlayVideo(video.id, video.youtubeId, e)}
+              >
+                {video.youtubeId ? (
+                  <img 
+                    src={`https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`} 
+                    alt={video.title}
+                    className="thumbnail-img"
+                  />
+                ) : null}
+                <span className="play-icon">▶</span>
+                <span className="video-duration">{video.duration}</span>
+                {video.youtubeId && <span className="watch-label">Click to Watch</span>}
+              </div>
+            )}
+            
+            <div className="video-card__content" onClick={() => setExpandedVideo(expandedVideo === video.id ? null : video.id)}>
+              <h4 className="video-title">{video.title}</h4>
+              <div className="video-meta">
+                <span className="video-channel">{channelTypeIcon(video.channelType)} {video.channel}</span>
+                <span className="video-views">👁️ {video.viewCount}</span>
+                <span className="video-date">📅 {video.publishDate}</span>
+                <span className="video-credibility" style={{ color: credibilityColor(video.credibilityScore) }}>
+                  🎯 {video.credibilityScore} credibility
+                </span>
+              </div>
+              
+              {expandedVideo === video.id && (
+                <div className="video-card__expanded">
+                  {/* Timestamps */}
+                  {video.timestamps && video.timestamps.length > 0 && (
+                    <div className="video-timestamps">
+                      <strong>⏱️ Key Moments:</strong>
+                      <div className="timestamps-list">
+                        {video.timestamps.map((ts, i) => (
+                          <span key={i} className="timestamp-item">
+                            <span className="timestamp-time">{ts.time}</span>
+                            <span className="timestamp-label">{ts.label}</span>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="video-takeaways">
+                    <strong>📋 Key Takeaways:</strong>
+                    <ul>
+                      {video.keyTakeaways.map((takeaway, i) => (
+                        <li key={i}>{takeaway}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  {video.quotableClip && (
+                    <blockquote className="video-quote">
+                      💬 "{video.quotableClip}"
+                    </blockquote>
+                  )}
+                  
+                  <div className="video-topics">
+                    {video.topics.map((topic, i) => (
+                      <span key={i} className="topic-tag">{topic}</span>
+                    ))}
+                  </div>
+
+                  {video.youtubeId && playingVideo !== video.id && (
+                    <button 
+                      className="watch-video-btn"
+                      onClick={(e) => handlePlayVideo(video.id, video.youtubeId, e)}
+                    >
+                      ▶ Watch Video In App
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ============================================================================
+// INTERVIEW INTELLIGENCE
+// ============================================================================
+interface InterviewIntelligenceProps {
+  intel: InterviewIntelligenceType
+}
+
+export function InterviewIntelligence({ intel }: InterviewIntelligenceProps) {
+  const [activeStage, setActiveStage] = useState<string | null>(null)
+  
+  const difficultyStars = (rating: number) => {
+    return '⭐'.repeat(rating) + '☆'.repeat(5 - rating)
+  }
+
+  const stageTypeIcon = (type: string) => {
+    switch(type) {
+      case 'phone-screen': return '📞'
+      case 'technical': return '💻'
+      case 'behavioral': return '🎯'
+      case 'system-design': return '🏗️'
+      case 'coding': return '⌨️'
+      case 'onsite': return '🏢'
+      case 'panel': return '👥'
+      case 'hiring-manager': return '👔'
+      case 'hr': return '📋'
+      case 'culture-fit': return '🤝'
+      case 'presentation': return '📊'
+      default: return '📝'
+    }
+  }
+
+  return (
+    <div className="interview-intel">
+      <h3 className="section-title">Interview Process Overview</h3>
+      
+      {/* Process Overview */}
+      <div className="interview-intel__overview">
+        <div className="overview-stat">
+          <span className="stat-icon">⏱️</span>
+          <span className="stat-value">{intel.processLength}</span>
+          <span className="stat-label">Process Length</span>
+        </div>
+        <div className="overview-stat">
+          <span className="stat-icon">📊</span>
+          <span className="stat-value">{intel.totalStages} rounds</span>
+          <span className="stat-label">Total Stages</span>
+        </div>
+        <div className="overview-stat">
+          <span className="stat-icon">🎯</span>
+          <span className="stat-value">{difficultyStars(intel.difficultyRating)}</span>
+          <span className="stat-label">Difficulty</span>
+        </div>
+        <div className="overview-stat">
+          <span className="stat-icon">✅</span>
+          <span className="stat-value">{intel.offerRate}</span>
+          <span className="stat-label">Offer Rate</span>
+        </div>
+        <div className={`overview-stat overview-stat--${intel.ghostingRisk}`}>
+          <span className="stat-icon">👻</span>
+          <span className="stat-value">{intel.ghostingRisk}</span>
+          <span className="stat-label">Ghosting Risk</span>
+        </div>
+      </div>
+
+      {/* Timeline Warning */}
+      {intel.timelineWarning && (
+        <div className="interview-intel__warning">
+          ⚠️ {intel.timelineWarning}
+        </div>
+      )}
+
+      {/* Interview Stages */}
+      <div className="interview-intel__stages">
+        <h4>Interview Stages</h4>
+        <div className="stages-timeline">
+          {intel.stages.map((stage, index) => (
+            <div 
+              key={stage.id} 
+              className={`stage-card stage-card--${stage.difficulty} ${activeStage === stage.id ? 'stage-card--expanded' : ''}`}
+              onClick={() => setActiveStage(activeStage === stage.id ? null : stage.id)}
+            >
+              <div className="stage-card__number">{index + 1}</div>
+              <div className="stage-card__content">
+                <div className="stage-header">
+                  <span className="stage-icon">{stageTypeIcon(stage.type)}</span>
+                  <span className="stage-name">{stage.name}</span>
+                  <span className="stage-duration">{stage.duration}</span>
+                  <span className={`stage-difficulty difficulty--${stage.difficulty}`}>
+                    {stage.difficulty}
+                  </span>
+                </div>
+                <p className="stage-description">{stage.description}</p>
+                
+                {activeStage === stage.id && (
+                  <div className="stage-expanded">
+                    {stage.interviewerRole && (
+                      <p className="stage-interviewer">👤 Interviewer: {stage.interviewerRole}</p>
+                    )}
+                    <div className="stage-tips">
+                      <strong>💡 Tips:</strong>
+                      <ul>
+                        {stage.tips.map((tip, i) => (
+                          <li key={i}>{tip}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="stage-questions">
+                      <strong>❓ Common Questions:</strong>
+                      <ul>
+                        {stage.commonQuestions.map((q, i) => (
+                          <li key={i}>{q}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Salary Range */}
+      {intel.salaryRange && (
+        <div className="interview-intel__salary">
+          <h4>💰 Salary Range ({intel.salaryRange.level})</h4>
+          <div className="salary-range">
+            <span className="salary-min">{intel.salaryRange.currency} {intel.salaryRange.min}</span>
+            <div className="salary-bar"></div>
+            <span className="salary-max">{intel.salaryRange.currency} {intel.salaryRange.max}</span>
+          </div>
+        </div>
+      )}
+
+      {/* Negotiation Tips */}
+      <div className="interview-intel__negotiation">
+        <h4>💪 Negotiation Tips</h4>
+        <ul>
+          {intel.negotiationTips.map((tip, i) => (
+            <li key={i}>{tip}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Red Flags in Process */}
+      {intel.redFlagsInProcess.length > 0 && (
+        <div className="interview-intel__redflags">
+          <h4>🚩 Red Flags to Watch</h4>
+          <ul>
+            {intel.redFlagsInProcess.map((flag, i) => (
+              <li key={i}>{flag}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Insider Tips */}
+      <div className="interview-intel__insider">
+        <h4>🤫 Insider Tips</h4>
+        <ul>
+          {intel.insiderTips.map((tip, i) => (
+            <li key={i}>{tip}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+// ============================================================================
+// EVIDENCE SOURCES
+// ============================================================================
+interface EvidenceSourcesProps {
+  evidence: EvidenceSection
+}
+
+export function EvidenceSources({ evidence }: EvidenceSourcesProps) {
+  const typeIcon = (type: string) => {
+    switch(type) {
+      case 'news-article': return '📰'
+      case 'sec-filing': return '📊'
+      case 'lawsuit': return '⚖️'
+      case 'glassdoor-trend': return '🚪'
+      case 'linkedin-data': return '💼'
+      case 'layoff-tracker': return '📉'
+      case 'social-media': return '📱'
+      case 'official-report': return '📋'
+      case 'employee-survey': return '📝'
+      default: return '📄'
+    }
+  }
+
+  const credibilityBadge = (cred: string) => {
+    switch(cred) {
+      case 'high': return { color: '#22c55e', label: '✓ High' }
+      case 'medium': return { color: '#f59e0b', label: '◐ Medium' }
+      case 'low': return { color: '#ef4444', label: '○ Low' }
+      default: return { color: '#6b7280', label: '? Unknown' }
+    }
+  }
+
+  return (
+    <div className="evidence-sources">
+      <h3 className="section-title">Sources & Methodology</h3>
+      
+      {/* Stats */}
+      <div className="evidence-sources__stats">
+        <div className="stat-badge">
+          <span className="stat-value">{evidence.totalSources}</span>
+          <span className="stat-label">Total Sources</span>
+        </div>
+        <div className="stat-badge stat-badge--high">
+          <span className="stat-value">{evidence.highCredibilitySources}</span>
+          <span className="stat-label">High Credibility</span>
+        </div>
+        <div className="stat-badge">
+          <span className="stat-value">{evidence.recentSources}</span>
+          <span className="stat-label">Recent (12mo)</span>
+        </div>
+      </div>
+
+      {/* Data Quality Note */}
+      <div className="evidence-sources__quality-note">
+        ℹ️ {evidence.dataQualityNote}
+      </div>
+
+      {/* Sources List */}
+      <div className="evidence-sources__list">
+        {evidence.sources.map(source => {
+          const cred = credibilityBadge(source.credibility)
+          return (
+            <div key={source.id} className="source-card">
+              <div className="source-card__header">
+                <span className="source-type">{typeIcon(source.type)}</span>
+                <span className="source-title">{source.title}</span>
+                <span className="source-credibility" style={{ color: cred.color }}>
+                  {cred.label}
+                </span>
+              </div>
+              <div className="source-card__meta">
+                <span className="source-name">{source.source}</span>
+                <span className="source-date">{source.date}</span>
+              </div>
+              <p className="source-card__summary">{source.summary}</p>
+              <p className="source-card__relevance">
+                <strong>Why it matters:</strong> {source.relevance}
+              </p>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+// ============================================================================
+// MAIN REPORT VIEW
+// ============================================================================
+interface ReportViewProps {
+  data: ReportData
+}
+
+export default function ReportView({ data }: ReportViewProps) {
+  return (
+    <div className="report">
+      {/* Header */}
+      <header className="report__header">
+        <div className="report__header-left">
+          <span className="report__logo">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12l5 5L19 7"/></svg>
+          </span>
+          <h1 className="report__title">{data.companyName} — Risk Profile</h1>
+        </div>
+        <span className="report__beta">Beta</span>
+      </header>
+      
+      {/* Candidate Info */}
+      <div className="report__candidate">
+        <span>{data.candidate.generation}</span>
+        <span className="separator">|</span>
+        <span>{data.candidate.ageRange}</span>
+        <span className="separator">|</span>
+        <span>{data.candidate.focus.join(' + ')}</span>
+      </div>
+      
+      {/* Verdict Banner */}
+      <VerdictBanner verdict={data.verdict} />
+      
+      {/* Signal Cards Grid */}
+      <SignalCardsGrid cards={data.signalCards} />
+      
+      {/* Pattern Timeline */}
+      <PatternTimeline timeline={data.patternTimeline} />
+      
+      {/* Bottom Section - 2 columns */}
+      <div className="report__bottom-grid">
+        <RiskReward items={data.riskReward} />
+        <First90Days data={data.first90Days} />
+      </div>
+      
+      <div className="report__bottom-grid">
+        <SelfProtectionChecklist checklist={data.checklist} />
+        <InterviewQuestions categories={data.interviewQuestions} />
+      </div>
+
+      {/* NEW: Internet Comments Section */}
+      {data.internetComments && (
+        <InternetComments comments={data.internetComments} />
+      )}
+
+      {/* NEW: YouTube Evidence Section */}
+      {data.youtubeEvidence && (
+        <YouTubeEvidence evidence={data.youtubeEvidence} />
+      )}
+
+      {/* NEW: Interview Intelligence Section */}
+      {data.interviewIntelligence && (
+        <InterviewIntelligence intel={data.interviewIntelligence} />
+      )}
+
+      {/* NEW: Evidence Sources Section */}
+      {data.evidenceSources && (
+        <EvidenceSources evidence={data.evidenceSources} />
+      )}
+    </div>
+  )
+}

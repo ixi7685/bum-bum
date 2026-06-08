@@ -1,0 +1,96 @@
+// ═══════════════════════════════════════════════════════════════════
+// Why Risk Mixins
+// ═══════════════════════════════════════════════════════════════════
+@use 'tokens' as *;
+
+// ─── Container ───────────────────────────────────────────────────
+@mixin container($max: $max-width) {
+  max-width: $max;
+  margin: 0 auto;
+  padding-left: $sp-24;
+  padding-right: $sp-24;
+
+  @media (max-width: $bp-sm) {
+    padding-left: $sp-16;
+    padding-right: $sp-16;
+  }
+}
+
+// ─── Breakpoints ─────────────────────────────────────────────────
+@mixin sm  { @media (max-width: $bp-sm)  { @content; } }
+@mixin md  { @media (max-width: $bp-md)  { @content; } }
+@mixin lg  { @media (max-width: $bp-lg)  { @content; } }
+@mixin xl  { @media (max-width: $bp-xl)  { @content; } }
+@mixin above-md { @media (min-width: ($bp-md + 1px)) { @content; } }
+
+// ─── Section Label (small caps) ─────────────────────────────────
+@mixin section-label {
+  font-size: $fs-xs;
+  font-weight: $fw-semibold;
+  text-transform: uppercase;
+  letter-spacing: $ls-wide;
+  color: $accent;
+}
+
+// ─── Focus ring ──────────────────────────────────────────────────
+@mixin focus-ring {
+  outline: 2px solid $accent;
+  outline-offset: 2px;
+}
+
+// ─── Glass card ──────────────────────────────────────────────────
+@mixin glass-card {
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-radius: $radius-lg;
+  backdrop-filter: blur(12px);
+}
+
+// ─── Pill button ─────────────────────────────────────────────────
+@mixin btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $sp-8;
+  padding: $sp-12 $sp-32;
+  background: $accent;
+  color: #ffffff;
+  font-weight: $fw-semibold;
+  font-size: $fs-base;
+  border: none;
+  border-radius: $radius-pill;
+  cursor: pointer;
+  transition: all $duration-normal $ease-smooth;
+  white-space: nowrap;
+
+  &:hover {
+    background: $accent-hover;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.25);
+  }
+
+  &:active { transform: translateY(0); }
+  &:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+}
+
+@mixin btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $sp-8;
+  padding: $sp-12 $sp-32;
+  background: transparent;
+  color: $text-primary;
+  font-weight: $fw-medium;
+  font-size: $fs-base;
+  border: 1px solid $border-secondary;
+  border-radius: $radius-pill;
+  cursor: pointer;
+  transition: all $duration-normal $ease-smooth;
+  white-space: nowrap;
+
+  &:hover {
+    border-color: $text-muted;
+    background: rgba(0, 0, 0, 0.03);
+  }
+}

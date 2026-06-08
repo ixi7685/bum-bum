@@ -1,0 +1,62 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.footer {
+  background: $bg-secondary;
+  border-top: 1px solid $border-primary;
+  padding: $sp-80 0 $sp-32;
+}
+
+.container {
+  @include container;
+}
+
+// ─── Links Grid ──────────────────────────────────────────────────
+.linksGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $sp-32;
+  margin-bottom: $sp-32;
+
+  @include md { gap: $sp-24; }
+  @include sm { grid-template-columns: repeat(2, 1fr); }
+}
+
+.linkCol {
+  display: flex;
+  flex-direction: column;
+  gap: $sp-8;
+}
+
+.colTitle {
+  @include section-label;
+  margin-bottom: $sp-4;
+}
+
+.colLink {
+  color: $text-secondary;
+  font-size: $fs-base;
+  transition: color $duration-fast ease;
+
+  &:hover { color: $accent; }
+}
+
+// ─── Disclaimer ──────────────────────────────────────────────────
+.disclaimer {
+  color: $text-dim;
+  font-size: $fs-xs;
+  line-height: $lh-relaxed;
+  max-width: $max-width-sm;
+  margin: 0 0 $sp-32;
+}
+
+// ─── Bottom ──────────────────────────────────────────────────────
+.bottom {
+  padding-top: $sp-24;
+  border-top: 1px solid $border-primary;
+}
+
+.copy {
+  font-size: $fs-xs;
+  color: $text-dim;
+}

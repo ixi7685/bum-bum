@@ -1,0 +1,359 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import './AuthModal.scss'
+
+interface AuthModalProps {
+  isOpen: boolean
+  onClose: () => void
+  initialMode?: 'signin' | 'signup'
+}
+
+type FlowStep = 'entry' | 'goal' | 'status' | 'priorities' | 'email' | 'complete' | 'signin'
+
+interface UserData {
+  goal: string
+  status: string
+  priorities: string[]
+  email: string
+  password: string
+}
+
+export default function AuthModal({ isOpen, onClose, initialMode = 'signup' }: AuthModalProps) {
+  const [step, setStep] = useState<FlowStep>(initialMode === 'signin' ? 'signin' : 'entry')
+  const [userData, setUserData] = useState<UserData>({
+    goal: '',
+    status: '',
+    priorities: [],
+    email: '',
+    password: ''
+  })
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    if (isOpen) {
+      setStep(initialMode === 'signin' ? 'signin' : 'entry')
+    }
+  }, [isOpen, initialMode])
+
+  if (!isOpen) return null
+
+  const getProgress = () => {
+    const steps: FlowStep[] = ['entry', 'goal', 'status', 'priorities', 'email', 'complete']
+    const idx = steps.indexOf(step)
+    return idx === -1 ? 0 : Math.round((idx / (steps.length - 1)) * 100)
+  }
+
+  const handlePriorityToggle = (priority: string) => {
+    setUserData(prev => ({
+      ...prev,
+      priorities: prev.priorities.includes(priority)
+        ? prev.priorities.filter(p => p !== priority)
+        : [...prev.priorities, priority]
+    }))
+  }
+
+  const handleSubmit = async () => {
+    setIsLoading(true)
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    setIsLoading(false)
+    setStep('complete')
+  }
+
+  const goBack = () => {
+    const flow: FlowStep[] = ['entry', 'goal', 'status', 'priorities', 'email']
+    const idx = flow.indexOf(step)
+    if (idx > 0) setStep(flow[idx - 1])
+  }
+
+  // Entry screen
+  const renderEntry = () => (
+    <div className="auth-step">
+      <span className="auth-step__emoji">👋</span>
+      <h2 className="auth-step__title">Let's personalize your experience</h2>
+      <p className="auth-step__subtitle">A few questions help us show what matters to you.</p>
+      
+      <button className="auth-btn" onClick={() => setStep('goal')}>
+        Get started →
+      </button>
+      
+      <div className="auth-divider"><span>or</span></div>
+      
+      <div className="auth-social">
+        <button className="auth-social-btn">
+          <span>🔵</span> Continue with Google
+        </button>
+        <button className="auth-social-btn">
+          <span>🍎</span> Continue with Apple
+        </button>
+      </div>
+      
+      <div className="auth-signin__toggle">
+        Already have an account?{' '}
+        <button onClick={() => setStep('signin')}>Sign in</button>
+      </div>
+    </div>
+  )
+
+  // Goal selection
+  const renderGoal = () => (
+    <div className="auth-step">
+      <span className="auth-step__emoji">🎯</span>
+      <h2 className="auth-step__title">What brings you here?</h2>
+      <p className="auth-step__subtitle">No judgment, just curious.</p>
+      
+      <div className="auth-options">
+        {[
+          { id: 'job-hunting', emoji: '🏃', title: 'Job hunting now', desc: 'Actively looking' },
+          { id: 'exploring', emoji: '👀', title: 'Just exploring', desc: "Seeing what's out there" },
+          { id: 'offer-check', emoji: '📋', title: 'Got an offer', desc: 'Want to check it out' },
+          { id: 'curious', emoji: '🤔', title: 'Curious about my company', desc: 'Already employed' },
+        ].map(option => (
+          <button
+            key={option.id}
+            className={`auth-option ${userData.goal === option.id ? 'selected' : ''}`}
+            onClick={() => {
+              setUserData(prev => ({ ...prev, goal: option.id }))
+              setTimeout(() => setStep('status'), 200)
+            }}
+          >
+            <span className="auth-option__emoji">{option.emoji}</span>
+            <div className="auth-option__content">
+              <p className="auth-option__title">{option.title}</p>
+              <p className="auth-option__desc">{option.desc}</p>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+
+  // Status selection
+  const renderStatus = () => (
+    <div className="auth-step">
+      <span className="auth-step__emoji">💼</span>
+      <h2 className="auth-step__title">What's your experience level?</h2>
+      <p className="auth-step__subtitle">This helps us adjust risk factors that matter at your stage.</p>
+      
+      <div className="auth-options">
+        {[
+          { id: 'student', emoji: '📚', title: 'Student', desc: 'Still in school' },
+          { id: 'entry', emoji: '🌱', title: 'Entry-level', desc: '0-2 years exp' },
+          { id: 'mid', emoji: '🚀', title: 'Mid-level', desc: '3-5 years exp' },
+          { id: 'senior', emoji: '⭐', title: 'Senior+', desc: '6+ years exp' },
+        ].map(option => (
+          <button
+            key={option.id}
+            className={`auth-option ${userData.status === option.id ? 'selected' : ''}`}
+            onClick={() => {
+              setUserData(prev => ({ ...prev, status: option.id }))
+              setTimeout(() => setStep('priorities'), 200)
+            }}
+          >
+            <span className="auth-option__emoji">{option.emoji}</span>
+            <div className="auth-option__content">
+              <p className="auth-option__title">{option.title}</p>
+              <p className="auth-option__desc">{option.desc}</p>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+
+  // Priorities selection
+  const renderPriorities = () => (
+    <div className="auth-step">
+      <span className="auth-step__emoji">⚖️</span>
+      <h2 className="auth-step__title">What matters most to you?</h2>
+      <p className="auth-step__subtitle">Pick up to 3. We'll weight these in your risk assessment.</p>
+      
+      <div className="auth-priorities">
+        {[
+          '💰 Pay stability',
+          '⚖️ Work-life balance',
+          '📈 Growth',
+          '🏠 Remote work',
+          '👔 Good leadership',
+          '🧠 Mental health',
+          '🎯 Clear path',
+          '🤝 Team culture',
+        ].map((priority) => (
+          <button
+            key={priority}
+            className={`auth-priority ${userData.priorities.includes(priority) ? 'selected' : ''}`}
+            onClick={() => handlePriorityToggle(priority)}
+          >
+            <span className="auth-priority__check">
+              {userData.priorities.includes(priority) ? '✓' : ''}
+            </span>
+            {priority}
+          </button>
+        ))}
+      </div>
+      
+      <button
+        className="auth-btn"
+        style={{ marginTop: '1.5rem' }}
+        disabled={userData.priorities.length === 0}
+        onClick={() => setStep('email')}
+      >
+        Continue →
+      </button>
+    </div>
+  )
+
+  // Email/Password
+  const renderEmail = () => (
+    <div className="auth-step">
+      <span className="auth-step__emoji">�</span>
+      <h2 className="auth-step__title">Save your profile</h2>
+      <p className="auth-step__subtitle">Create an account to access your personalized reports.</p>
+      
+      <div className="auth-input-group">
+        <label className="auth-input-label">Email</label>
+        <input
+          type="email"
+          className="auth-input"
+          placeholder="you@email.com"
+          value={userData.email}
+          onChange={e => setUserData(prev => ({ ...prev, email: e.target.value }))}
+        />
+      </div>
+      
+      <div className="auth-input-group">
+        <label className="auth-input-label">Password</label>
+        <input
+          type="password"
+          className="auth-input"
+          placeholder="Create a password"
+          value={userData.password}
+          onChange={e => setUserData(prev => ({ ...prev, password: e.target.value }))}
+        />
+      </div>
+      
+      <button
+        className="auth-btn"
+        disabled={!userData.email || !userData.password || isLoading}
+        onClick={handleSubmit}
+      >
+        {isLoading ? '⏳ Creating...' : 'Create account →'}
+      </button>
+      
+      <p className="auth-modal__footer">
+        By signing up, you agree to our Terms &amp; Privacy Policy
+      </p>
+    </div>
+  )
+
+  // Complete
+  const renderComplete = () => (
+    <div className="auth-complete">
+      <span className="auth-complete__emoji">✅</span>
+      <h2 className="auth-complete__title">You're all set</h2>
+      <p className="auth-complete__desc">Your profile is ready. Start exploring companies.</p>
+      <button className="auth-btn" onClick={onClose}>
+        Continue →
+      </button>
+    </div>
+  )
+
+  // Sign In
+  const renderSignIn = () => (
+    <div className="auth-signin">
+      <span className="auth-step__emoji">👋</span>
+      <h2 className="auth-step__title">Welcome back!</h2>
+      <p className="auth-step__subtitle">Sign in to continue.</p>
+      
+      <div className="auth-input-group">
+        <label className="auth-input-label">Email</label>
+        <input
+          type="email"
+          className="auth-input"
+          placeholder="you@email.com"
+          value={userData.email}
+          onChange={e => setUserData(prev => ({ ...prev, email: e.target.value }))}
+        />
+      </div>
+      
+      <div className="auth-input-group">
+        <label className="auth-input-label">Password</label>
+        <input
+          type="password"
+          className="auth-input"
+          placeholder="Your password"
+          value={userData.password}
+          onChange={e => setUserData(prev => ({ ...prev, password: e.target.value }))}
+        />
+      </div>
+      
+      <button
+        className="auth-btn"
+        disabled={!userData.email || !userData.password || isLoading}
+        onClick={handleSubmit}
+      >
+        {isLoading ? '⏳ Signing in...' : 'Sign in →'}
+      </button>
+      
+      <div className="auth-divider"><span>or</span></div>
+      
+      <div className="auth-social">
+        <button className="auth-social-btn">
+          <span>🔵</span> Continue with Google
+        </button>
+      </div>
+      
+      <div className="auth-signin__toggle">
+        {"Don't have an account? "}
+        <button onClick={() => setStep('entry')}>Sign up</button>
+      </div>
+    </div>
+  )
+
+  const renderStep = () => {
+    switch (step) {
+      case 'entry': return renderEntry()
+      case 'goal': return renderGoal()
+      case 'status': return renderStatus()
+      case 'priorities': return renderPriorities()
+      case 'email': return renderEmail()
+      case 'complete': return renderComplete()
+      case 'signin': return renderSignIn()
+      default: return renderEntry()
+    }
+  }
+
+  const showBack = ['goal', 'status', 'priorities', 'email'].includes(step)
+
+  return (
+    <div className="auth-modal-overlay" onClick={onClose}>
+      <div className="auth-modal" onClick={e => e.stopPropagation()}>
+        {/* Header */}
+        <div className="auth-modal__header">
+          {showBack ? (
+            <button className="auth-modal__back" onClick={goBack}>←</button>
+          ) : (
+            <div style={{ width: 36 }} />
+          )}
+          
+          {step !== 'signin' && step !== 'complete' && (
+            <div className="auth-modal__progress">
+              <div 
+                className="auth-modal__progress-bar" 
+                style={{ width: `${getProgress()}%` }} 
+              />
+            </div>
+          )}
+          
+          <button className="auth-modal__close" onClick={onClose}>×</button>
+        </div>
+        
+        {/* Content */}
+        <div className="auth-modal__content">
+          {renderStep()}
+        </div>
+      </div>
+    </div>
+  )
+}

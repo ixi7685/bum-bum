@@ -1,0 +1,648 @@
+/**
+ * L1 — Official / Controlled Narrative (MASTER SOURCE TABLE)
+ *
+ * LOCK RULE: If the company can approve it, edit it, or delete it → Layer 1.
+ *
+ * Scrapes the company's own web properties across ALL L1 surface categories:
+ *   A. Core Company-Owned Web Properties (30+ surfaces)
+ *   B. Official Social Media Brand Accounts (discovered handles)
+ *   C. Official Video, Audio & Media Channels
+ *   D. Hiring & Talent Surfaces (ATS detection)
+ *   E. Official Market & Product Surfaces
+ *   F. Investor, Financial & Corporate Messaging
+ *   G. Legal, Compliance & Risk Messaging
+ *   H. Regional & Language Variants
+ *   I. Edge Cases
+ *
+ * Used for hypocrisy / mismatch detection against L3-L6 data.
+ * NO API KEY NEEDED — uses public HTML pages.
+ */
+
+// ════════════════════════════════════════════════════════════════════
+// TYPES
+// ════════════════════════════════════════════════════════════════════
+
+export interface PageContent {
+  url: string
+  title: string
+  headings: string[]
+  text: string          // Full page text (truncated to fit context)
+  keyPhrases: string[]  // Extracted claims/promises
+}
+
+export interface JobPosting {
+  title: string
+  location: string
+  snippet: string
+  url: string
+}
+
+/** Social brand account discovered on the company domain */
+export interface DiscoveredSocialAccount {
+  platform: string
+  url: string
+  handle: string
+}
+
+/** ATS / Hiring platform detected from the careers page or domain */
+export interface DetectedATSPlatform {
+  platform: string   // Greenhouse, Lever, Workday, Ashby, etc.
+  url: string
+  jobCount: number
+}
+
+/** Full result from the L1 company site scraper */
+export interface CompanySiteResult {
+  companyDomain: string | null
+
+  // ── Category A: Core Web Properties ────────────────────────────
+  aboutPage: PageContent | null
+  careersPage: PageContent | null
+  pressPage: PageContent | null
+  visionValuesPage: PageContent | null
+  culturePage: PageContent | null
+  benefitsPage: PageContent | null
+  deiEsgPage: PageContent | null
+  sustainabilityPage: PageContent | null
+  blogPage: PageContent | null
+  caseStudiesPage: PageContent | null
+  testimonialsPage: PageContent | null
+  customerStoriesPage: PageContent | null
+  partnersPage: PageContent | null
+  pricingPage: PageContent | null
+  productFeaturesPage: PageContent | null
+  roadmapPage: PageContent | null
+  statusPage: PageContent | null
+  trustSecurityPage: PageContent | null
+  compliancePage: PageContent | null
+
+  // ── Category E: Product Surfaces ───────────────────────────────
+  docsPage: PageContent | null
+  apiDocsPage: PageContent | null
+  developerPortalPage: PageContent | null
+  changelogPage: PageContent | null
+  releaseNotesPage: PageContent | null
+
+  // ── Category F: Investor Surfaces ──────────────────────────────
+  investorRelationsPage: PageContent | null
+
+  // ── Category G: Legal Surfaces ─────────────────────────────────
+  termsPage: PageContent | null
+  privacyPage: PageContent | null
+  cookiePolicyPage: PageContent | null
+  refundPolicyPage: PageContent | null
+  codeOfConductPage: PageContent | null
+  ethicsPolicyPage: PageContent | null
+  whistleblowerPage: PageContent | null
+
+  // ── Category B: Social Accounts (discovered from page links) ───
+  discoveredSocialAccounts: DiscoveredSocialAccount[]
+
+  // ── Category D: ATS / Hiring Platforms ─────────────────────────
+  detectedATSPlatforms: DetectedATSPlatform[]
+
+  // ── Extracted Intelligence ─────────────────────────────────────
+  claimedValues: string[]
+  benefitsClaims: string[]
+  cultureKeywords: string[]
+  jobPostings: JobPosting[]
+
+  // ── Coverage Stats ─────────────────────────────────────────────
+  surfacesScanned: number
+  surfacesFound: number
+
+  lastUpdated: string
+}
+
+// ════════════════════════════════════════════════════════════════════
+// CONSTANTS
+// ════════════════════════════════════════════════════════════════════
+
+const UA = 'Mozilla/5.0 (compatible; GdeRadisBot/1.0; +https://gderadis.app)'
+
+/** All L1 page surface definitions: [result-key, path-alternatives] */
+const L1_SURFACE_PATHS: Record<string, string[]> = {
+  // ── Category A: Core Web Properties ──
+  aboutPage:             ['/about', '/about-us', '/company', '/who-we-are', '/our-story'],
+  careersPage:           ['/careers', '/jobs', '/join-us', '/work-with-us', '/careers/openings', '/join'],
+  pressPage:             ['/press', '/newsroom', '/news', '/media', '/press-releases'],
+  visionValuesPage:      ['/values', '/our-values', '/mission', '/vision', '/principles', '/mission-and-values'],
+  culturePage:           ['/culture', '/life-at', '/working-here', '/our-culture', '/life'],
+  benefitsPage:          ['/benefits', '/perks', '/total-rewards', '/compensation', '/benefits-and-perks'],
+  deiEsgPage:            ['/diversity', '/dei', '/inclusion', '/esg', '/belonging', '/equity', '/diversity-equity-inclusion', '/social-responsibility'],
+  sustainabilityPage:    ['/sustainability', '/environment', '/environmental', '/impact', '/csr', '/corporate-responsibility'],
+  blogPage:              ['/blog', '/insights', '/articles', '/resources/blog', '/thought-leadership'],
+  caseStudiesPage:       ['/case-studies', '/success-stories', '/customer-success', '/portfolio', '/work'],
+  testimonialsPage:      ['/testimonials', '/reviews', '/what-clients-say', '/customer-reviews'],
+  customerStoriesPage:   ['/customers', '/customer-stories', '/our-customers', '/clients'],
+  partnersPage:          ['/partners', '/partner-program', '/alliances', '/ecosystem', '/integrations'],
+  pricingPage:           ['/pricing', '/plans', '/packages', '/pricing-plans'],
+  productFeaturesPage:   ['/features', '/product', '/platform', '/solutions', '/capabilities'],
+  roadmapPage:           ['/roadmap', '/whats-new', '/upcoming', '/product-roadmap'],
+  statusPage:            ['/status', '/system-status', '/uptime'],
+  trustSecurityPage:     ['/trust', '/security', '/trust-center', '/security-center', '/trust-and-safety'],
+  compliancePage:        ['/compliance', '/certifications', '/regulations', '/governance'],
+
+  // ── Category E: Product Surfaces ──
+  docsPage:              ['/docs', '/documentation', '/help', '/support/docs', '/knowledge-base'],
+  apiDocsPage:           ['/api', '/api-docs', '/developers/api', '/api-reference'],
+  developerPortalPage:   ['/developers', '/developer', '/dev', '/developer-portal'],
+  changelogPage:         ['/changelog', '/updates', '/release-notes', '/whats-new'],
+  releaseNotesPage:      ['/releases', '/release-notes', '/version-history'],
+
+  // ── Category F: Investor Surfaces ──
+  investorRelationsPage: ['/investors', '/investor-relations', '/ir', '/shareholders', '/financial'],
+
+  // ── Category G: Legal Surfaces ──
+  termsPage:             ['/terms', '/terms-of-service', '/tos', '/terms-and-conditions', '/legal/terms'],
+  privacyPage:           ['/privacy', '/privacy-policy', '/legal/privacy', '/data-privacy'],
+  cookiePolicyPage:      ['/cookie-policy', '/cookies', '/legal/cookies'],
+  refundPolicyPage:      ['/refund', '/refund-policy', '/cancellation', '/returns', '/money-back'],
+  codeOfConductPage:     ['/code-of-conduct', '/conduct', '/community-guidelines', '/guidelines'],
+  ethicsPolicyPage:      ['/ethics', '/ethics-policy', '/business-ethics', '/integrity'],
+  whistleblowerPage:     ['/whistleblower', '/speak-up', '/ethics-hotline', '/report-concern'],
+}
+
+/** Social media platform URL patterns for discovery */
+const SOCIAL_PLATFORM_PATTERNS: { platform: string; patterns: RegExp[] }[] = [
+  { platform: 'LinkedIn',  patterns: [/linkedin\.com\/company\/[^\s"'<>]+/gi] },
+  { platform: 'X/Twitter', patterns: [/(?:twitter|x)\.com\/[^\s"'<>]+/gi] },
+  { platform: 'Facebook',  patterns: [/facebook\.com\/[^\s"'<>]+/gi] },
+  { platform: 'Instagram', patterns: [/instagram\.com\/[^\s"'<>]+/gi] },
+  { platform: 'TikTok',    patterns: [/tiktok\.com\/@[^\s"'<>]+/gi] },
+  { platform: 'YouTube',   patterns: [/youtube\.com\/(?:c\/|channel\/|@)[^\s"'<>]+/gi] },
+  { platform: 'Threads',   patterns: [/threads\.net\/@[^\s"'<>]+/gi] },
+  { platform: 'Discord',   patterns: [/discord\.(?:gg|com)\/[^\s"'<>]+/gi] },
+  { platform: 'Telegram',  patterns: [/t\.me\/[^\s"'<>]+/gi] },
+  { platform: 'GitHub',    patterns: [/github\.com\/[^\s"'<>]+/gi] },
+]
+
+/** Known ATS / hiring platform domains */
+const ATS_PLATFORM_PATTERNS: { platform: string; pattern: RegExp }[] = [
+  { platform: 'Greenhouse',       pattern: /boards\.greenhouse\.io\/[^\s"'<>]+/gi },
+  { platform: 'Lever',            pattern: /jobs\.lever\.co\/[^\s"'<>]+/gi },
+  { platform: 'Workday',          pattern: /[\w-]+\.wd\d*\.myworkdayjobs\.com/gi },
+  { platform: 'Ashby',            pattern: /jobs\.ashbyhq\.com\/[^\s"'<>]+/gi },
+  { platform: 'SmartRecruiters',  pattern: /jobs\.smartrecruiters\.com\/[^\s"'<>]+/gi },
+  { platform: 'BambooHR',         pattern: /[\w-]+\.bamboohr\.com\/(?:jobs|careers)/gi },
+  { platform: 'Recruitee',        pattern: /[\w-]+\.recruitee\.com/gi },
+  { platform: 'SAP SuccessFactors', pattern: /[\w-]+\.successfactors\.com/gi },
+  { platform: 'iCIMS',            pattern: /careers-[\w-]+\.icims\.com/gi },
+  { platform: 'Jobvite',          pattern: /jobs\.jobvite\.com\/[^\s"'<>]+/gi },
+]
+
+// ════════════════════════════════════════════════════════════════════
+// DOMAIN DISCOVERY
+// ════════════════════════════════════════════════════════════════════
+
+async function discoverDomain(companyName: string): Promise<string | null> {
+  const normalised = companyName.toLowerCase().replace(/[^a-z0-9]/g, '')
+  const guesses = [
+    `https://${normalised}.com`,
+    `https://www.${normalised}.com`,
+    `https://${normalised}.io`,
+    `https://${normalised}.co`,
+    `https://${normalised}.org`,
+  ]
+
+  for (const url of guesses) {
+    try {
+      const res = await fetch(url, {
+        method: 'HEAD',
+        headers: { 'User-Agent': UA },
+        redirect: 'follow',
+        signal: AbortSignal.timeout(5000),
+      })
+      if (res.ok) return new URL(res.url).origin
+    } catch {
+      // continue trying
+    }
+  }
+
+  // Fall back to SerpAPI
+  const serpKey = process.env.SERPAPI_KEY
+  if (serpKey) {
+    try {
+      const params = new URLSearchParams({
+        engine: 'google',
+        q: `${companyName} official website`,
+        api_key: serpKey,
+        num: '3',
+      })
+      const res = await fetch(`https://serpapi.com/search?${params}`)
+      if (res.ok) {
+        const data = await res.json()
+        const firstOrganic = data.organic_results?.[0]
+        if (firstOrganic?.link) {
+          return new URL(firstOrganic.link).origin
+        }
+      }
+    } catch { /* fall through */ }
+  }
+
+  return null
+}
+
+// ════════════════════════════════════════════════════════════════════
+// HTML FETCHING & PARSING
+// ════════════════════════════════════════════════════════════════════
+
+async function fetchPageContent(url: string): Promise<PageContent | null> {
+  try {
+    const res = await fetch(url, {
+      headers: { 'User-Agent': UA },
+      redirect: 'follow',
+      signal: AbortSignal.timeout(10000),
+    })
+    if (!res.ok) return null
+    const html = await res.text()
+    return parseHtml(url, html)
+  } catch {
+    return null
+  }
+}
+
+function parseHtml(url: string, html: string): PageContent {
+  // Strip scripts, styles, comments, nav, footer
+  let text = html
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<nav[\s\S]*?<\/nav>/gi, '')
+    .replace(/<footer[\s\S]*?<\/footer>/gi, '')
+
+  // Extract title
+  const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)
+  const title = titleMatch ? cleanHtml(titleMatch[1]) : ''
+
+  // Extract headings
+  const headings: string[] = []
+  const hRegex = /<h[1-4][^>]*>([\s\S]*?)<\/h[1-4]>/gi
+  let m
+  while ((m = hRegex.exec(html)) !== null) {
+    const h = cleanHtml(m[1])
+    if (h.length > 2 && h.length < 200) headings.push(h)
+  }
+
+  // Strip all remaining HTML to plain text
+  text = text
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#?\w+;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+  // Truncate to keep prompt manageable
+  const truncated = text.length > 3000 ? text.substring(0, 3000) + '...' : text
+
+  // Extract key claims / value-loaded phrases
+  const keyPhrases = extractClaims(truncated, headings)
+
+  return { url, title, headings: headings.slice(0, 20), text: truncated, keyPhrases }
+}
+
+function cleanHtml(s: string): string {
+  return s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+}
+
+// ════════════════════════════════════════════════════════════════════
+// CLAIM EXTRACTION
+// ════════════════════════════════════════════════════════════════════
+
+function extractClaims(text: string, headings: string[]): string[] {
+  const claims: string[] = []
+  const patterns = [
+    /we (?:believe|value|are committed|strive|prioritize|foster|encourage|support|celebrate|champion)\b[^.!?]{5,100}[.!?]/gi,
+    /our (?:mission|vision|values|culture|team|people|commitment)\b[^.!?]{5,100}[.!?]/gi,
+    /(?:diversity|inclusion|equity|belonging|work-life|wellness|growth|innovation|transparency)\b[^.!?]{5,100}[.!?]/gi,
+    /(?:competitive|generous|unlimited|flexible|world-class)\s+(?:salary|compensation|benefits|PTO|vacation|perks)\b[^.!?]{5,100}[.!?]/gi,
+    // Legal / compliance claims
+    /we (?:protect|respect|safeguard|take seriously|comply)\b[^.!?]{5,100}[.!?]/gi,
+    /(?:GDPR|SOC 2|ISO 27001|HIPAA|PCI|FedRAMP|CCPA|COPPA)\b[^.!?]{5,150}[.!?]/gi,
+    // ESG / sustainability claims
+    /(?:carbon neutral|net zero|renewable|sustainable|ESG|social impact|environmental)\b[^.!?]{5,150}[.!?]/gi,
+    // Investor / financial claims
+    /(?:revenue|growth|ARR|funding|series [A-Z]|IPO|profitable|EBITDA)\b[^.!?]{5,150}[.!?]/gi,
+  ]
+
+  for (const rx of patterns) {
+    let m
+    while ((m = rx.exec(text)) !== null) {
+      const claim = m[0].trim()
+      if (claim.length > 15 && !claims.includes(claim)) {
+        claims.push(claim)
+      }
+    }
+  }
+
+  // Headings that look like value statements
+  for (const h of headings) {
+    if (/value|mission|culture|principle|commit|believe|pillar|ethic|trust|security|privacy|sustain|divers/i.test(h)) {
+      claims.push(`[Heading] ${h}`)
+    }
+  }
+
+  return claims.slice(0, 20)
+}
+
+// ════════════════════════════════════════════════════════════════════
+// JOB POSTING EXTRACTION
+// ════════════════════════════════════════════════════════════════════
+
+function extractJobPostings(careersText: string, baseUrl: string): JobPosting[] {
+  const postings: JobPosting[] = []
+  const lines = careersText.split(/\n|(?<=[.!?])\s+/)
+
+  for (const line of lines) {
+    const clean = line.trim()
+    if (
+      clean.length > 10 &&
+      clean.length < 100 &&
+      /engineer|designer|manager|analyst|developer|lead|director|coordinator|specialist|architect|scientist|recruiter/i.test(clean)
+    ) {
+      postings.push({
+        title: clean,
+        location: 'See listing',
+        snippet: '',
+        url: baseUrl,
+      })
+    }
+  }
+
+  return postings.slice(0, 10)
+}
+
+// ════════════════════════════════════════════════════════════════════
+// CULTURE KEYWORD EXTRACTION
+// ════════════════════════════════════════════════════════════════════
+
+function extractCultureKeywords(text: string): string[] {
+  const keywords = new Set<string>()
+  const kw = [
+    'innovation', 'integrity', 'diversity', 'inclusion', 'equity',
+    'transparency', 'collaboration', 'excellence', 'accountability',
+    'sustainability', 'agile', 'customer-first', 'empowerment',
+    'meritocracy', 'flat hierarchy', 'open door', 'fast-paced',
+    'family', 'ownership', 'passion', 'hustle', 'disrupt',
+    'work-life balance', 'flexible', 'remote', 'hybrid',
+    'unlimited PTO', 'wellness', 'mental health',
+    'people-first', 'mission-driven', 'data-driven',
+    'psychological safety', 'growth mindset', 'servant leadership',
+    'radical candor', 'fail fast', 'move fast',
+    'trust', 'autonomy', 'impact', 'purpose',
+  ]
+
+  const lower = text.toLowerCase()
+  for (const k of kw) {
+    if (lower.includes(k)) keywords.add(k)
+  }
+  return Array.from(keywords)
+}
+
+// ════════════════════════════════════════════════════════════════════
+// BENEFITS CLAIM EXTRACTION
+// ════════════════════════════════════════════════════════════════════
+
+function extractBenefitsClaims(text: string): string[] {
+  const claims: string[] = []
+  const patterns = [
+    /(?:we offer|benefits include|perks|what we offer|you'll get|you will receive)[^.!?]{10,200}[.!?]/gi,
+    /(?:unlimited|generous|competitive|comprehensive)\s+(?:PTO|vacation|benefits|healthcare|dental|vision|401k|equity|stock|RSU)[^.!?]{5,150}[.!?]/gi,
+    /(?:parental leave|maternity|paternity|family leave|sabbatical|learning budget|education|tuition)[^.!?]{5,150}[.!?]/gi,
+    /(?:home office|remote work|work from|WFH|stipend|allowance|wellness)[^.!?]{5,150}[.!?]/gi,
+  ]
+  for (const rx of patterns) {
+    let m
+    while ((m = rx.exec(text)) !== null) {
+      claims.push(m[0].trim())
+    }
+  }
+  return claims.slice(0, 15)
+}
+
+// ════════════════════════════════════════════════════════════════════
+// SOCIAL MEDIA DISCOVERY
+// ════════════════════════════════════════════════════════════════════
+
+function discoverSocialAccounts(htmlBodies: string[]): DiscoveredSocialAccount[] {
+  const seen = new Set<string>()
+  const accounts: DiscoveredSocialAccount[] = []
+  const combinedHtml = htmlBodies.join(' ')
+
+  for (const { platform, patterns } of SOCIAL_PLATFORM_PATTERNS) {
+    for (const rx of patterns) {
+      let m
+      while ((m = rx.exec(combinedHtml)) !== null) {
+        const rawUrl = m[0].replace(/['"<>]+$/, '')
+        const fullUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`
+        const key = `${platform}:${fullUrl.toLowerCase()}`
+        if (!seen.has(key)) {
+          seen.add(key)
+          // Extract handle from URL
+          const parts = fullUrl.split('/')
+          const handle = parts[parts.length - 1] || parts[parts.length - 2] || ''
+          accounts.push({ platform, url: fullUrl, handle: handle.replace('@', '') })
+        }
+      }
+    }
+  }
+
+  return accounts
+}
+
+// ════════════════════════════════════════════════════════════════════
+// ATS PLATFORM DETECTION
+// ════════════════════════════════════════════════════════════════════
+
+function detectATSPlatforms(htmlBodies: string[]): DetectedATSPlatform[] {
+  const detected: DetectedATSPlatform[] = []
+  const seen = new Set<string>()
+  const combinedHtml = htmlBodies.join(' ')
+
+  for (const { platform, pattern } of ATS_PLATFORM_PATTERNS) {
+    let m
+    while ((m = pattern.exec(combinedHtml)) !== null) {
+      const rawUrl = m[0].replace(/['"<>]+$/, '')
+      const fullUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`
+      if (!seen.has(platform)) {
+        seen.add(platform)
+        detected.push({ platform, url: fullUrl, jobCount: 0 })
+      }
+    }
+  }
+
+  return detected
+}
+
+// ════════════════════════════════════════════════════════════════════
+// PAGE FINDER (tries common sub-paths)
+// ════════════════════════════════════════════════════════════════════
+
+async function findPage(
+  domain: string,
+  paths: string[]
+): Promise<PageContent | null> {
+  for (const path of paths) {
+    const content = await fetchPageContent(`${domain}${path}`)
+    if (content && content.text.length > 200) return content
+  }
+  return null
+}
+
+// ════════════════════════════════════════════════════════════════════
+// MAIN EXPORT — EXHAUSTIVE L1 SCRAPER
+// ════════════════════════════════════════════════════════════════════
+
+export async function fetchCompanySite(companyName: string): Promise<CompanySiteResult> {
+  const empty: CompanySiteResult = {
+    companyDomain: null,
+    // Cat A
+    aboutPage: null, careersPage: null, pressPage: null,
+    visionValuesPage: null, culturePage: null, benefitsPage: null,
+    deiEsgPage: null, sustainabilityPage: null, blogPage: null,
+    caseStudiesPage: null, testimonialsPage: null, customerStoriesPage: null,
+    partnersPage: null, pricingPage: null, productFeaturesPage: null,
+    roadmapPage: null, statusPage: null, trustSecurityPage: null,
+    compliancePage: null,
+    // Cat E
+    docsPage: null, apiDocsPage: null, developerPortalPage: null,
+    changelogPage: null, releaseNotesPage: null,
+    // Cat F
+    investorRelationsPage: null,
+    // Cat G
+    termsPage: null, privacyPage: null, cookiePolicyPage: null,
+    refundPolicyPage: null, codeOfConductPage: null, ethicsPolicyPage: null,
+    whistleblowerPage: null,
+    // Cat B & D
+    discoveredSocialAccounts: [],
+    detectedATSPlatforms: [],
+    // Extracted
+    claimedValues: [],
+    benefitsClaims: [],
+    cultureKeywords: [],
+    jobPostings: [],
+    // Stats
+    surfacesScanned: 0,
+    surfacesFound: 0,
+    lastUpdated: new Date().toISOString(),
+  }
+
+  try {
+    const domain = await discoverDomain(companyName)
+    if (!domain) {
+      console.warn(`[CompanySite] Could not discover domain for: ${companyName}`)
+      return empty
+    }
+
+    empty.companyDomain = domain
+
+    // ── Fetch ALL L1 surfaces in parallel (batched to avoid overload) ──
+    const surfaceKeys = Object.keys(L1_SURFACE_PATHS) as (keyof typeof L1_SURFACE_PATHS)[]
+    const totalSurfaces = surfaceKeys.length
+    empty.surfacesScanned = totalSurfaces
+
+    // Batch 1: High-priority surfaces (about, careers, press, values, culture, legal)
+    const batch1Keys = [
+      'aboutPage', 'careersPage', 'pressPage', 'visionValuesPage',
+      'culturePage', 'benefitsPage', 'termsPage', 'privacyPage',
+    ]
+    // Batch 2: Medium-priority (DEI, blog, pricing, trust, product, investor, docs)
+    const batch2Keys = [
+      'deiEsgPage', 'sustainabilityPage', 'blogPage', 'pricingPage',
+      'productFeaturesPage', 'trustSecurityPage', 'compliancePage',
+      'investorRelationsPage', 'docsPage', 'developerPortalPage',
+    ]
+    // Batch 3: Lower-priority (case studies, testimonials, partners, etc.)
+    const batch3Keys = [
+      'caseStudiesPage', 'testimonialsPage', 'customerStoriesPage',
+      'partnersPage', 'roadmapPage', 'statusPage', 'apiDocsPage',
+      'changelogPage', 'releaseNotesPage', 'cookiePolicyPage',
+      'refundPolicyPage', 'codeOfConductPage', 'ethicsPolicyPage',
+      'whistleblowerPage',
+    ]
+
+    // Helper to process a batch
+    const processBatch = async (keys: string[]) => {
+      const promises = keys.map(async (key) => {
+        const paths = L1_SURFACE_PATHS[key]
+        if (!paths) return { key, result: null }
+        const result = await findPage(domain, paths)
+        return { key, result }
+      })
+      return Promise.allSettled(promises)
+    }
+
+    // Run batches sequentially to be polite to target servers
+    const rawHtmlBodies: string[] = []
+
+    for (const batch of [batch1Keys, batch2Keys, batch3Keys]) {
+      const results = await processBatch(batch)
+      for (const settled of results) {
+        if (settled.status === 'fulfilled' && settled.value.result) {
+          const { key, result } = settled.value;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (empty as any)[key] = result
+          rawHtmlBodies.push(result.text)
+          empty.surfacesFound++
+        }
+      }
+    }
+
+    // Also fetch the main homepage for social link discovery
+    try {
+      const homepageRes = await fetch(domain, {
+        headers: { 'User-Agent': UA },
+        redirect: 'follow',
+        signal: AbortSignal.timeout(10000),
+      })
+      if (homepageRes.ok) {
+        const homepageHtml = await homepageRes.text()
+        rawHtmlBodies.push(homepageHtml)
+      }
+    } catch { /* non-critical */ }
+
+    // ── Discover social media brand accounts from collected HTML ──
+    empty.discoveredSocialAccounts = discoverSocialAccounts(rawHtmlBodies)
+
+    // ── Detect ATS / hiring platforms ────────────────────────────
+    empty.detectedATSPlatforms = detectATSPlatforms(rawHtmlBodies)
+
+    // ── Extract intelligence from all collected text ─────────────
+    const allText = rawHtmlBodies.join(' ')
+    empty.cultureKeywords = extractCultureKeywords(allText)
+
+    // Collect claims from all pages
+    const allClaims: string[] = []
+    for (const key of surfaceKeys) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const page = (empty as any)[key] as PageContent | null
+      if (page?.keyPhrases) {
+        allClaims.push(...page.keyPhrases)
+      }
+    }
+    empty.claimedValues = [...new Set(allClaims)].slice(0, 25)
+
+    // Extract benefits from careers + benefits pages
+    const benefitsText = [
+      empty.careersPage?.text || '',
+      empty.benefitsPage?.text || '',
+    ].join(' ')
+    empty.benefitsClaims = extractBenefitsClaims(benefitsText)
+
+    // Extract job postings
+    if (empty.careersPage) {
+      empty.jobPostings = extractJobPostings(empty.careersPage.text, empty.careersPage.url)
+    }
+
+    console.log(`[CompanySite] L1 scan complete: ${empty.surfacesFound}/${empty.surfacesScanned} surfaces found, ${empty.discoveredSocialAccounts.length} social accounts, ${empty.detectedATSPlatforms.length} ATS platforms`)
+
+    return empty
+  } catch (error) {
+    console.error('[CompanySite] Error:', error)
+    return empty
+  }
+}

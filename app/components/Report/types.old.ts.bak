@@ -1,0 +1,234 @@
+// Gen Z Reality Check Report Types - Matching ChatGPT Image Design
+
+export type RiskLevel = 'low' | 'medium' | 'high'
+export type VerdictType = 'green' | 'yellow' | 'red'
+
+// Header & Candidate Info
+export interface CandidateInfo {
+  generation: string
+  ageRange: string
+  focus: string[]
+}
+
+// Verdict Banner
+export interface Verdict {
+  type: VerdictType
+  emoji: string
+  title: string
+  oneLiner: string
+  riskLevel: string
+  bullets: string[]
+}
+
+// Signal Card (6 cards grid)
+export interface SignalCard {
+  id: string
+  icon: string
+  title: string
+  level: RiskLevel
+  since: number
+  sourceCount: number
+  sourceLabel: string
+  insight: string
+}
+
+// Pattern Timeline
+export interface TimelineTheme {
+  name: string
+  color: string
+  dataPoints: { year: number; intensity: number }[]
+}
+
+export interface TimelineEvent {
+  year: number
+  label: string
+}
+
+export interface PatternTimeline {
+  yearRange: string
+  themes: TimelineTheme[]
+  events: TimelineEvent[]
+}
+
+// Risk vs Reward (horizontal bars)
+export interface RiskRewardItem {
+  icon: string
+  label: string
+  segments: { color: string; width: number }[]
+}
+
+// First 90 Days
+export interface First90DaysWeek {
+  id: string
+  label: string
+  description: string
+}
+
+export interface First90Days {
+  weeks: First90DaysWeek[]
+  burnoutLevel: RiskLevel
+  supportLevel: RiskLevel
+}
+
+// Self-Protection Checklist
+export interface ChecklistItem {
+  id: string
+  label: string
+  checked: boolean
+}
+
+export interface RedFlag {
+  text: string
+}
+
+export interface Checklist {
+  items: ChecklistItem[]
+  redFlags: RedFlag[]
+}
+
+// Interview Power Questions
+export interface QuestionCategory {
+  id: string
+  label: string
+  questions: string[]
+}
+
+// Internet Comments & Reviews (Reddit, Glassdoor, Blind, etc.)
+export interface CommentReply {
+  author: string
+  quote: string
+  sentiment: 'positive' | 'negative' | 'neutral' | 'mixed'
+  upvotes?: number
+}
+
+export interface InternetComment {
+  id: string
+  source: string // 'reddit' | 'glassdoor' | 'blind' | 'teamblind' | 'quora' | 'twitter' | 'linkedin'
+  sourceIcon: string
+  author: string // anonymous identifier
+  role?: string // if mentioned
+  yearsAtCompany?: string // e.g., '2 years', '6 months'
+  location?: string // office location if mentioned
+  department?: string // team/department if mentioned
+  date: string // approximate
+  sentiment: 'positive' | 'negative' | 'neutral' | 'mixed'
+  quote: string // actual or paraphrased comment
+  context: string // what they were discussing
+  verifiedEmployee: boolean
+  upvotes?: number
+  downvotes?: number
+  commentCount?: number // number of replies
+  theme: string // what topic this relates to
+  threadTitle?: string // original thread/review title
+  url?: string // link to the original comment/post on the source platform
+  prosAndCons?: { pros: string[]; cons: string[] } // for Glassdoor-style reviews
+  rating?: number // 1-5 star rating if available
+  replies?: CommentReply[] // top replies to this comment
+}
+
+export interface CommentsSummary {
+  totalFound: number
+  sourceBreakdown: { source: string; count: number; icon: string }[]
+  sentimentSplit: { positive: number; negative: number; neutral: number }
+  topThemes: { theme: string; count: number; sentiment: 'positive' | 'negative' | 'mixed' }[]
+  comments: InternetComment[]
+}
+
+// YouTube Evidence (Ex-employee videos, Interview experiences, Day-in-life)
+export interface YouTubeVideo {
+  id: string
+  youtubeId?: string // actual YouTube video ID for embedding (e.g., 'dQw4w9WgXcQ')
+  title: string
+  channel: string
+  channelType: 'ex-employee' | 'current-employee' | 'interviewer' | 'career-coach' | 'news' | 'review'
+  publishDate: string
+  viewCount: string // approximate
+  duration: string
+  thumbnail?: string
+  keyTakeaways: string[]
+  sentiment: 'positive' | 'negative' | 'neutral' | 'mixed'
+  credibilityScore: 'high' | 'medium' | 'low' // based on verified employment, specificity
+  topics: string[]
+  quotableClip?: string // notable quote from video
+  timestamps?: { time: string; label: string }[] // key moments in the video
+}
+
+export interface YouTubeEvidence {
+  totalVideosFound: number
+  exEmployeeVideos: number
+  interviewExpVideos: number
+  dayInLifeVideos: number
+  videos: YouTubeVideo[]
+  commonThemes: string[]
+  overallSentiment: 'positive' | 'negative' | 'neutral' | 'mixed'
+}
+
+// Interview Process Intelligence
+export interface InterviewStage {
+  id: string
+  stage: number
+  name: string
+  duration: string // e.g., "30-45 min"
+  type: 'phone-screen' | 'technical' | 'behavioral' | 'system-design' | 'coding' | 'onsite' | 'panel' | 'hiring-manager' | 'hr' | 'culture-fit' | 'presentation'
+  icon: string
+  description: string
+  tips: string[]
+  commonQuestions: string[]
+  difficulty: 'easy' | 'medium' | 'hard'
+  interviewerRole?: string
+}
+
+export interface InterviewIntelligence {
+  processLength: string // e.g., "2-4 weeks"
+  totalStages: number
+  difficultyRating: number // 1-5
+  offerRate: string // percentage or description
+  ghostingRisk: 'low' | 'medium' | 'high'
+  stages: InterviewStage[]
+  negotiationTips: string[]
+  redFlagsInProcess: string[]
+  insiderTips: string[] // from actual interview experiences
+  salaryRange?: { min: string; max: string; currency: string; level: string }
+  timelineWarning?: string // e.g., "Known for slow responses"
+}
+
+// Real Evidence & Sources
+export interface EvidenceSource {
+  id: string
+  type: 'news-article' | 'sec-filing' | 'lawsuit' | 'glassdoor-trend' | 'linkedin-data' | 'layoff-tracker' | 'social-media' | 'official-report' | 'employee-survey'
+  icon: string
+  title: string
+  source: string
+  date: string
+  credibility: 'high' | 'medium' | 'low'
+  summary: string
+  relevance: string // why this matters
+  url?: string // if publicly available
+}
+
+export interface EvidenceSection {
+  totalSources: number
+  highCredibilitySources: number
+  recentSources: number // last 12 months
+  sources: EvidenceSource[]
+  dataQualityNote: string // transparency about data limitations
+}
+
+// Full Report Data
+export interface ReportData {
+  companyName: string
+  companyLogo?: string
+  candidate: CandidateInfo
+  verdict: Verdict
+  signalCards: SignalCard[]
+  patternTimeline: PatternTimeline
+  riskReward: RiskRewardItem[]
+  first90Days: First90Days
+  checklist: Checklist
+  interviewQuestions: QuestionCategory[]
+  // NEW: Expanded evidence sections
+  internetComments?: CommentsSummary
+  youtubeEvidence?: YouTubeEvidence
+  interviewIntelligence?: InterviewIntelligence
+  evidenceSources?: EvidenceSection
+}

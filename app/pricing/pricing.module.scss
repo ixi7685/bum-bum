@@ -1,0 +1,205 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.page {
+  min-height: 100vh;
+  background: $bg-primary;
+  padding-top: $header-height;
+}
+
+.container { @include container; }
+
+// ─── Hero ────────────────────────────────────────────────────────
+.hero {
+  padding: $sp-80 0 $sp-48;
+  text-align: center;
+}
+
+.label { @include section-label; }
+
+.title {
+  font-size: clamp($fs-3xl, 4vw, $fs-5xl);
+  font-weight: $fw-black;
+  color: $text-primary;
+  letter-spacing: $ls-tight;
+  margin: $sp-12 0 $sp-16;
+}
+
+.subtitle {
+  font-size: $fs-lg;
+  color: $text-secondary;
+  max-width: $max-width-sm;
+  margin: 0 auto;
+  line-height: $lh-relaxed;
+}
+
+.currentPlan {
+  font-size: $fs-sm;
+  color: $accent;
+  font-weight: $fw-medium;
+  margin: $sp-16 auto 0;
+  text-align: center;
+
+  strong { font-weight: $fw-bold; }
+}
+
+// ─── Plans Grid ──────────────────────────────────────────────────
+.plans {
+  padding: 0 0 $sp-96;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $sp-24;
+  align-items: start;
+
+  @include lg { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+}
+
+.card {
+  @include glass-card;
+  padding: $sp-32;
+  position: relative;
+  transition: transform $duration-normal $ease-out, box-shadow $duration-normal $ease-out;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+.cardHighlight {
+  border-color: $accent;
+  box-shadow: $shadow-glow;
+
+  &:hover {
+    box-shadow: $shadow-glow, $shadow-lg;
+  }
+}
+
+.recommended {
+  @include section-label;
+  position: absolute;
+  top: -$sp-12;
+  left: $sp-24;
+  padding: $sp-4 $sp-16;
+  background: $accent;
+  color: $bg-primary;
+  border-radius: $radius-pill;
+  font-weight: $fw-bold;
+}
+
+.currentBadge {
+  @include section-label;
+  position: absolute;
+  top: -$sp-12;
+  right: $sp-24;
+  padding: $sp-4 $sp-16;
+  background: $text-primary;
+  color: $bg-primary;
+  border-radius: $radius-pill;
+  font-weight: $fw-bold;
+}
+
+.cardCurrent {
+  border-color: $text-primary;
+  opacity: 0.85;
+}
+
+.planName {
+  font-size: $fs-xl;
+  font-weight: $fw-bold;
+  color: $text-primary;
+  margin: 0 0 $sp-16;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: $sp-4;
+  margin-bottom: $sp-24;
+}
+
+.price {
+  font-size: $fs-4xl;
+  font-weight: $fw-black;
+  color: $text-primary;
+}
+
+.period {
+  font-size: $fs-sm;
+  color: $text-muted;
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 $sp-32;
+  display: flex;
+  flex-direction: column;
+  gap: $sp-12;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: $sp-8;
+    font-size: $fs-sm;
+    color: $text-secondary;
+
+    svg { flex-shrink: 0; color: $accent; }
+  }
+}
+
+.ctaPrimary {
+  @include btn-primary;
+  width: 100%;
+}
+
+.ctaGhost {
+  @include btn-ghost;
+  width: 100%;
+}
+
+// ─── FAQ ─────────────────────────────────────────────────────────
+.faq {
+  padding: $sp-64 0 $sp-96;
+  border-top: 1px solid $border-primary;
+}
+
+.faqTitle {
+  font-size: $fs-2xl;
+  font-weight: $fw-bold;
+  color: $text-primary;
+  margin: 0 0 $sp-40;
+  text-align: center;
+}
+
+.faqGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $sp-24;
+
+  @include md { grid-template-columns: 1fr; }
+}
+
+.faqItem {
+  padding: $sp-24;
+  background: $bg-card;
+  border: 1px solid $border-primary;
+  border-radius: $radius-md;
+
+  h3 {
+    font-size: $fs-base;
+    font-weight: $fw-semibold;
+    color: $text-primary;
+    margin: 0 0 $sp-8;
+  }
+
+  p {
+    font-size: $fs-sm;
+    color: $text-secondary;
+    line-height: $lh-relaxed;
+    margin: 0;
+  }
+}
