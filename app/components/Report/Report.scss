@@ -5,6 +5,8 @@
 // ============================================================================
 
 // Variables (aligned with design tokens)
+@use "sass:color";
+
 $primary: #2563eb;
 $primary-light: #3b82f6;
 $primary-dark: #1d4ed8;
@@ -1443,8 +1445,8 @@ $shadow-md: 0 4px 12px rgba(0,0,0,0.08);
   @media (max-width: 480px) { grid-template-columns: 1fr; }
 
   .pros, .cons {
-    strong { display: block; font-size: 0.8125rem; margin-bottom: 0.25rem; }
-    ul { margin: 0; padding-left: 1rem; font-size: 0.8125rem; }
+    .pros ul { color: color.adjust($success, $lightness: -10%); }
+    .cons ul { color: color.adjust($danger, $lightness: -10%); }
   }
   .pros ul { color: darken($success, 10%); }
   .cons ul { color: darken($danger, 10%); }
@@ -1531,9 +1533,9 @@ $shadow-md: 0 4px 12px rgba(0,0,0,0.08);
     &:hover { filter: brightness(0.95); }
   }
 
-  .sentiment-positive { background: rgba($success, 0.2); color: darken($success, 10%); }
-  .sentiment-neutral { background: rgba($warning, 0.2); color: darken($warning, 10%); }
-  .sentiment-negative { background: rgba($danger, 0.2); color: darken($danger, 10%); }
+  .sentiment-positive { background: rgba($success, 0.2); color: color.adjust($success, $lightness: -10%); }
+  .sentiment-neutral { background: rgba($warning, 0.2); color: color.adjust($warning, $lightness: -10%); }
+  .sentiment-negative { background: rgba($danger, 0.2); color: color.adjust($danger, $lightness: -10%); }
   .sentiment--active { filter: brightness(0.85); box-shadow: inset 0 0 0 2px rgba(0,0,0,0.2); }
 }
 
