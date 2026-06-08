@@ -1,12 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import ReportView from '../../components/Report/ReportView'
 import { ReportData } from '../../components/Report/types'
 import Footer from '../../components/Footer'
 
-export default function DemoReportPage() {
+// 1. Izdvajamo logiku u zasebnu komponentu koja koristi useSearchParams
+function DemoReportContent() {
   const searchParams = useSearchParams()
   const company = searchParams.get('company') || 'meta'
   const [reportData, setReportData] = useState<ReportData | null>(null)
@@ -80,5 +81,19 @@ export default function DemoReportPage() {
       <ReportView data={reportData} />
       <Footer />
     </>
+  )
+}
+
+// 2. Glavna komponenta stranice koja omotava sadržaj u Suspense boundary
+// Ovo rješava Next.js prerender error na Vercelu
+export default function DemoReportPage() {
+  return (
+    <Suspense fallback={
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '64px', background: '#f9fafb' }}>
+        <h2>Inicijalizacija demo izvještaja...</h2>
+      </div>
+    }>
+      <DemoReportContent />
+    </Suspense>
   )
 }
